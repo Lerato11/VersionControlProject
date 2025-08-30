@@ -1,24 +1,23 @@
-// import React from "react";
-// import ReactDOM from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
+import {ProjectDetails} from "./ProjectDetails"
+import {ProjectHeader} from "./ProjectHeader"
+
+const Project = ({project}) => {
+    return (
+        <li>
+            < ProjectHeader projectImg={project.image} languages={project.languages} />
+            < ProjectDetails projectName={project.name} projectType={project.type} projectVersion={project.version}  projectStatus={project.status}  projectDescr={project.description}/>
+        </li>
+    )
+}
 
 
-// const Feed = ({projectImg, profileImg, projectDscr}) => {
-//     return (
-//         <li>
-//             <img src={`${projectImg}`}></img> {/* project image */}
-//             <div>
-//                 <img src={`${profileImg}`}></img> {/* profile image */}
-//                 <p>{`${projectDscr}`}</p>
-//             </div>
-//         </li>
-//     )
-// }
+Project.propTypes = {
+    project: PropTypes.object
+}
 
-
-// Feed.propTypes = {
-//     projectImg: PropTypes.string,
-//     profileImg: PropTypes.string,
-//     projectDscr: PropTypes.string,
-// }
+export { Project }
