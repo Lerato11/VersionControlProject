@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {ProjectDetails} from "./ProjectDetails"
 import {ProjectHeader} from "./ProjectHeader"
 
+
 const Project = ({project}) => {
     return (
         <li>
@@ -16,8 +17,8 @@ const Project = ({project}) => {
 }
 
 
-Project.propTypes = {
-    project: PropTypes.object
-}
+// Project.propTypes = {
+//     project: PropTypes.object
+// }
 
 export { Project }

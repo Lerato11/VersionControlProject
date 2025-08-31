@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 
-const Member = ({profileImg, name, email}) => {
+const ProfilePreview = ({profileImg, name, email}) => {
     return (
         <li>
             <img src={`${profileImg}`}></img> {/* profile image */}
@@ -17,4 +17,4 @@ const Member = ({profileImg, name, email}) => {
 }
 
 
-export { Member }
+export { ProfilePreview }

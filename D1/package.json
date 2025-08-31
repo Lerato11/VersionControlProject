@@ -2,8 +2,8 @@
 	"name": "6-u21769584-project",
 	"version": "1.0.0",
 	"scripts": {
-		"build": "webpack && babel backend/src/server.js -d dist",
-		"start": "npm run build && node dist/server.js",
+		"build": "webpack && babel backend/src/server.js -d backend/dist",
+		"start": "npm run build && node backend/dist/server.js",
 		"watch": "webpack -w"
 	},
 	"dependencies": {

@@ -5,7 +5,8 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static("frontend/public"));
+// app.use(express.static(path.join(__dirname, "../public")));
 
 app.post('/auth/signin', (req, res) => {
     const {email, password} = req.body;
@@ -16,7 +17,7 @@ app.get("/api", (req, res) => {
 })
 
 app.get('/{*any}', (req, res) => {
-    res.sendFile(path.resolve("public", "index.html"));
+    res.sendFile(path.resolve("frontend/public", "index.html"));
 })
 
 app.listen(port, () => {

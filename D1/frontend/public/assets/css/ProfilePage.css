@@ -1,0 +1,31 @@
+.ProfilePage{
+    display: grid;
+
+    grid-template-columns: 3fr 1fr ;
+    grid-template-rows: auto auto ;
+}
+
+.ProfileDiv{
+    grid-column: 1/2;
+    grid-row: 1;
+    margin: 0 auto;
+}
+
+.ProjectsDiv{
+    grid-column: 1;
+    grid-row: 2;
+}
+
+
+.FeedsDiv{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}

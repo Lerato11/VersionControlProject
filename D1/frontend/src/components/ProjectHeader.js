@@ -10,8 +10,8 @@ const ProjectHeader = ({projectImg, languages}) => {
             <div>
                 <ul>
                     <h5>Project Languages</h5>
-                    {languages.map((language) => {
-                        return <li>{`${language}`}</li>
+                    {languages.map((language, index) => {
+                        return <li key={index}>{`${language}`}</li>
                     })}
                 </ul>
             </div>

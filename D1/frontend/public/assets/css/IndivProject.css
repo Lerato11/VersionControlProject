@@ -1,0 +1,13 @@
+.IndivProjectDiv {
+    display: grid;
+
+    grid-template-columns: 3fr 1fr ;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}

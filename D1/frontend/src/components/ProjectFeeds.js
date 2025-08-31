@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 
 import {Feed} from "./Feed";
 
+import { mockProjects } from "./Projects";
 
 
 const activityFeed = [
@@ -146,15 +147,15 @@ const activityFeed = [
 ];
 
 
-const Feeds = ({scope}) => {
-  var scopedFeed = activityFeed.filter((activityFeed) => {
-        return activityFeed.scope == scope;
+const ProjectFeeds = ({projectId}) => {
+  var scopedFeed = mockProjects.filter((project) => {
+        return project.id == projectId;
       });
   return (
     <>
       <ul>
-        {scopedFeed.map((feed, feedIndex) => {
-          return <Feed key= {feedIndex} activity={feed.activities[0]} projectImg= {feed.projectImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
+        {scopedFeed[0].activities.map((activity, activityIndex) => {
+          return <li key={activityIndex}><h4>{activity.type}</h4>  <h5>{activity.modifiedBy}</h5>{activity.comment}</li>
         })}
       </ul>
     </>
@@ -162,4 +163,4 @@ const Feeds = ({scope}) => {
 }
 
 
-export { Feeds, activityFeed }
+export { ProjectFeeds, activityFeed }

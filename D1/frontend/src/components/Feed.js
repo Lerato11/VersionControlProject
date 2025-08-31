@@ -3,18 +3,14 @@ import ReactDOM from "react-dom/client";
 
 import {PropTypes} from 'prop-types';
 
+import {FeedDescr} from './FeedDescr'
 
-const Feed = ({projectImg, profileImg, projectDscr, username}) => {
+
+const Feed = ({activity, projectImg, profileImg, projectDscr, username}) => {
     return (
         <li>
             <img src={`${projectImg}`}></img> {/* project image */}
-            <div>
-                <img src={`${profileImg}`}></img> {/* profile image */}
-                <div>
-                    <h5>{username}</h5>
-                    <p>{`${projectDscr}`}</p>
-                </div>
-            </div>
+            <FeedDescr profileImg={profileImg} activity={activity} projectDscr={projectDscr} username={username}/>
         </li>
     )
 }
