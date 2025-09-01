@@ -19,6 +19,8 @@ const SplashWelcome = () => {
         setContent("signIn");
     }
 
+    
+
 
     if (content == "welcome"){
         return (
