@@ -22,7 +22,7 @@ const SignUp = ({signIn}) => {
         setFirstNameMessage("");
       }
     };
-
+ 
 
   // lastName 
   const [lastNameValue, setLastNameValue] = useState("");
