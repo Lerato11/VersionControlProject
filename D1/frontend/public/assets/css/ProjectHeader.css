@@ -1,0 +1,21 @@
+/* 6-u21769584 */
+
+.projectImgBorder {
+  width: 170px;
+  aspect-ratio: 1;
+  /* border: 1px solid rgb(22, 87, 93); */
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  overflow: hidden;
+  border-radius: 10px;
+
+}
+
+.projectPicture {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit:cover; /* keeps image from stretching */
+  border-radius: 8px;
+}
+

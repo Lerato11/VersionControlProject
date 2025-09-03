@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -63,34 +65,68 @@ const IndivProject = ({id}) => {
          <link rel="stylesheet" type="text/css" href="/assets/css/IndivProject.css"/>
          
             <div>
-                <div>
-                    <div>
-                        <img src={project.image} alt={project.name}></img> {/* project image */}
-                        <div>
-                            <ul>
-                                <h5>Project Languages</h5>
-                                {project.languages.map((language, index) => {
-                                    return <li key={index}>{language}</li>
-                                })}
-                            </ul>
+                <div className="IndivOuterProjectDiv">
+                    <div className="ProjectInfoDiv">
 
-                            <Files files={project.files} />
+                        <div className="projectIndivImage">
+                            <img src={project.image} alt={project.name}></img> {/* project image */}
+                        </div>
+
+                        <div className="fileNames">
+
+
+                             <div >
+                                <h5>Files</h5>
+                                <Files files={project.files} />
+                                <div>
+                                    <button >Download Files</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h5>Languages</h5>
+
+                                <ul>
+                                    {project.languages.map((language, index) => {
+                                        return <li key={index}>{language}</li>
+                                    })}
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div>
-                        <h3>{project.name}</h3>
-                        <ul>
-                            <li><p>Type: {project.type}</p></li>
-                            <li><p>Version: {project.version}</p></li>
-                            <li><p>Status: {project.status}</p></li>
-                        </ul>
+                    <div className="projectIndivDetails">
+                        <div className="InfoDetailsHeader">
+                            <div>
+                                <h1>{project.name}</h1>
+                                <ul>
+                                    <li><p>Type: {project.type}</p></li>
+                                    <li><p>Version: {project.version}</p></li>
+                                    <li><p>Status: {project.state}</p></li>
+                                </ul>
+                            </div>
 
-                        <div>
-                            <h4>Desription</h4>
-                            <p>{project.description}</p>
+                             <div className="ProjectButtonsDiv">
+                                    <button onClick={onEditProject}>
+                                        {editMode === "hidden" ? "Edit Project" : "Cancel"}
+                                    </button>
+
+                                    <button>Check In</button>
+                                    <button>Check Out</button>
+                            </div>
                         </div>
+                                        
+                            <div>
+                                <h4>Desription</h4>
+                                <p>{project.description}</p>
+                            </div>
+                        
+
                     </div>
+                    
+                   
+                    
                 </div>
 
                 <div>
@@ -112,20 +148,15 @@ const IndivProject = ({id}) => {
 
                         <button type="submit">Save</button>
                     </form>
-
-                    <button onClick={onEditProject}>
-                        {editMode === "hidden" ? "Edit Project" : "Cancel"}
-                    </button>
                 </div>
 
 
-                <div>
+                <div className="MembersDiv">
                     <Members projectId={project.id}/>
                 </div>
             </div>
 
-            <div>
-                <h2>Activity Feed</h2>
+            <div className="ProjectFeedDiv">
 
                 <ProjectFeeds projectId={id}/>
                 

@@ -1,0 +1,49 @@
+/* 6-u21769584 */
+
+* {
+  box-sizing: border-box;
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0.5rem 1rem;
+  background-color: #000000; 
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 50px;
+}
+
+.navLogo img {
+  height: 40px;
+  width: auto;
+}
+
+.searchBar {
+  flex: 1; 
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 2rem;
+}
+
+/* .searchBar > * {
+  width: 40%; 
+} */
+
+.navBar div:last-child {
+  display: flex;
+  gap: 1rem; 
+}
+
+.navLink {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #39bbb7; 
+}

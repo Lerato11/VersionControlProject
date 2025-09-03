@@ -1,7 +1,88 @@
+/* 6-u21769584 */
+
 .hidden {
   display: none;
 }
 
+
 .visible {
   display: block;
+}
+
+
+ul{
+  list-style: none;
+}
+
+
+.ProjectH2-2{
+  /* margin:  0 0 40px 50px; */
+  /* border: 5px red solid; */
+  /* border: 1px solid red; */
+}
+
+
+.ProjectsHeaders{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  margin-bottom: -7px;
+  /* border: 1px solid red; */
+  padding: 0 30px;
+  /* background-color: #92c8d0; */
+}
+
+
+.ProjectsHeaders button{
+    height: 60px;
+    width: 140px;
+    border: 2px white solid;
+    background-color: #1d5f69;
+    border-radius: 30px;
+    box-shadow: 0 3px 0 #16454c, 0 6px 15px rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: 900;
+    color: white;
+    transition: translate 0.3s ease-out;
+
+}
+
+
+.ProjectsHeaders button:hover{
+    /* box-shadow: 0 0px 0 #16454c, 0 0px 0px rgb(0, 0, 0); */
+    background-color: #278290;
+
+    
+}
+
+.ProjectsHeaders button:active{
+    /* box-shadow: 0 0px 0 #16454c, 0 0px 0px rgb(0, 0, 0); */
+    /* background-color: #278290; */
+
+    transform: translateY(1px);
+    
+}
+
+
+ul li {
+  margin-bottom: 20px;
+}
+
+
+.ProjectsDiv{
+  padding: 0;
+}
+
+
+.ProjectsProfileDiv{
+  padding: 0;
+}
+
+.HomeProjectsDiv{
+  background-color: #5ea5b0;
+  border-radius: 30px;
+
+  padding: 20px;
+  
 }

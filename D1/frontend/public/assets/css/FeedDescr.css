@@ -1,0 +1,35 @@
+/* 6-u21769584 */
+
+.profileFeedPicture{
+    width: 80px;
+}
+
+.FeedDescr{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    /* background-color: aliceblue; */
+    background-color: #1d464c;
+    padding: 0 10px;
+    font-size: 14px;
+    color: white;
+}
+
+.FeedDescr img{
+    /* margin-right: 10px; */
+}
+
+
+.profileFeedpicDiv{
+    /* border: 1px red solid; */
+    height: 75px;
+    width: 75px;
+    overflow: hidden;
+    margin:  20px 20px 20px 10px;
+    border-radius: 20px;
+    
+}
+
+h4{
+    margin-bottom: -5px;
+}

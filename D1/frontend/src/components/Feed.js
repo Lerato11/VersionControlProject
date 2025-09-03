@@ -1,17 +1,30 @@
+// 6-u21769584
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 
 import {PropTypes} from 'prop-types';
+import { Link } from "react-router-dom";
+
 
 import {FeedDescr} from './FeedDescr'
 
 
 const Feed = ({activity, projectImg, profileImg, projectDscr, username}) => {
     return (
-        <li>
-            <img src={`${projectImg}`}></img> {/* project image */}
-            <FeedDescr profileImg={profileImg} activity={activity} projectDscr={projectDscr} username={username}/>
-        </li>
+        <Link to="/projects" className="projectLink">
+        
+            <li className="FeedLi"> 
+                <link rel="stylesheet" type="text/css" href="/assets/css/Feed.css"/>
+
+                
+                <img src={`${projectImg}`} className="feedProjectPicture"></img> {/* project image */}
+                <div className="FeedLiDescr">
+                    <FeedDescr profileImg={profileImg} activity={activity} projectDscr={projectDscr} username={username}/>
+                </div>
+            </li>
+        </Link>
+        
     )
 }
 

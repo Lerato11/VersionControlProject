@@ -1,3 +1,4 @@
+// 6-u21769584
 
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -11,19 +12,24 @@ const Nav = () => {
     
   return (
     <nav className="navBar">
+        <link rel="stylesheet" type="text/css" href="/assets/css/Nav.css"/>
         <div className="navLogo">
-            <img src={`----LOGO ---- `}></img> {/* profile image */}
+            <Link to="/home" className="navLink">
+                <img src="/assets/images/logo.png" className="logo"></img> {/* profile image */}
+            </Link>
         </div>
 
-        <div>
-            <Link to="/">Home</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/projects">Project</Link>
-        </div>
-
-        <div>
+        <div className="searchBar">
             <Search />
         </div>
+
+        <div>
+            <Link to="/home" className="navLink">Home</Link>
+            <Link to="/profile" className="navLink">Profile</Link>
+            {/* <Link to="/projects" className="navLink">Project</Link> */}
+        </div>
+
+        
 
     </nav>
   )

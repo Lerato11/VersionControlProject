@@ -36,13 +36,14 @@ app.post("/auth/signup", function (req, res) {
     phoneNumber = _req$body2.phoneNumber,
     company = _req$body2.company,
     addressLine1 = _req$body2.addressLine1,
-    addressLine2 = _req$body2.addressLine2;
+    addressLine2 = _req$body2.addressLine2,
+    password = _req$body2.password;
   console.log("New user sign up:", req.body);
 
   // Respond with dummy user + fake token
   res.json({
     success: true,
-    message: "User registered successfully (stub)",
+    message: "User registered successfully",
     user: {
       id: 1,
       firstName: firstName,

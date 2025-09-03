@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 
 import ReactDOM from "react-dom/client";
@@ -9,7 +11,7 @@ const mockMembers = [
   {
     id: 1,
     name: "Lerato Matsile",
-    profileImage: "https://example.com/user1.jpg",
+    profileImage: "/assets/images/member1.jpg",
     email: "lerato.matsile@example.com",
     projects: [1, 4, 6], 
     friends: [7, 6]
@@ -17,7 +19,7 @@ const mockMembers = [
   {
     id: 2,
     name: "Maya Patel",
-    profileImage: "https://example.com/user2.jpg",
+    profileImage: "/assets/images/member2.jpg",
     email: "maya.patel@example.com",
     projects: [1, 3, 8, 2, 9], 
     friends: [4, 8, 6]
@@ -25,7 +27,7 @@ const mockMembers = [
   {
     id: 3,
     name: "Ethan Walker",
-    profileImage: "https://example.com/user3.jpg",
+    profileImage: "/assets/images/member3.png",
     email: "ethan.walker@example.com",
     projects: [9, 3, 6], 
     friends: [7, 6]
@@ -33,7 +35,7 @@ const mockMembers = [
   {
     id: 4,
     name: "Aisha Khan",
-    profileImage: "https://example.com/user4.jpg",
+    profileImage: "/assets/images/member4.jpg",
     email: "aisha.khan@example.com",
     projects: [1, 5, 8], 
     friends: [3, 6]
@@ -41,7 +43,7 @@ const mockMembers = [
   {
     id: 5,
     name: "Kai Chen",
-    profileImage: "https://example.com/user5.jpg",
+    profileImage: "/assets/images/member5.jpeg",
     email: "kai.chen@example.com",
     projects: [2], 
     friends: [2, 3, 7, 6]
@@ -49,7 +51,7 @@ const mockMembers = [
   {
     id: 6,
     name: "Noah Smith",
-    profileImage: "https://example.com/user6.jpg",
+    profileImage: "/assets/images/member6.webp",
     email: "noah.smith@example.com",
     projects: [2, 4, 5, 7], 
     friends: [7, 6]
@@ -57,7 +59,7 @@ const mockMembers = [
   {
     id: 7,
     name: "Amara Johnson",
-    profileImage: "https://example.com/user7.jpg",
+    profileImage: "/assets/images/member7.jpg",
     email: "amara.johnson@example.com",
     projects: [1, 6], 
     friends: [7, 6]
@@ -65,7 +67,7 @@ const mockMembers = [
   {
     id: 8,
     name: "Zane Roberts",
-    profileImage: "https://example.com/user8.jpg",
+    profileImage: "/assets/images/member8.jpg",
     email: "zane.roberts@example.com",
     projects: [2, 3, 6], 
     friends: [1, 7, 3]
@@ -73,7 +75,7 @@ const mockMembers = [
   {
     id: 9,
     name: "Sofia Lopez",
-    profileImage: "https://example.com/user9.jpg",
+    profileImage: "/assets/images/member9.webp",
     email: "sofia.lopez@example.com",
     projects: [1, 2, 6], 
     friends: [7, 6]
@@ -81,7 +83,7 @@ const mockMembers = [
   {
     id: 10,
     name: "Leo Williams",
-    profileImage: "https://example.com/user10.jpg",
+    profileImage: "/assets/images/member10.webp",
     email: "leo.williams@example.com",
     projects: [9, 4], 
     friends: [7, 6]
@@ -100,12 +102,18 @@ const Members = ({ projectId }) => {
     
     return (
         <>
-            <h2>Members</h2>
-            <button>+ Member</button>
+            <link rel="stylesheet" type="text/css" href="/assets/css/Friends.css"/>
+            <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
+
+
+            <div className="ProjectsHeaders">
+              <h2 className="ProjectH2-2">Members</h2>
+              <button>+ Member</button>
+            </div>
          
-          <ul>
+          <ul className="FriendsUl">
             {membersToDisplay.map((member) => {
-                return <ProfilePreview key={member.id} profileImg={member.profilePic} name={member.name} email={member.email}/>
+                return <ProfilePreview key={member.id} profileImg={member.profileImage} name={member.name} email={member.email}/>
             })}
         </ul>
         </>

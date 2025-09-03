@@ -1,6 +1,10 @@
+// 6-u21769584
+
 import React from "react";
 
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 
 import {Project} from "./Project";
 import { mockMembers } from "./Members";
@@ -11,7 +15,7 @@ import { useState } from "react";
 const mockProjects = [
   {
     id: 1,
-    image: "https://example.com/project1.jpg",
+    image: "/assets/images/auth0-project.png",
     name: "AuthFlow",
     languages: ["JavaScript", "Node.js", "React"],
     version: "1.2.3",
@@ -27,7 +31,7 @@ const mockProjects = [
   },
   {
     id: 2,
-    image: "https://example.com/project2.jpg",
+    image: "/assets/images/fintrack-projects.jpg",
     name: "FinTrack",
     languages: ["Python", "Django", "SQL"],
     version: "0.9.5",
@@ -43,7 +47,7 @@ const mockProjects = [
   },
   {
     id: 3,
-    image: "https://example.com/project3.jpg",
+    image: "/assets/images/gameTrack-project.webp",
     name: "GameForge",
     languages: ["C++", "OpenGL"],
     version: "2.1.0",
@@ -59,7 +63,7 @@ const mockProjects = [
   },
   {
     id: 4,
-    image: "https://example.com/project4.jpg",
+    image: "/assets/images/medical-project.jpg",
     name: "MediScan",
     languages: ["Java", "Spring Boot"],
     version: "1.0.0",
@@ -75,7 +79,7 @@ const mockProjects = [
   },
   {
     id: 5,
-    image: "https://example.com/project5.jpg",
+    image: "/assets/images/ecommerce-projects.jpg",
     name: "ShopEasy",
     languages: ["JavaScript", "Vue.js", "Firebase"],
     version: "3.0.2",
@@ -91,7 +95,7 @@ const mockProjects = [
   },
   {
     id: 6,
-    image: "https://example.com/project6.jpg",
+    image: "/assets/images/tasks-projects.jpg",
     name: "TaskFlow",
     languages: ["Kotlin", "Jetpack Compose"],
     version: "0.5.8",
@@ -107,7 +111,7 @@ const mockProjects = [
   },
   {
     id: 7,
-    image: "https://example.com/project7.jpg",
+    image: "/assets/images/data-projects.webp",
     name: "DataViz Pro",
     languages: ["R", "Python", "D3.js"],
     version: "4.2.1",
@@ -123,7 +127,7 @@ const mockProjects = [
   },
   {
     id: 8,
-    image: "https://example.com/project8.jpg",
+    image: "/assets/images/travel-projects.jpg",
     name: "TravelMate",
     languages: ["Swift", "Objective-C"],
     version: "2.0.0",
@@ -139,7 +143,7 @@ const mockProjects = [
   },
   {
     id: 9,
-    image: "https://example.com/project9.jpg",
+    image: "/assets/images/news-projetcs.jpg",
     name: "NewsHub",
     languages: ["React", "Express", "MongoDB"],
     version: "1.4.7",
@@ -155,7 +159,7 @@ const mockProjects = [
   },
   {
     id: 10,
-    image: "https://example.com/project10.jpg",
+    image: "/assets/images/stocks-projects.jpg",
     name: "StockPulse",
     languages: ["C#", ".NET", "SQL Server"],
     version: "0.8.3",
@@ -214,28 +218,43 @@ const Projects = (props) => {
 
       return (
           <>
-              <h2>Projects</h2>
+              <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
+
+              <div className="ProjectsHeaders">
+                  <h2 className="ProjectH2-2">Projects</h2>
+
                   <button onClick={onAddProject}>+ Project</button>
           
-                <ul>
+              </div>
+
+              <ul className="ProjectsProfileDiv">
                   <AddProject className={addFormClass} onAddProject={handleAddProject} onCancel={handleCancelAdd}/>
                   {userProjects.map((project, projectIndex) => {
                     return <Project key= {projectIndex} project= {project} />
                   })}
                 </ul>
+              
           </>
       )
     }
 
     return (
         <>
-            <h2>All Projects</h2>
-            <button onClick={onAddProject}>+ Project</button>
-            <ul>
+        <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
+
+            <div className="ProjectsHeaders">
+              <h2 className="ProjectH2-2">All Projects</h2>
+              <button onClick={onAddProject}>+ Project</button>
+            </div>
+            
+            <ul className="ProjectsDiv">
                 <AddProject className={addFormClass} onAddProject={handleAddProject} onCancel={handleCancelAdd}/>
               
                 {projects.map((project, index) => (
+                              
+                  
                     <Project key={index} project={project} />
+                    // </Link>x
                 ))}
             </ul>
         </>

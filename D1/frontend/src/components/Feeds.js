@@ -1,3 +1,4 @@
+// 6-u21769584
 
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -14,8 +15,8 @@ const activityFeed = [
   {
     id: 1,
     userName: "Lerato",
-    profilePic: "https://example.com/user1.jpg", // replace with actual
-    projectImage: "https://example.com/project1.jpg", // replace with actual
+    profilePic: "/assets/images/member9.webp", // replace with actual
+    profileImage: "/assets/images/news-projetcs.jpg", // replace with actual
     description: "Refactored authentication flow and fixed login redirect bug", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -27,8 +28,8 @@ const activityFeed = [
   {
     id: 2,
     userName: "Maya",
-    profilePic: "https://example.com/user2.jpg",
-    projectImage: "https://example.com/project2.jpg",
+    profilePic: "/assets/images/member8.jpg",
+    profileImage: "/assets/images/data-projects.webp",
     description: "Added dark mode toggle and updated theme provider", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -40,8 +41,8 @@ const activityFeed = [
   {
     id: 3,
     userName: "Ethan",
-    profilePic: "https://example.com/user3.jpg",
-    projectImage: "https://example.com/project3.jpg",
+    profilePic: "/assets/images/member3.png",
+    profileImage: "/assets/images/tasks-projects.jpg",
     description: "Improved API error handling and added retry logic", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -53,8 +54,8 @@ const activityFeed = [
   {
     id: 4,
     userName: "Aisha",
-    profilePic: "https://example.com/user4.jpg",
-    projectImage: "https://example.com/project4.jpg",
+    profilePic: "/assets/images/member1.jpg",
+    profileImage: "/assets/images/travel-projects.jpg",
     description: "Updated dashboard UI and optimized chart rendering", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -66,8 +67,8 @@ const activityFeed = [
   {
     id: 5,
     userName: "Kai",
-    profilePic: "https://example.com/user5.jpg",
-    projectImage: "https://example.com/project5.jpg",
+    profilePic: "/assets/images/member4.jpg",
+    profileImage: "/assets/images/fintrack-projects.jpg",
     description: "Created reusable button component and cleaned CSS", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -79,8 +80,8 @@ const activityFeed = [
   {
     id: 6,
     userName: "Noah",
-    profilePic: "https://example.com/user6.jpg",
-    projectImage: "https://example.com/project6.jpg",
+    profilePic: "/assets/images/member5.jpeg",
+    profileImage: "/assets/images/medical-project.jpg",
     description: "Implemented unit tests for user service", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -92,8 +93,8 @@ const activityFeed = [
   {
     id: 7,
     userName: "Amara",
-    profilePic: "https://example.com/user7.jpg",
-    projectImage: "https://example.com/project7.jpg",
+    profilePic: "/assets/images/member2.jpg",
+    profileImage: "/assets/images/ecommerce-projects.jpg",
     description: "Fixed merge conflicts and updated README", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -105,8 +106,8 @@ const activityFeed = [
   {
     id: 8,
     userName: "Zane",
-    profilePic: "https://example.com/user8.jpg",
-    projectImage: "https://example.com/project8.jpg",
+    profilePic: "/assets/images/member10.webp",
+    profileImage: "/assets/images/news-projetcs.jpg",
     description: "Improved performance of search feature", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -118,8 +119,8 @@ const activityFeed = [
   {
     id: 9,
     userName: "Sofia",
-    profilePic: "https://example.com/user9.jpg",
-    projectImage: "https://example.com/project9.jpg",
+    profilePic: "/assets/images/member6.webp",
+    profileImage: "/assets/images/auth0-project.png",
     description: "Added localization support for French and Spanish", 
     activities: [{modifiedBy: "Njabulo", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -131,8 +132,8 @@ const activityFeed = [
   {
     id: 10,
     userName: "Leo",
-    profilePic: "https://example.com/user10.jpg",
-    projectImage: "https://example.com/project10.jpg",
+    profilePic: "/assets/images/member7.jpg",
+    profileImage: "/assets/images/stocks-projects.jpg",
     description: "Migrated project to latest React version", 
     activities: [{modifiedBy: "Njabulos", comment: "Lerato the goat"}, 
         {modifiedBy: "Njabulo", comment: "KatLego the goat"}, 
@@ -151,10 +152,14 @@ const Feeds = ({scope}) => {
         return activityFeed.scope == scope;
       });
   return (
+    
     <>
-      <ul>
+      
+      <link rel="stylesheet" type="text/css" href="/assets/css/Feeds.css"/>
+      {/* <h2>Activity Feed</h2> */}
+      <ul className="FeedsUl">
         {scopedFeed.map((feed, feedIndex) => {
-          return <Feed key= {feedIndex} activity={feed.activities[0]} projectImg= {feed.projectImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
+          return <Feed key= {feedIndex} activity={feed.activities[0]} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
         })}
       </ul>
     </>

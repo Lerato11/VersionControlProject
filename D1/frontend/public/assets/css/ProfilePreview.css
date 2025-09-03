@@ -1,0 +1,61 @@
+/* 6-u21769584 */
+
+.profilePicture{
+    width: 100px;
+}
+
+.profileLi{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #e4e4e4;
+    border-radius: 20px;
+    width: 98%;
+    padding: 10px;
+    /* border: 1px solid red; */
+    height: 77px;
+    margin-bottom: -15px;
+
+
+}
+
+
+
+.profileLiImg{
+    margin-right: 100px;
+    border-radius: 20px;
+    height: 65px;
+    width: 65px;
+    
+    /* border: 1px solid red; */
+    overflow: hidden;
+}
+
+.profileLi h3{
+    margin-right: 150px;
+    width: 100px;
+    
+}
+.profileLi img {
+
+}
+
+li{
+    margin-bottom: 30px;
+    list-style: none;
+}
+
+.memberLink{
+    text-decoration: none;
+    color: black;
+    /* border: 1px solid red; */
+
+}
+
+.ProjectFeeds h3{
+    color: #1d5f69;
+}
+
+.ProjectFeeds h4{
+    text-decoration: underline;
+}

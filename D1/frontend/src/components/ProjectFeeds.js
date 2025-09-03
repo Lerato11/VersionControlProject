@@ -1,3 +1,4 @@
+// 6-u21769584
 
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -153,11 +154,14 @@ const ProjectFeeds = ({projectId}) => {
       });
   return (
     <>
-      <ul>
-        {scopedFeed[0].activities.map((activity, activityIndex) => {
-          return <li key={activityIndex}><h4>{activity.type}</h4>  <h5>{activity.modifiedBy}</h5>{activity.comment}</li>
-        })}
-      </ul>
+        <link rel="stylesheet" type="text/css" href="/assets/css/ProjectFeeds.css"/>
+        <h2 className="ProjectFeedsH2">Activity Feed</h2>
+
+        <ul className="ProjectFeeds">
+            {scopedFeed[0].activities.map((activity, activityIndex) => {
+                return <li key={activityIndex}><h3>{activity.type}</h3>  <h4>{activity.modifiedBy}</h4> <p>"{activity.comment}"</p> </li>
+            })}
+        </ul>
     </>
   )
 }

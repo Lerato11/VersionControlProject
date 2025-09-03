@@ -1,10 +1,11 @@
+// 6-u21769584
+
 import React from "react";
 import ReactDOM from "react-dom";
 
 import {Home} from "./pages/Home";
 
 import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider, } from "react-router-dom";
-
 
 import { Project } from "./components/Project";
 import { ProfilePage } from "./pages/ProfilePage"
@@ -15,7 +16,7 @@ import { SplashWelcome } from "./components/SplashWelcome";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <Home />,
     errorElement: <div>Oops! Something went wrong.</div>
   },
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
     element: <ProjectPage />,
   }, 
   {
-    path: "/welcome",
+    path: "/",
     element: <SplashWelcome />,
   }
 ]);

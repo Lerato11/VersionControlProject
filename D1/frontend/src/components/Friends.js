@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 
 import ReactDOM from "react-dom/client";
@@ -15,9 +17,11 @@ const Friends = ({id}) => {
 
     return (
         <>
+            <link rel="stylesheet" type="text/css" href="/assets/css/Friends.css"/>
+
             <h2>Friends</h2>
 
-          <ul>
+          <ul className="FriendsUl">
             {friendsList.map((friend) => (
                     <ProfilePreview
                         key={friend.id}

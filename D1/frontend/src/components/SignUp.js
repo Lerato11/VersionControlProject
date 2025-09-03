@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 
 import ReactDOM from "react-dom/client";
@@ -197,7 +199,7 @@ const SignUp = ({signIn}) => {
             localStorage.setItem("token", data.token);
 
             // to home page
-            window.location.href = "/";
+            window.location.href = "/home";
           };
 
 

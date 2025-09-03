@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 
 import ReactDOM from "react-dom/client";
@@ -5,8 +7,11 @@ import ReactDOM from "react-dom/client";
 
 const ProjectDetails = ({projectName, projectType, projectVersion, projectStatus, projectDescr}) => {
     return (
-        <>
-            <h3>{projectName}</h3>
+        <div className="projectDetails">
+            <link rel="stylesheet" type="text/css" href="/assets/css/ProjectDetails.css"/>
+
+
+            <h2 className="ProjectName">{projectName}</h2>
             <ul>
                 <li><p>Type: {projectType}</p></li>
                 <li><p>Version: {projectVersion}</p></li>
@@ -17,7 +22,7 @@ const ProjectDetails = ({projectName, projectType, projectVersion, projectStatus
                 <h4>Desription</h4>
                 <p>{projectDescr}</p>
             </div>
-        </>
+        </div>
     )
 }
 

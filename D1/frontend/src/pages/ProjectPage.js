@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -28,7 +30,10 @@ const ProjectPage = () => {
             <Nav />
         </div>
 
-        <IndivProject id={2}/>,
+        <div className="ProjectPage">
+            <IndivProject id={2}/>
+        </div>
+        
         </>
     )
 }

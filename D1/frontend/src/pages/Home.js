@@ -1,3 +1,5 @@
+// 6-u21769584
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { useState } from "react";
@@ -22,13 +24,13 @@ const Home = () => {
         <Nav />
         
         <div className="HomeGrid">
-            <div>
+            <div className="HomeProjectsDiv">
                 <Projects />
             </div>
 
-            <div>
+            <div className="HomeFeedDiv">
                 <h2>Activity Feed</h2>
-                <div>
+                <div className="feedButtonDiv">
                     <button onClick={() => toggleFeedScope("global")}>global</button>
                     <button onClick={() => toggleFeedScope("local")}>local</button>
                 </div>
