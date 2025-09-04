@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 import {FeedDescr} from './FeedDescr'
 
 
-const Feed = ({activity, projectImg, profileImg, projectDscr, username}) => {
+const Feed = ({id, activity, projectImg, profileImg, projectDscr, username}) => {
     return (
-        <Link to="/projects" className="projectLink">
+        <Link to={`/projects/${id}`} className="projectLink">
         
             <li className="FeedLi"> 
                 <link rel="stylesheet" type="text/css" href="/assets/css/Feed.css"/>

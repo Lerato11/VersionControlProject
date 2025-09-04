@@ -22,7 +22,7 @@ const ProfilePreview = ({profileImg, name, email}) => {
                     <p>{`${email}`}</p>
                 </div>
 
-                {/* <button>x</button> */}
+
             </li>
         </Link>
     )

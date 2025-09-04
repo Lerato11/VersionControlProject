@@ -21,16 +21,17 @@ const Friends = ({id}) => {
 
             <h2>Friends</h2>
 
-          <ul className="FriendsUl">
-            {friendsList.map((friend) => (
-                    <ProfilePreview
-                        key={friend.id}
-                        profileImg={friend.profileImage}
-                        name={friend.name}
-                        email={friend.email}
-                    />
-                ))}
-        </ul>
+            <ul className="FriendsUl">
+                {friendsList.map((friend) => (
+                        <ProfilePreview
+                            key={friend.id}
+                            profileImg={friend.profileImage}
+                            name={friend.name}
+                            email={friend.email}
+                        />
+                    ))
+                }
+            </ul>
         </>
     )
 }

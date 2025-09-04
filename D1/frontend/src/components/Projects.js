@@ -6,7 +6,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 
-import {Project} from "./Project";
+import { Project } from "./Project";
 import { mockMembers } from "./Members";
 import { AddProject } from "./AddProject";
 import { useState } from "react";
@@ -21,7 +21,7 @@ const mockProjects = [
     version: "1.2.3",
     type: "Web",
     description: "A secure authentication and authorization system with OAuth2 support.",
-    state: "Checked In", 
+    state: "Checked In",
     activities: [
       { type: "Checked in", modifiedBy: "Lerato Matsile", comment: "Initial commit for user authentication." },
       { type: "Checked out", modifiedBy: "Maya Patel", comment: "Added password reset functionality." },
@@ -37,7 +37,7 @@ const mockProjects = [
     version: "0.9.5",
     type: "Web",
     description: "A financial tracker for managing budgets, expenses, and investments.",
-    state: "Checked Out", 
+    state: "Checked Out",
     activities: [
       { type: "Checked in", modifiedBy: "Kai Chen", comment: "Setup Django ORM models for transactions." },
       { type: "Checked out", modifiedBy: "Noah Smith", comment: "Developed budget creation form and logic." },
@@ -53,7 +53,7 @@ const mockProjects = [
     version: "2.1.0",
     type: "Desktop",
     description: "A lightweight 2D/3D game engine for indie developers.",
-    state: "Checked In", 
+    state: "Checked In",
     activities: [
       { type: "Checked in", modifiedBy: "Ethan Walker", comment: "Initial app skeleton with OpenGL context." },
       { type: "Checked out", modifiedBy: "Zane Roberts", comment: "Added basic 2D rendering pipeline." },
@@ -69,7 +69,7 @@ const mockProjects = [
     version: "1.0.0",
     type: "Desktop",
     description: "Medical imaging software with AI-based scan analysis.",
-    state: "Checked Out", 
+    state: "Checked Out",
     activities: [
       { type: "Checked in", modifiedBy: "Lerato Matsile", comment: "Setup Spring Boot project with core dependencies." },
       { type: "Checked out", modifiedBy: "Noah Smith", comment: "Integrated openCV for image processing." },
@@ -85,7 +85,7 @@ const mockProjects = [
     version: "3.0.2",
     type: "Web",
     description: "An e-commerce platform for small businesses with integrated payment gateway.",
-    state: "Checked In", 
+    state: "Checked In",
     activities: [
       { type: "Checked in", modifiedBy: "Aisha Khan", comment: "Project setup and Firebase configuration." },
       { type: "Checked out", modifiedBy: "Noah Smith", comment: "Developed product display and cart functionality." },
@@ -101,7 +101,7 @@ const mockProjects = [
     version: "0.5.8",
     type: "Mobile",
     description: "A task management and productivity app with offline sync.",
-    state: "Checked Out", 
+    state: "Checked Out",
     activities: [
       { type: "Checked in", modifiedBy: "Ethan Walker", comment: "Initial app skeleton with Jetpack Compose." },
       { type: "Checked out", modifiedBy: "Amara Johnson", comment: "Added task creation and edit functionality." },
@@ -117,7 +117,7 @@ const mockProjects = [
     version: "4.2.1",
     type: "Desktop",
     description: "Advanced data visualization suite with custom chart support.",
-    state: "Checked In", 
+    state: "Checked In",
     activities: [
       { type: "Checked in", modifiedBy: "Noah Smith", comment: "Initial Python and R script integration." },
       { type: "Checked out", modifiedBy: "Amara Johnson", comment: "Added new chart types with D3.js." },
@@ -133,7 +133,7 @@ const mockProjects = [
     version: "2.0.0",
     type: "Mobile",
     description: "An iOS app for planning trips, booking hotels, and sharing itineraries.",
-    state: "Checked In", 
+    state: "Checked In",
     activities: [
       { type: "Checked in", modifiedBy: "Maya Patel", comment: "Initial project setup in Xcode." },
       { type: "Checked out", modifiedBy: "Aisha Khan", comment: "Created itinerary and travel planner views." },
@@ -149,7 +149,7 @@ const mockProjects = [
     version: "1.4.7",
     type: "Web",
     description: "Centralized news aggregator with personalized recommendations.",
-    state: "Checked Out", 
+    state: "Checked Out",
     activities: [
       { type: "Checked in", modifiedBy: "Ethan Walker", comment: "Frontend structure and API call setup." },
       { type: "Checked out", modifiedBy: "Leo Williams", comment: "Developed recommendation engine logic." },
@@ -165,7 +165,7 @@ const mockProjects = [
     version: "0.8.3",
     type: "Desktop",
     description: "Stock market analysis tool with live data visualization.",
-    state: "Checked In", 
+    state: "Checked In",
     activities: [
       { type: "Checked in", modifiedBy: "Leo Williams", comment: "Initial C# project setup and SQL server connection." },
       { type: "Checked out", modifiedBy: "Sofia Lopez", comment: "Implemented live data fetching and charting." },
@@ -178,87 +178,103 @@ const mockProjects = [
 
 const Projects = (props) => {
 
+
   const [projects, setProjects] = useState(mockProjects);
 
   const [addFormClass, setAddFormClass] = useState("hidden");
 
   const handleAddProject = (newProject) => {
 
-      const nextId = projects.length ? Math.max(...projects.map(p => p.id)) + 1 : 1;
-      setProjects([...projects, { id: nextId, ...newProject }]);
-      setAddFormClass("hidden");
-    };
+    const nextId = projects.length ? Math.max(...projects.map(p => p.id)) + 1 : 1;
+    setProjects([...projects, { id: nextId, ...newProject }]);
+    setAddFormClass("hidden");
+  };
 
-    const handleCancelAdd = () => {
-      setAddFormClass("hidden");
-    };
+  const handleCancelAdd = () => {
+    setAddFormClass("hidden");
+  };
 
 
-    const onAddProject =(event) => {
-        event.preventDefault();
+  const onAddProject = (event) => {
+    event.preventDefault();
 
-        if (addFormClass == "hidden"){
-            setAddFormClass("visible");
-        } 
+    if (addFormClass == "hidden") {
+      setAddFormClass("visible");
+    }
+  }
+
+  if (props.userId != undefined) {
+
+    const user = mockMembers.find(member => member.id === props.userId);
+
+
+    if (!user) {
+      return <h2>User not found.</h2>;
     }
 
-    if (props.userId != undefined){
+    const userProjects = projects.filter(project =>
+      user.projects.includes(project.id)
+    );
 
-      const user = mockMembers.find(member => member.id === props.userId);
-
-       
-        if (!user) {
-            return <h2>User not found.</h2>;
-        }
-
-        const userProjects = projects.filter(project =>
-            user.projects.includes(project.id)
-        );
-
-
-      return (
-          <>
-              <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
-
-              <div className="ProjectsHeaders">
-                  <h2 className="ProjectH2-2">Projects</h2>
-
-                  <button onClick={onAddProject}>+ Project</button>
-          
-              </div>
-
-              <ul className="ProjectsProfileDiv">
-                  <AddProject className={addFormClass} onAddProject={handleAddProject} onCancel={handleCancelAdd}/>
-                  {userProjects.map((project, projectIndex) => {
-                    return <Project key= {projectIndex} project= {project} />
-                  })}
-                </ul>
-              
-          </>
-      )
-    }
 
     return (
-        <>
-        <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
+      <>
+        <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css" />
 
-            <div className="ProjectsHeaders">
-              <h2 className="ProjectH2-2">All Projects</h2>
-              <button onClick={onAddProject}>+ Project</button>
+        <div className="ProjectsHeaders">
+          <h2 className="ProjectH2-2">Projects</h2>
+
+          <button onClick={onAddProject}>+ Project</button>
+
+        </div>
+
+        <ul className="ProjectsProfileDiv">
+          {addFormClass === "visible" && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+
+
+                <AddProject onAddProject={handleAddProject} onCancel={handleCancelAdd} />
+              </div>
             </div>
-            
-            <ul className="ProjectsDiv">
-                <AddProject className={addFormClass} onAddProject={handleAddProject} onCancel={handleCancelAdd}/>
-              
-                {projects.map((project, index) => (
-                              
-                  
-                    <Project key={index} project={project} />
-                    // </Link>x
-                ))}
-            </ul>
-        </>
-    );
+          )}
+
+          {userProjects.map((project, projectIndex) => {
+            return <Project key={projectIndex} project={project} />
+          })}
+        </ul>
+
+      </>
+    )
+  }
+
+  return (
+    <>
+      <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css" />
+
+      <div className="ProjectsHeaders">
+        <h2 className="ProjectH2-2">All Projects</h2>
+        <button onClick={onAddProject}>+ Project</button>
+      </div>
+
+      <ul className="ProjectsProfileDiv">
+          {addFormClass === "visible" && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                {/* <button className="close-btn" onClick={handleCancelAdd}>&times;</button> */}
+                <AddProject onAddProject={handleAddProject} onCancel={handleCancelAdd} />
+              </div>
+            </div>
+          )}
+
+          {projects.map((project, index) => (
+
+            <Project key={index} project={project} />
+            // </Link>x
+          ))}
+      </ul>
+    </>
+  );
 }
 
-export {Projects, mockProjects}
+export { Projects, mockProjects }

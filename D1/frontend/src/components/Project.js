@@ -13,7 +13,7 @@ import {ProjectHeader} from "./ProjectHeader"
 const Project = ({project}) => {
     return (
 
-        <Link to="/projects" className="projectLink">
+        <Link to={`/projects/${project.id}`} className="projectLink">
             <li>
                 <link rel="stylesheet" type="text/css" href="/assets/css/Project.css"/>
                 

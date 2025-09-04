@@ -45,7 +45,7 @@ body {
 .feedButtonDiv button {
     /* margin-left: 20px; */
     position: relative;
-    z-index: 1000;
+    z-index: 100;
     height: 35px;
     width: 75px;
     border: 2px white solid;
@@ -73,11 +73,6 @@ body {
 
 }
 
-
-.HomeProjectsDiv {
-    /* margin-top: 20px; */
-    /* border: 5px red solid; */
-}
 
 .FeedsUl {
     padding: 0;

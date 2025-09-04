@@ -3,11 +3,11 @@ const { get } = require('http');
 const path = require('path');
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
 app.use(express.json());
 
-// app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../frontend/public")));
 
 app.post('/auth/signin', (req, res) => {
     const {email, password} = req.body;
@@ -51,6 +51,7 @@ app.get('/{*any}', (req, res) => {
     res.sendFile(path.resolve("frontend/public", "index.html"));
 })
 
-app.listen(port, () => {
-    console.log(`Server started on port`);
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });

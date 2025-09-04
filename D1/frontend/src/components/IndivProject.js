@@ -109,7 +109,7 @@ const IndivProject = ({id}) => {
 
                              <div className="ProjectButtonsDiv">
                                     <button onClick={onEditProject}>
-                                        {editMode === "hidden" ? "Edit Project" : "Cancel"}
+                                        {"Edit Project"}
                                     </button>
 
                                     <button>Check In</button>
@@ -121,48 +121,79 @@ const IndivProject = ({id}) => {
                                 <h4>Desription</h4>
                                 <p>{project.description}</p>
                             </div>
-                        
 
                     </div>
                     
-                   
+                </div>
+
+            <div>
+
+            {editMode === "visible" && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <div>
+                                <h2>Edit Projects</h2>
+                            </div>
+
+                            <div>
+                                <button
+                                    className="close-btn"
+                                    onClick={() => setEditMode("hidden")}> &times;</button>
+                            </div>
+
+                        </div>
+
+
                     
+
+                        <form className="add-project-form" onSubmit={saveEdit}>
+                            <span></span>
+                            <label>Name:</label>
+                            <input defaultValue={project.name} ref={nameRef} />
+                            <span></span>
+                            <br />
+
+
+                            <label>Version:</label>
+                            <input defaultValue={project.version} ref={versionRef} />
+                                    <span></span>
+                            <br />
+
+
+                            <label>Type:</label>
+                            <input defaultValue={project.type} ref={typeRef} />
+                                    <span></span>
+                            <br />
+                            
+
+                            <label>Description:</label>
+                            <textarea defaultValue={project.description} ref={descRef} />
+                                    <span></span>
+                            <br />
+
+
+                            <button type="submit">Save</button>
+                        </form>
+                    </div>
                 </div>
-
-                <div>
-                    <form className={editMode} onSubmit={saveEdit}>
-                        <h4>Edit Project</h4>
-                        <label>Name:</label>
-                        <input defaultValue={project.name} ref={nameRef} />
-                        <br/>
-                        <label>Version:</label>
-                        <input defaultValue={project.version} ref={versionRef} />
-                        <br/>
-
-                        <label>Type:</label>
-                        <input defaultValue={project.type} ref={typeRef} />
-                        <br/>
-
-                        <label>Description:</label>
-                        <textarea defaultValue={project.description} ref={descRef} />
-
-                        <button type="submit">Save</button>
-                    </form>
-                </div>
+            )}
+            </div>
 
 
                 <div className="MembersDiv">
                     <Members projectId={project.id}/>
                 </div>
-            </div>
-
-            <div className="ProjectFeedDiv">
-
-                <ProjectFeeds projectId={id}/>
                 
-            </div>
+                </div>
 
-        </div>
+                <div className="ProjectFeedDiv">
+
+                    <ProjectFeeds projectId={id}/>
+                    
+                </div>
+
+            </div>
         </>
 
     )

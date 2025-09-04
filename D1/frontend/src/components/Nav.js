@@ -29,8 +29,6 @@ const Nav = () => {
             {/* <Link to="/projects" className="navLink">Project</Link> */}
         </div>
 
-        
-
     </nav>
   )
 }

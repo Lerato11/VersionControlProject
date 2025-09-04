@@ -5,7 +5,6 @@
     --accent: #19A7CE;
     --secondary: #146C94;
     --light: #F6F1F1;
-
 }
 
 
@@ -35,13 +34,10 @@
 }
 
 
-/* Column 1: image + button */
 .ProfileCardDiv img {
     width: 100%;
-    /* smaller profile image */
     /* height: 150px; */
     border-radius: 40px;
-    /* circular avatar */
     object-fit: cover;
     display: block;
     /* margin-bottom: 1rem; */
@@ -54,7 +50,7 @@
     background-color: #0c3a50;
 
     color: #fff;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     cursor: pointer;
     transition: background 0.2s ease;
 }
@@ -63,7 +59,7 @@
     background-color: #002e5f;
 }
 
-/* Column 2 + 3 text sections */
+
 .ProfileImageDiv h3 {
     margin-top: 30px;
 }
@@ -93,10 +89,10 @@
 }
 
 .ProfileImageDiv img {
-   margin: 20px auto;
-    max-height: 240px; /* keeps it within card */
-    width: auto;       /* keeps aspect ratio */
-    max-width: 100%;   /* prevents overflow horizontally */
+    margin: 20px auto;
+    max-height: 240px; 
+    width: auto;       
+    max-width: 100%;   
     border-radius: 40px;
     object-fit: cover;
     border: 4px solid #92c8d0;
@@ -104,37 +100,127 @@
 }
 
 
-
-
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6); /* dim background */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* above everything */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    color: black;
+    padding: 1rem;
 }
 
 .modal-content {
-  background: #fff;
-  border-radius: 12px;
-  padding: 2rem;
-  max-width: 500px;
-  width: 100%;
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 650px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
-.close-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  border: none;
-  background: transparent;
-  font-size: 1.5rem;
-  cursor: pointer;
+.Profile-close-btn {
+    border: none;
+    background: transparent; 
+    font-size: 24px; 
+    cursor: pointer;
+    color: #333; 
+    width: auto; 
+    height: auto;
+    padding: 4px 8px;
+    border-radius: 13px;
+
+}
+
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* .modal-content label{
+    color: black
+}
+
+.modal-content form{
+  padding: 5px;
+  border: 1px solid red
+}
+
+.modal-content input {
+    width: 80%;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgb(234, 255, 254);
+} */
+
+
+.profile-form {
+    max-width: 550px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid #19A7CE;
+}
+
+.profile-form h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #146C94;
+}
+
+.profile-form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.profile-form input[type="text"], .profile-form input[type="email"] {
+    width: 100%;
+    padding: 8px 12px;
+    margin: 6px 0 12px;
+    /* border: 1.5px solid #ccc; */
+    border: 2px solid #146C94;
+
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.profile-form input[type="text"]:focus,
+.profile-form input[type="email"]:focus {
+    border-color: #19A7CE;
+    outline: none;
+}
+
+.profile-form span {
+  font-size: 0.8rem;
+  color: rgb(185, 0, 0);
+}
+
+.profile-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #19A7CE;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.profile-form input[type="submit"]:hover:not(:disabled) {
+    background: #146C94;
 }

@@ -15,9 +15,9 @@ const mockUserProfile = {
     email: "Tomoaki.Nagao@example.com",
     phoneNumber: "+27 82 123 4567",
     company: "BapeStar",
-    profileImage: "/assets/images/member7.jpg", // replace with actual
+    profileImage: "/assets/images/member7.jpg", 
     addressLine1: "123 Innovation Street",
-    addressLine2: "Apartment 5B", // optional
+    addressLine2: "Apartment 5B", 
     numberOfProjects: 7,
     numberOfFriends: 24
 };
@@ -186,54 +186,27 @@ const Profile = () => {
                 </div>
 
 
-                    {/* <div>
-                        <form className={editMode} onSubmit={saveProfile}>
-
-                            <label htmlFor="name">First Name:</label><br />
-                            <input type="text" name="name" id="name" defaultValue={profile.firstname} ref={firstnameRef} onBlur={handleFirstNameOnBlur} /><br />
-                            <span id="nameMessage">{firstNameMessage}</span><br />
-                            <br />
-                            <label htmlFor="lastName">Last Name:</label><br />
-                            <input type="text" name="lastName" id="lastName" defaultValue={profile.lastname} ref={lastnameRef} onBlur={handleLastNameOnBlur} /><br />
-                            <span id="lastNameMessage">{lastNameMessage}</span><br />
-                            <br />
-
-                            <label htmlFor="username">Username:</label><br />
-                            <input type="text" name="username" id="username" required="required" defaultValue={profile.username} ref={usernameRef} onBlur={handleuserNameOnBlur} /><br />
-                            <span id="userMessage">{userNameMessage}</span><br />
-                            <br />
-
-                            <label htmlFor="email">Email Address:</label><br />
-                            <input type="email" name="email" id="email" defaultValue={profile.email} ref={emailRef} onBlur={handleEmailOnBlur} /><br />
-                            <span id="emailMessage">{emailMessage}</span><br />
-                            <br />
-
-                            <label>Company:</label><br />
-                            <input name="company" type="text" defaultValue={profile.company} ref={companyRef} /><br />
-                            <br /><br />
-
-                            <label>Address Line 1:</label><br />
-                            <input name="addressLine1" type="text" defaultValue={profile.addressLine1} ref={address1Ref} onBlur={handleAddressOnBlur} /><br />
-                            <span id="addressMessage">{addressMessage}</span>
-
-                            <br /><br />
-                            <label>Address Line 2</label><br />
-                            <input name="addressLine2" type="text" defaultValue={profile.addressLine2} ref={address2Ref} /><br />
-                            <br /><br />
-
-
-                            <input type="submit" name="submit" value="Save Profile" disabled={!validForm} />
-                        </form>
-                    </div> */}
-
 
                     {editMode && (
                         <div className="modal-overlay">
                             <div className="modal-content">
-                                <button className="close-btn" onClick={toggleEdit}>✖</button>
-                                <form onSubmit={saveProfile}>
-                                    { <form className={editMode} onSubmit={saveProfile}>
 
+                                <div className="modal-header">
+                
+
+                                    <div>
+                                        <h2>Edit Profile</h2>
+                                    </div>
+                                    
+                                    <div>
+                                        <button className="Profile-close-btn" onClick={toggleEdit}>&times;</button>
+                                    </div>
+
+                                </div>
+                                <form onSubmit={saveProfile} className="add-project-form">
+                                    { 
+                                        // <form className={editMode} onSubmit={saveProfile}>
+                                        <div>
                                         <label htmlFor="name">First Name:</label><br />
                                         <input type="text" name="name" id="name" defaultValue={profile.firstname} ref={firstnameRef} onBlur={handleFirstNameOnBlur} /><br />
                                         <span id="nameMessage">{firstNameMessage}</span><br />
@@ -267,39 +240,19 @@ const Profile = () => {
                                         <br /><br />
 
 
-                                        <input type="submit" name="submit" value="Save Profile" disabled={!validForm} />
-                                    </form>}
+                                        <button type="submit" disabled={!validForm}>Save</button>
+                                        </div>
+                                   
+                                    }
                                 </form>
                             </div>
                         </div>
                     )}
-                </div>
+            </div>
             
         </>
     )
 
-
-    // return (
-    //     <>
-    //         <div>
-    //             <img src={`${mockUserProfile.profileImage}`}></img> {/* profile image */}
-    //             <button>Add Friend</button>
-    //         </div>
-    //         <div>
-    //             <p>Username: {`${mockUserProfile.username}`}</p>
-    //             <p>Email: {`${mockUserProfile.email}`}</p>
-    //             <p>Phone: {`${mockUserProfile.phoneNumber}`}</p>
-    //             <p>Company: {`${mockUserProfile.company}`}</p>
-    //         </div>
-
-    //         <div>
-    //             <p>Adress Line 1: {`${mockUserProfile.addressLine1}`}</p>
-    //             <p>Adress Line 2: {`${mockUserProfile.addressLine2}`}</p>
-    //             <p>Projects: {`${mockUserProfile.numberOfProjects}`}</p>
-    //             <p>Friends: {`${mockUserProfile.numberOfFriends}`}</p>
-    //         </div>
-    //     </>
-    // )
 }
 
 export { Profile }

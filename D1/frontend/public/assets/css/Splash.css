@@ -1,0 +1,151 @@
+.backGround {
+  background-image: url("/assets/images/splashBackground.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: calc(100vh - 150px); 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  padding-top: 60px;
+  /* border: 1px red solid; */
+        
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.welcome-text{
+  /* border: 1px red solid; */
+    width: 40%;
+    margin-left: 40px;
+    margin-top: -90px;
+
+}
+
+.welcome-text h1{
+    font-size: 50px;
+
+}
+
+.welcome-text p{
+    font-size: 20px;
+    line-height: 28px;
+
+}
+
+.welcome-image img{
+  /* border: 1px red solid; */
+    width: 85%;
+    margin: 0 auto;
+    /* text-align: center; */
+    display: block;
+    /* margin: auto; */
+    /* width: 50%; */
+    margin-top: -80px;
+    border-radius: 20px;
+    box-shadow: 0 6px 0 rgb(40, 40, 40), 0 10px 15px 0 rgb(112, 183, 233);
+
+
+}
+
+.welcome-image{
+  /* border: 1px red solid; */
+
+    width: 45%;
+}
+
+.splash-logo {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  z-index: 2000;
+}
+
+.splash-logo img {
+  height: 70px; 
+  width: auto;
+}
+
+.splashSignIn{
+  display: inline-block;
+  background: #1c5b64;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100px;
+  height: 50px;
+  transition: background 0.2s ease;
+  margin-right: 8px;
+}
+
+.splashSignUp{
+  display: inline-block;
+  background: #2c91a1;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100px;
+  height: 50px;
+  transition: background 0.2s ease;
+  margin-right: 8px;
+}
+
+
+.splashSignIn:hover{
+  background: #34abbd;
+}
+
+
+.splashSignUp:hover{
+  background: #37b6c9;
+}
+
+.carousel {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  background: rgba(0,0,0,0.6);
+  padding: 15px 0;
+  background-color: #fff;
+  /* margin-top: 400px; */
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.carousel-track img {
+  height: 120px;
+  margin: 0 40px;
+  /* border-radius: 8px; */
+}
+
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

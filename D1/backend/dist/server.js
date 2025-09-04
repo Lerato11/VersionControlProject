@@ -5,11 +5,9 @@ var _require = require('http'),
   get = _require.get;
 var path = require('path');
 var app = express();
-var port = 3000;
+var PORT = 3000;
 app.use(express.json());
-
-// app.use(express.static(path.join(__dirname, "../public")));
-
+app.use(express["static"](path.join(__dirname, "../frontend/public")));
 app.post('/auth/signin', function (req, res) {
   var _req$body = req.body,
     email = _req$body.email,
@@ -67,6 +65,6 @@ app.get("/api", function (req, res) {
 app.get('/{*any}', function (req, res) {
   res.sendFile(path.resolve("frontend/public", "index.html"));
 });
-app.listen(port, function () {
-  console.log("Server started on port");
+app.listen(PORT, function () {
+  console.log("Server running on http://localhost:".concat(PORT));
 });

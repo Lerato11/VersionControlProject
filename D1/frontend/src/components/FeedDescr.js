@@ -8,24 +8,18 @@ import {PropTypes} from 'prop-types';
 
 const FeedDescr = ({activity, profileImg, projectDscr, username}) => {
     return (
-            <div className="FeedDescr">
+        <div className="FeedDescr">
             <link rel="stylesheet" type="text/css" href="/assets/css/FeedDescr.css"/>
-                <div className="profileFeedpicDiv">
-                    <img src={`${profileImg}`} className="profileFeedPicture"></img> {/* profile image */}
-                </div>
-                <div>
-                    <h4>{username}</h4>
-                    <p>{`${projectDscr}`}</p>
-                </div>
+            <div className="profileFeedpicDiv">
+                <img src={`${profileImg}`} className="profileFeedPicture"></img> {/* profile image */}
             </div>
+            <div>
+                <h4>{username}</h4>
+                <p>{`${projectDscr}`}</p>
+            </div>
+        </div>
     )
 }
 
-
-// Feed.propTypes = {
-//     projectImg: PropTypes.string,
-//     profileImg: PropTypes.string,
-//     projectDscr: PropTypes.string,
-// }
 
 export { FeedDescr };

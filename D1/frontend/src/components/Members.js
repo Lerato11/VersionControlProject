@@ -105,17 +105,16 @@ const Members = ({ projectId }) => {
             <link rel="stylesheet" type="text/css" href="/assets/css/Friends.css"/>
             <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
 
-
             <div className="ProjectsHeaders">
               <h2 className="ProjectH2-2">Members</h2>
               <button>+ Member</button>
             </div>
          
-          <ul className="FriendsUl">
-            {membersToDisplay.map((member) => {
-                return <ProfilePreview key={member.id} profileImg={member.profileImage} name={member.name} email={member.email}/>
-            })}
-        </ul>
+            <ul className="FriendsUl">
+                {membersToDisplay.map((member) => {
+                    return <ProfilePreview key={member.id} profileImg={member.profileImage} name={member.name} email={member.email}/>
+                })}
+            </ul>
         </>
     )
 }

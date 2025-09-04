@@ -15,7 +15,7 @@
 .projectPicture {
   max-width: 100%;
   max-height: 100%;
-  object-fit:cover; /* keeps image from stretching */
+  object-fit:cover;
   border-radius: 8px;
 }
 

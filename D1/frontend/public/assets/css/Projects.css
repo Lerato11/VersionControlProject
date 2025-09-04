@@ -15,12 +15,6 @@ ul{
 }
 
 
-.ProjectH2-2{
-  /* margin:  0 0 40px 50px; */
-  /* border: 5px red solid; */
-  /* border: 1px solid red; */
-}
-
 
 .ProjectsHeaders{
   display: flex;
@@ -85,4 +79,165 @@ ul li {
 
   padding: 20px;
   
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 550px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  /* border: 1px solid red; */
+
+}
+
+.close-btn {
+    /* position: absolute; */
+    /* top: 12px;
+    right: 12px; */
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #0c3a50;
+    color: #fff;
+    border-radius: 13px;
+    width: 40px;
+    height: 40px;
+
+
+}
+
+
+.modal-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px red solid; */
+}
+
+
+.profile-form,
+.add-project-form {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: #fdfdfd;
+  border: 2px solid #19A7CE;
+  border-radius: 12px;
+
+}
+
+
+.profile-form h3,
+.add-project-form h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color:  #146C94;
+  font-size: 1.4rem;
+}
+
+
+.profile-form label,
+.add-project-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--base);
+}
+
+
+.profile-form input,
+.add-project-form input,
+.add-project-form textarea {
+  width: 70%;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border: 2px solid  #146C94;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: border 0.2s ease;
+  /* border: 1px solid red; */
+
+}
+
+.profile-form input:focus,
+.add-project-form input:focus,
+.add-project-form textarea:focus {
+  border-color: #19A7CE;
+  outline: none;
+}
+
+.add-project-form textarea {
+  resize: none;
+}
+
+
+.profile-form span,
+.add-project-form span {
+  font-size: 0.85rem;
+  color: rgb(16, 82, 152);
+  margin-bottom: 8px;
+  display: block;
+}
+
+
+.profile-form input[type="submit"],
+.add-project-form button[type="submit"],
+.add-project-form button[type="reset"],
+.add-project-form button[type="button"],
+.otherOption {
+  display: inline-block;
+  background: #1d5f69;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100px;
+  height: 50px;
+  transition: background 0.2s ease;
+  margin-right: 8px;
+}
+
+
+.add-project-form button[type="button"]{
+  margin-left: 20px;
+  width: 90px;
+  height: 40px;
+
+}
+
+.profile-form input[type="submit"]:hover,
+.add-project-form button[type="submit"]:hover,
+.add-project-form button[type="reset"]:hover {
+  background:  #278290;
+}
+
+.modal-content p{
+  margin-top: 30px;
 }

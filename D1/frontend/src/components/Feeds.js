@@ -23,7 +23,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "local", 
-    projectId: 5
+    projectId: 9
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "global",
-    projectId: 2
+    projectId: 7
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "local",
-    projectId: 4
+    projectId: 6
   },
   {
     id: 4,
@@ -62,7 +62,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "local",
-    projectId: 4
+    projectId: 8
   },
   {
     id: 5,
@@ -75,7 +75,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "global",
-    projectId: 4
+    projectId: 2
   },
   {
     id: 6,
@@ -88,7 +88,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "local",
-    projectId: 6
+    projectId: 4
   },
   {
     id: 7,
@@ -101,7 +101,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "global",
-    projectId: 4
+    projectId: 5
   },
   {
     id: 8,
@@ -114,7 +114,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "global",
-    projectId: 4
+    projectId: 9
   },
   {
     id: 9,
@@ -127,7 +127,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "local", 
-    projectId: 3
+    projectId: 1
   },
   {
     id: 10,
@@ -140,7 +140,7 @@ const activityFeed = [
         {modifiedBy: "Njabulo", comment: "Lerato the goat"}
     ], 
     scope: "global",
-    projectId: 1
+    projectId: 10
   }
 
   
@@ -148,21 +148,21 @@ const activityFeed = [
 
 
 const Feeds = ({scope}) => {
-  var scopedFeed = activityFeed.filter((activityFeed) => {
-        return activityFeed.scope == scope;
-      });
+    var scopedFeed = activityFeed.filter((activityFeed) => {
+      return activityFeed.scope == scope;
+    });
+
   return (
-    
-    <>
-      
-      <link rel="stylesheet" type="text/css" href="/assets/css/Feeds.css"/>
-      {/* <h2>Activity Feed</h2> */}
-      <ul className="FeedsUl">
-        {scopedFeed.map((feed, feedIndex) => {
-          return <Feed key= {feedIndex} activity={feed.activities[0]} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
-        })}
-      </ul>
-    </>
+      <>
+        
+        <link rel="stylesheet" type="text/css" href="/assets/css/Feeds.css"/>
+        {/* <h2>Activity Feed</h2> */}
+        <ul className="FeedsUl">
+          {scopedFeed.map((feed, feedIndex) => {
+            return <Feed key= {feedIndex} id={feed.id} activity={feed.activities[0]} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
+          })}
+        </ul>
+      </>
   )
 }
 

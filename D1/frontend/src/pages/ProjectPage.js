@@ -23,16 +23,18 @@ const ProjectPage = () => {
     //       });
 
     let { id } = useParams();
+
+    console.log( id )
     return (
        <>
-        <link rel="stylesheet" type="text/css" href="/assets/css/ProjectPage.css"/>
-        <div>
-            <Nav />
-        </div>
+            <link rel="stylesheet" type="text/css" href="/assets/css/ProjectPage.css"/>
+            <div>
+                <Nav />
+            </div>
 
-        <div className="ProjectPage">
-            <IndivProject id={2}/>
-        </div>
+            <div className="ProjectPage">
+                <IndivProject id={id}/>
+            </div>
         
         </>
     )

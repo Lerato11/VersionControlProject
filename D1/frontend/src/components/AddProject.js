@@ -67,12 +67,23 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
     };
 
     return (
-        <div className={className}>
+        <div>
           <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
 
-            <h1>Create New Project</h1>
-            <form onSubmit={handleSubmit}>
-                {/* Project Name Input */}
+            <div className="modal-header">
+                
+                <div>
+                    <h2>Create New Project</h2>
+                </div>
+
+                <div>
+                    <button className="close-btn" onClick={onCancel}>&times;</button>
+                </div>
+
+            </div>
+
+            <form onSubmit={handleSubmit}  className="add-project-form">
+
                 <div>
                     <label htmlFor="name">Project Name</label>
                     <input
@@ -84,8 +95,10 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                         required
                     />
                 </div>
+                <span></span>
+                <br/>
 
-                {/* Languages Input */}
+
                 <div>
                     <label htmlFor="languages">Languages</label>
                     <div>
@@ -104,9 +117,10 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                         />
                         <button type="button" onClick={handleAddLanguage}>Add</button>
                     </div>
+
                     <div>
                         {project.languages.map((lang, index) => (
-                            <span key={index}>
+                            <span key={index} className="language-tag">
                                 {lang}
                                 <button type="button" onClick={() => handleRemoveLanguage(lang)}>
                                     &times;
@@ -115,8 +129,9 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                         ))}
                     </div>
                 </div>
+                <span></span>
+                <br/>
 
-                {/* Version Input */}
                 <div>
                     <label htmlFor="version">Version</label>
                     <input
@@ -127,8 +142,9 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                         onChange={handleInputChange}
                     />
                 </div>
+                <span></span>
+                <br/>
 
-                {/* Type Input */}
                 <div>
                     <label htmlFor="type">Type</label>
                     <input
@@ -139,8 +155,10 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                         onChange={handleInputChange}
                     />
                 </div>
+                <span></span>
+                <br/>
 
-                {/* Description Input */}
+
                 <div>
                     <label htmlFor="description">Description</label>
                     <textarea
@@ -151,9 +169,11 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                         rows="4"
                     />
                 </div>
+                <span></span>
+                <br/>
 
-                <button type="submit">Create Project</button>
-                <button type="button" onClick={onCancel}>Cancel</button>
+                <button type="submit">Create</button>
+                
             </form>
         </div>
     );
