@@ -159,7 +159,7 @@ const Feeds = ({scope}) => {
         {/* <h2>Activity Feed</h2> */}
         <ul className="FeedsUl">
           {scopedFeed.map((feed, feedIndex) => {
-            return <Feed key= {feedIndex} id={feed.id} activity={feed.activities[0]} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
+            return <Feed key= {feedIndex} id={feed.projectId} activity={feed.activities[0]} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
           })}
         </ul>
       </>

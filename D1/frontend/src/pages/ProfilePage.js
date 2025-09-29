@@ -27,7 +27,7 @@ const ProfilePage = () => {
             </div>
             
             <div className="HomeProjectsDiv">
-                <Projects userId={2}/>
+                <Projects userId={2}/>  {/* id of signed in user or user selected by another user */}
             </div>
             
             <div className="FeedsDiv">
