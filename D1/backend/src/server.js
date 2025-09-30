@@ -2,12 +2,20 @@ const express = require('express');
 const { get } = require('http');
 const path = require('path');
 
+const { dbConnect } = require("./database");  // import your DB connect function
+const projectRoutes = require("./routes/projectsRoutes");
+
 const app = express();
 const PORT = 3000;
+
+// const projectRoutes = require("./routes/projectsRoutes");
 
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "../frontend/public")));
+
+app.use("/api/projects", projectRoutes);
+
 
 app.post('/auth/signin', (req, res) => {
     const {email, password} = req.body;
@@ -47,11 +55,30 @@ app.get("/api", (req, res) => {
      res.json({message: "Hello from Backend"});
 })
 
+
+// app.use("/api/projects", projectRoutes);
+
 app.get('/{*any}', (req, res) => {
     res.sendFile(path.resolve("frontend/public", "index.html"));
 })
 
+async function startServer() {
+  try {
+    await dbConnect();  // 👈 connect first
+    console.log("✅ Connected to MongoDB");
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to start server:", err.message);
+  }
+}
+
+startServer();
+
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on http://localhost:${PORT}`);
+// });

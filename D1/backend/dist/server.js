@@ -6,6 +6,7 @@ var _require = require('http'),
 var path = require('path');
 var app = express();
 var PORT = 3000;
+var projectRoutes = require("./routes/projectsRoutes");
 app.use(express.json());
 app.use(express["static"](path.join(__dirname, "../frontend/public")));
 app.post('/auth/signin', function (req, res) {
@@ -62,6 +63,7 @@ app.get("/api", function (req, res) {
     message: "Hello from Backend"
   });
 });
+app.use("/api/projects", projectRoutes);
 app.get('/{*any}', function (req, res) {
   res.sendFile(path.resolve("frontend/public", "index.html"));
 });
