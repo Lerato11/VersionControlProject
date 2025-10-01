@@ -91,6 +91,26 @@ async function runUpdateQuery(collection, filter, update) {
     return result;
 }
 
+
+
+// async function runUpdateQuery(collection, filter, update) {
+//     // await client.connect();
+//     // const database = client.db("libraryDB");
+
+//     const col = database.collection(collection);
+
+//     // --- DEBUGGING ADDITION ---
+//     console.log(`[DB UPDATE] Attempting to update collection: ${collection}`);
+//     console.log(`[DB UPDATE] Filter:`, filter);
+//     console.log(`[DB UPDATE] Update Object:`, update);
+//     // --------------------------
+
+//     const result = await col.updateOne(filter, update);
+
+//     // await client.close();
+//     return result;
+// }
+
 async function runDeleteQuery(collection, filter) {
     // await client.connect();
     // const database = client.db("libraryDB");

@@ -17,19 +17,15 @@ async function getUserByEmail(email) {
 
 
 // get user friends
-async function getUserFriends(id) {
-    const user = await db.collection("users").findOne({ id });
+async function getUserFriends(userId) {
+  const user = await getUserById(userId);
+  if (!user) return [];
 
-    if (!user || !user.friends || user.friends.length === 0) {
-        return []; 
-    }
+  const friendIds = user.friends || [];
 
-    // find user's friends
-    const friends = await db.collection("users")
-        .find({ id: { $in: user.friends } })
-        .toArray();
+  if (friendIds.length === 0) return [];
 
-    return friends;
+  return await runFindQuery("users", { id: { $in: friendIds } });
 }
 
 
@@ -50,7 +46,8 @@ async function addUser(newUser) {
 // Update 
 // Edit a user profile 
 async function updateUserProfile(id, updates) {
-  return await runUpdateQuery("users", { id }, { $set: updates });
+  await runUpdateQuery("users", { id }, { $set: updates });
+  return await getUserById(id);
 }
 
 
@@ -131,9 +128,24 @@ async function addUserProject(userId, projectId) {
     );
 }
 
+// add project 
+async function removeUserProject(userId, projectId) {
+    return await runUpdateQuery(
+        "users",
+        { id: userId },
+
+        // that user 
+        { $pull: {
+             projects: projectId 
+            } } 
+    );
+}
+
 // update profile image
 async function updateUserImage(id, imagePath) {
-    return await runUpdateQuery(
+    console.log("backend: "+ imagePath);
+    
+    await runUpdateQuery(
     "users",
 
     // change path of image
@@ -141,6 +153,9 @@ async function updateUserImage(id, imagePath) {
     
     { $set: { image: imagePath } }
     );
+
+    
+    return await getUserById(id);
 }
 
 // Delete
@@ -163,5 +178,6 @@ module.exports = {
     rejectFriendRequest,
     addUserProject,
     updateUserImage, 
-    removeUser
+    removeUser,
+    removeUserProject
 };

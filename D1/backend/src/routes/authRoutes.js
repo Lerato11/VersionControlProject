@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { createUser, getUserByEmail } = require("../models/userModel");
+const { addUser, getUserByEmail } = require("../models/usersModel");
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ router.post("/signin", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     
-    const newUser = await createUser(req.body);
+    const newUser = await addUser(req.body);
 
     res.json({ 
         success: true,

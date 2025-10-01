@@ -142,12 +142,27 @@ async function getNextProjectId() {
     if (!lastProject.length) {
         return 1
     };
-    
+
     return lastProject[0].id + 1;
 }
 
 
+// update project image
+async function updateProjectImage(id, imagePath) {
+    console.log("backend: "+ imagePath);
+    
+    await runUpdateQuery(
+    "projects",
 
+    // change path of image
+    { id },
+    
+    { $set: { projectImage: imagePath } }
+    );
+
+    
+    return await getProjectById(id);
+}
 
 
 module.exports = {
@@ -161,5 +176,6 @@ module.exports = {
     removeProjectMember, 
     getUserProjects,
     getNextProjectId,
-    removeProject
+    removeProject, 
+    updateProjectImage
 };

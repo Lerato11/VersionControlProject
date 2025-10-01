@@ -10,15 +10,16 @@ const { getProjects,
     addProjectMember, 
     removeProjectMember, 
     getNextProjectId, 
-    removeProject 
+    removeProject,
+    updateProjectImage
 } = require("../models/projectsModel");
 
-const { getUserById } = require("../models/usersModel");
+const { getUserById, addUserProject, removeUserProject } = require("../models/usersModel");
 
 const router = express.Router();
 
 
-// get all users
+// get all projects
 router.get("/", async (req, res) => {
 
     try {
@@ -141,6 +142,54 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+
+// update project image
+router.patch("/projectImage", async (req, res) => {
+    console.log("Test");
+
+    // return res.status(401).json({
+    //                 success: false,
+    //                 message: "Invalid Project Idsssss" 
+    //             });
+            
+    const { idNum, projectImage } = req.body;
+    const id = parseInt(idNum);
+
+    console.log("routes: "+ projectImage)
+
+    if (isNaN(id) || !projectImage) {
+        return res.status(400).json({ success: false, message: "Invalid ID or missing image path." });
+    }
+
+
+    try{
+        const project = await updateProjectImage(id, projectImage);
+
+
+        if (!project || project.id != id) {
+
+            return res.status(401).json({
+                    success: false,
+                    message: "Invalid Project Id" 
+                });
+            }
+
+        res.json({
+            success: true,
+            message: "Project Image Updated Successfully", 
+            project 
+        });
+
+    }
+     catch (err) {
+        console.log(err);
+
+        res.status(500).json({
+             error: err.message 
+        
+        });
+    }
+});
 
 // check in project
 router.put("/checkIn/:id", async (req, res) => {
@@ -271,6 +320,7 @@ router.put("/addMember/:id", async (req, res) => {
         }
 
         const addedMember = await addProjectMember(idNum, addedMemberId);
+        const addedProject = await addUserProject(addedMemberId, idNum);
 
         res.json({
             success: true,
@@ -327,7 +377,10 @@ router.put("/removeMember/:id", async (req, res) => {
         }
 
         const removedMember = await removeProjectMember(idNum, removedMemberId);
+        const removedProject = await removeUserProject(removedMemberId, idNum);
 
+
+        
         res.json({
             success: true,
             message: `Member ${removingMemberId} removed user ${removedMemberId} successfully`, 
@@ -416,6 +469,8 @@ router.delete("/:id", async (req, res) => {
         });
     }
 });
+
+
 
 
 
