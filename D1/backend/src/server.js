@@ -4,6 +4,7 @@ const path = require('path');
 
 const { dbConnect } = require("./database");  // import your DB connect function
 const projectRoutes = require("./routes/projectsRoutes");
+const feedRoutes = require("./routes/feedsRoutes");
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "../frontend/public")));
 
 app.use("/api/projects", projectRoutes);
+app.use("/api/feeds", feedRoutes);
 
 
 app.post('/auth/signin', (req, res) => {
