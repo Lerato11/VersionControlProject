@@ -2,7 +2,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-
+import { useParams } from "react-router-dom";
 import {Projects} from "../components/Projects";
 import {Feeds} from "../components/Feeds"
 import {Profile} from "../components/Profile"
@@ -15,6 +15,13 @@ import { activityFeed } from "../components/Feeds";
 // import "../../../public/assets/css/"
 
 const ProfilePage = () => {
+    const { id } = useParams(); 
+
+    
+    const loggedInUserId = parseInt(localStorage.getItem("userId"));
+    const userIdToShow = id ? parseInt(id) : loggedInUserId;
+
+    console.log("Profileid: " + userIdToShow)
     return (
        <>
         <link rel="stylesheet" type="text/css" href="/assets/css/ProfilePage.css"/>
@@ -23,11 +30,11 @@ const ProfilePage = () => {
 
         <div className="ProfilePage">
             <div className="ProfileDiv">
-                <Profile />
+                <Profile userId={userIdToShow}/>
             </div>
             
             <div className="HomeProjectsDiv">
-                <Projects userId={2}/>  {/* id of signed in user or user selected by another user */}
+                <Projects />  {/* id of signed in user or user selected by another user */}
             </div>
             
             <div className="FeedsDiv">
@@ -38,7 +45,7 @@ const ProfilePage = () => {
 
             <div className="FriendsDiv">
                 {/* <h3>Friends</h3> */}
-                <Friends id={8}/>
+                <Friends userId={userIdToShow}/>
             </div>
 
         </div>

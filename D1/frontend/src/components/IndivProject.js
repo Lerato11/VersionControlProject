@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import { FeedDescr } from "./FeedDescr";
 import { Members } from "./Members";
@@ -19,22 +19,48 @@ import {Nav} from "../components/Nav";
 
 const IndivProject = ({id}) => {
 
-   const projectData = mockProjects.find((p) => p.id === parseInt(id));
-
-    if (!projectData) {
-      return <div>Project not found.</div>;
-    }
-
-
-    const [project, setProject] = useState(projectData);
-
+    const [project, setProject] = useState(null);
     const [editMode, setEditMode] = useState("hidden");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
 
 
     const nameRef = useRef();
     const versionRef = useRef();
     const typeRef = useRef();
     const descRef = useRef();
+
+    useEffect(() => {
+          const fetchProject = async () => {
+            
+             try {
+                setLoading(true);
+                setError("");
+    
+    
+                const response = await fetch(`/api/projects/${id}`);
+                const data = await response.json();
+    
+                  if (!response.ok || !data.success) {
+                    setError(data.message);
+                    setProject(null);
+    
+                  } else {
+                    setProject(data.project);
+                  }
+    
+              } catch (err) {
+                  setError("Network error, try again");
+              } finally {
+                  setLoading(false);
+              }
+        };
+    
+        fetchProject();
+    
+                
+        }, [id])
+
 
     const onEditProject =(event) => {
         event.preventDefault();
@@ -59,6 +85,38 @@ const IndivProject = ({id}) => {
         setEditMode("hidden");
     };
 
+
+    const loggedInUserId = parseInt(localStorage.getItem("userId"));
+
+const handleLeaveProject = async () => {
+    if (!window.confirm("Are you sure you want to leave this project?")) return;
+
+    try {
+        const res = await fetch(`/api/projects/leave/${project.id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: loggedInUserId })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+            alert(data.message);
+            
+            window.location.href = "/home";
+        } else {
+            alert(data.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Network error, try again");
+    }
+};
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+    if (!project) return <p>No project found</p>;
+
     return (
         <>
          <div className="IndivProjectDiv">
@@ -69,7 +127,7 @@ const IndivProject = ({id}) => {
                     <div className="ProjectInfoDiv">
 
                         <div className="projectIndivImage">
-                            <img src={project.image} alt={project.name}></img> {/* project image */}
+                            <img src={project.projectImage} alt={project.name}></img> {/* project image */}
                         </div>
 
                         <div className="fileNames">
@@ -103,7 +161,7 @@ const IndivProject = ({id}) => {
                                 <ul>
                                     <li><p>Type: {project.type}</p></li>
                                     <li><p>Version: {project.version}</p></li>
-                                    <li><p>Status: {project.state}</p></li>
+                                    <li><p>Status: {project.status}</p></li>
                                 </ul>
                             </div>
 
@@ -114,6 +172,7 @@ const IndivProject = ({id}) => {
 
                                     <button>Check In</button>
                                     <button>Check Out</button>
+                                    <button onClick={handleLeaveProject}>Leave Project</button>
                             </div>
                         </div>
                                         
@@ -133,7 +192,7 @@ const IndivProject = ({id}) => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <div>
-                                <h2>Edit Projects</h2>
+                                <h2>Edit Project</h2>
                             </div>
 
                             <div>
@@ -189,7 +248,7 @@ const IndivProject = ({id}) => {
 
                 <div className="ProjectFeedDiv">
 
-                    <ProjectFeeds projectId={id}/>
+                    <ProjectFeeds activities={project.activities}/>
                     
                 </div>
 

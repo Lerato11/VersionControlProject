@@ -6,7 +6,7 @@ import ReactDOM from "react-dom/client";
 import {PropTypes} from 'prop-types';
 
 
-const FeedDescr = ({activity, profileImg, projectDscr, username}) => {
+const FeedDescr = ({profileImg, projectDscr, username}) => {
     return (
         <div className="FeedDescr">
             <link rel="stylesheet" type="text/css" href="/assets/css/FeedDescr.css"/>

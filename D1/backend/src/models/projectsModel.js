@@ -30,6 +30,24 @@ async function updateProject(id, updates) {
   return await runUpdateQuery("projects", { id }, { $set: updates });
 }
 
+// leave a project
+async function leaveProject(userId, projectId) {
+
+    await runUpdateQuery(
+        "users",
+        { id: userId },
+        { $pull: { projects: projectId } }
+    );
+
+
+    return await runUpdateQuery(
+        "projects",
+        { id: projectId },
+        { $pull: { members: userId } }
+    );
+}
+
+
 
 // check in
 async function checkInProject(projectId, userId, message) {
@@ -177,5 +195,6 @@ module.exports = {
     getUserProjects,
     getNextProjectId,
     removeProject, 
-    updateProjectImage
+    updateProjectImage,
+    leaveProject
 };

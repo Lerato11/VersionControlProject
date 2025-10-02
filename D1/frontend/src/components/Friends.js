@@ -5,15 +5,59 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {ProfilePreview} from "./ProfilePreview";
 
+import { useState, useRef, useEffect } from "react";
 
 import { mockMembers } from "./Members";
 
-const Friends = ({id}) => {
-    const targetMember = mockMembers.find(member => member.id === id);
+const Friends = ({userId}) => {
+    const [friends, setFriends] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    const friendsList = mockMembers.filter(member =>
-        targetMember.friends.includes(member.id)
-    );
+    console.log("User Id"+ userId);
+
+    useEffect(() => {
+        const fetchFriends = async () => {
+        try {
+            setLoading(true);
+            setError("");
+
+            const res = await fetch(`/api/users/friends?userId=${userId}`);
+            const data = await res.json();
+
+
+            if (!res.ok || !data.success) {
+                setError(data.message || "Error fetching friends");
+                setFriends([]);
+
+            } else {
+                setFriends(data.friends);
+            }
+        } catch (err) {
+            setError("Network error, try again");
+        } finally {
+            setLoading(false);
+        }
+        };
+
+        const userIdNum = Number(userId);
+        if (!userIdNum) {
+            console.error("Invalid userId", userId);
+            return;
+        }
+
+
+        if (userId) {
+        fetchFriends();
+        }
+    }, [userId]);
+
+    console.log(friends)
+
+
+    if (loading) return <p>Loading friends...</p>;
+    if (error) return <p>{error}</p>;
+    if (!friends.length) return <p>No friends found.</p>;
 
     return (
         <>
@@ -22,12 +66,13 @@ const Friends = ({id}) => {
             <h2>Friends</h2>
 
             <ul className="FriendsUl">
-                {friendsList.map((friend) => (
+                {friends.map((friend) => (
                         <ProfilePreview
                             key={friend.id}
-                            profileImg={friend.profileImage}
-                            name={friend.name}
-                            email={friend.email}
+                            profileImg={friend.image}
+                            name={friend.username}
+                            email={friend.email} 
+                            userId={friend.id}
                         />
                     ))
                 }

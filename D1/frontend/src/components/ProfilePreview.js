@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 
 
 
-const ProfilePreview = ({profileImg, name, email}) => {
+const ProfilePreview = ({profileImg, name, email, userId}) => {
     return (
         
-        <Link to="/profile" className="memberLink">
+        <Link to={userId ? `/profile/${userId}` : "/profile"} className="memberLink">
             <li>
                 <link rel="stylesheet" type="text/css" href="/assets/css/ProfilePreview.css"/>
                 <div className="profileLi">

@@ -11,7 +11,8 @@ const { getProjects,
     removeProjectMember, 
     getNextProjectId, 
     removeProject,
-    updateProjectImage
+    updateProjectImage,
+    leaveProject
 } = require("../models/projectsModel");
 
 const { getUserById, addUserProject, removeUserProject } = require("../models/usersModel");
@@ -41,11 +42,12 @@ router.get("/user", async (req, res) => {
 
     try {
         // get id from local storage
-        const {id} = req.body; // for testing
+        const {id: idString} = req.query; // for testing
+        const id = Number(idString);
 
         if (!id) {
 
-            return res.status(404).json({
+            return res.status(400).json({
                     success: false,
                     message: "Missing logged in user id" 
                 });
@@ -145,7 +147,7 @@ router.put("/:id", async (req, res) => {
 
 // update project image
 router.patch("/projectImage", async (req, res) => {
-    console.log("Test");
+    // console.log("Test");
 
     // return res.status(401).json({
     //                 success: false,
@@ -190,6 +192,27 @@ router.patch("/projectImage", async (req, res) => {
         });
     }
 });
+
+// leave a project
+router.post("/leave/:projectId", async (req, res) => {
+    const projectId = parseInt(req.params.projectId);
+    const { userId } = req.body;
+
+    try {
+        await leaveProject(userId, projectId);
+
+        res.json({
+            success: true,
+            message: "You have left the project successfully"
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        });
+    }
+});
+
 
 // check in project
 router.put("/checkIn/:id", async (req, res) => {
@@ -399,7 +422,7 @@ router.put("/removeMember/:id", async (req, res) => {
 // add project
 router.post("/", async (req, res) => {
 
-    const {name, languages, hashtags, version, type, description} = req.body;
+    const {name, languages, hashtags, version, type, description, userId} = req.body;
 
     try{
 
@@ -412,12 +435,19 @@ router.post("/", async (req, res) => {
             type, 
             description,
             activities: [],
-            members: [],
+            files: [],
+            status: "Checked In",
+            members: [userId],
             checkedOutBy: null,
             projectImage: ""
         };
 
         const createdProject = await addProject(newProject);
+
+        await addUserProject(userId, newProject.id);
+
+        // console.log("--------")
+        // console.log(createdProject);
 
         res.json({
             success: true,

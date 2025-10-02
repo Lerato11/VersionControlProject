@@ -21,9 +21,10 @@ const router = createBrowserRouter([
     errorElement: <div>Oops! Something went wrong.</div>
   },
   {
-    path: "/profile",
+    path: "/profile/:id?",
     element: <ProfilePage />,
   },
+  
   {
     path: "/projects/:id",
     element: <ProjectPage />,

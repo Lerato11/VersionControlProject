@@ -18,36 +18,36 @@ async function getUserByEmail(email) {
 
 // get user friends
 async function getUserFriends(userId) {
-  const user = await getUserById(userId);
-  if (!user) return [];
+    const user = await getUserById(userId);
+    if (!user) return [];
 
-  const friendIds = user.friends || [];
+    const friendIds = user.friends || [];
 
-  if (friendIds.length === 0) return [];
+    if (friendIds.length === 0) return [];
 
-  return await runFindQuery("users", { id: { $in: friendIds } });
+    return await runFindQuery("users", { id: { $in: friendIds } });
 }
 
 
 // get user by id
 async function getUserById(id) {
-  const users = await runFindQuery("users", { id });
-  return users[0] || null;
+    const users = await runFindQuery("users", { id });
+    return users[0] || null;
 }
 
 
 // Create
 // Add a user
 async function addUser(newUser) {
-  return await runInsertQuery("users", newUser);
+    return await runInsertQuery("users", newUser);
 }
 
 
 // Update 
 // Edit a user profile 
 async function updateUserProfile(id, updates) {
-  await runUpdateQuery("users", { id }, { $set: updates });
-  return await getUserById(id);
+    await runUpdateQuery("users", { id }, { $set: updates });
+    return await getUserById(id);
 }
 
 
@@ -67,25 +67,49 @@ async function sendFriendRequest(senderId, receiverId) {
     );
 }
 
+
+async function removeFriend(removerId, removedId) {
+    
+    await runUpdateQuery(
+        "users",
+        { id: removerId },
+
+        // that user 
+        { $pull: {
+             friends: removedId 
+            } } 
+    );
+    
+    return await runUpdateQuery(
+        "users",
+        { id: removedId },
+
+        // that user 
+        { $pull: {
+             friends: removerId 
+            } } 
+    );
+}
+
 // accept friend request
     // remove that id from requests, and add to friends array
 
 async function acceptFriendRequest(receiverId, senderId) {
    // update the receiver
 
-  await runUpdateQuery(
-    "users",
-    { id: receiverId }, // receiver
+    await runUpdateQuery(
+        "users",
+        { id: receiverId }, // receiver
 
-    // remove from request and add to friends
-    {
-       $pull: {
-         requests: senderId 
-        },
-        $addToSet: {
-             friends: senderId 
-            }
-      }
+        // remove from request and add to friends
+        {
+        $pull: {
+            requests: senderId 
+            },
+            $addToSet: {
+                friends: senderId 
+                }
+        }
     );
 
 
@@ -179,5 +203,6 @@ module.exports = {
     addUserProject,
     updateUserImage, 
     removeUser,
-    removeUserProject
+    removeUserProject,
+    removeFriend
 };

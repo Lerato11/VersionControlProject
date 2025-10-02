@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import {FeedDescr} from './FeedDescr'
 
 
-const Feed = ({id, activity, projectImg, profileImg, projectDscr, username}) => {
+const Feed = ({id, projectImg, profileImg, projectDscr, username}) => {
     return (
         <Link to={`/projects/${id}`} className="projectLink">
         
@@ -20,7 +20,7 @@ const Feed = ({id, activity, projectImg, profileImg, projectDscr, username}) => 
                 
                 <img src={`${projectImg}`} className="feedProjectPicture"></img> {/* project image */}
                 <div className="FeedLiDescr">
-                    <FeedDescr profileImg={profileImg} activity={activity} projectDscr={projectDscr} username={username}/>
+                    <FeedDescr profileImg={profileImg} projectDscr={projectDscr} username={username}/>
                 </div>
             </li>
         </Link>

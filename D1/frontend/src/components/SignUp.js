@@ -73,6 +73,8 @@ const SignUp = ({ signIn }) => {
   };
 
 
+
+
   // phoneNumber
   const [phoneValue, setPhoneValue] = useState("");
   const [phoneMessage, setPhoneMessage] = useState("");
@@ -175,30 +177,41 @@ const SignUp = ({ signIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    try{
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        firstName: firstNameValue,
-        lastName: lastNameValue,
-        email: emailValue,
-        phoneNumber: phoneValue,
-        company: companyValue,
-        addressLine1: address1Value,
-        addressLine2: address2Value,
-        password: passwordValue,
-      }),
-    });
+        body: JSON.stringify({
+          firstName: firstNameValue,
+          lastName: lastNameValue,
+          email: emailValue,
+          phoneNumber: phoneValue,
+          company: companyValue,
+          addressLine1: address1Value,
+          addressLine2: address2Value,
+          password: passwordValue,
+          username: userNameValue,
+          friends: [],
+          projects: [],
+          image: "",
+          requests: []
 
-    const data = await response.json();
-    console.log("Signup response: ", data);
+        }),
+      });
 
-    // local storage the token
-    localStorage.setItem("token", data.token);
+      const data = await response.json();
+      console.log("Signup response: ", data);
 
-    // to home page
-    window.location.href = "/home";
+      // local storage the token
+      localStorage.setItem("userId", data.user.id);
+
+      // to home page
+      window.location.href = "/home";
+
+    }catch(err){
+      console.log(err);
+    }
   };
 
 

@@ -5,11 +5,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
+import { useState, useRef, useEffect } from "react";
+
 
 import { Project } from "./Project";
 import { mockMembers } from "./Members";
 import { AddProject } from "./AddProject";
-import { useState } from "react";
+// import { useState } from "react";
 
 
 const mockProjects = [
@@ -178,15 +180,78 @@ const mockProjects = [
 
 const Projects = (props) => {
 
+  
 
   const [projects, setProjects] = useState(mockProjects);
 
   const [addFormClass, setAddFormClass] = useState("hidden");
 
-  const handleAddProject = (newProject) => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    const nextId = projects.length ? Math.max(...projects.map(p => p.id)) + 1 : 1;
-    setProjects([...projects, { id: nextId, ...newProject }]);
+  let userId = localStorage.getItem("userId");
+
+
+  useEffect(() => {
+      const fetchProjects = async () => {
+        
+         try {
+              
+
+            if (!userId) {
+              setError("No user logged in");
+              setLoading(false);
+              return;
+            }
+
+
+            const response = await fetch(`/api/projects/user?id=${userId}`);
+            const data = await response.json();
+
+              if (!response.ok) {
+                setError(data.message);
+
+              } else {
+                setProjects(data.projects);
+              }
+
+          } catch (err) {
+              setError("Network error, try again");
+          } finally {
+              setLoading(false);
+          }
+    };
+
+    if (userId) fetchProjects();
+
+            
+    }, [userId])
+    
+
+  const handleAddProject = async (project) => {
+
+    try {
+        const res = await fetch("/api/projects", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(project),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            alert(data.message );
+
+        } else {
+            console.log("Project added:", data.createdProject);
+            
+            setProjects(prev => [...prev, data.createdProject]);
+        }
+    } catch (err) {
+        console.error("Network error:", err);
+    }
     setAddFormClass("hidden");
   };
 
@@ -216,6 +281,10 @@ const Projects = (props) => {
       user.projects.includes(project.id)
     );
 
+
+    if (loading) return <h2>Loading projects...</h2>;
+
+    if (error) return <h2 style={{ color: "red" }}>{error}</h2>;
 
     return (
       <>

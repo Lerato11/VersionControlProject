@@ -3,6 +3,7 @@
 import React from "react";
 
 import ReactDOM from "react-dom/client";
+import { useState, useEffect } from "react";
 
 import {ProfilePreview} from "./ProfilePreview";
 
@@ -91,15 +92,53 @@ const mockMembers = [
 ];
 
 const Members = ({ projectId }) => {
-    let membersToDisplay = mockMembers;
+    const [members, setMembers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    
-    if (projectId) {
-        membersToDisplay = mockMembers.filter(member => 
-            member.projects.includes(projectId)
-        );
-    }
-    
+    useEffect(() => {
+      const fetchMembers = async () => {
+        if (!projectId) return;
+
+        try {
+          setLoading(true);
+          setError("");
+
+        
+          const res = await fetch(`/api/projects/${projectId}`);
+          const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            setError(data.message || "Error fetching members");
+            setMembers([]);
+          } else {
+            const memberIds = data.project.members; 
+
+            
+            const memberRes = await Promise.all(
+              memberIds.map(async (id) => {
+                const res = await fetch(`/api/users/${id}`);
+                const userData = await res.json();
+                return userData.user; 
+              })
+            );
+
+            setMembers(memberRes);
+          }
+        } catch (err) {
+          console.log(err)
+          setError("Network error, try again");
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchMembers();
+    }, [projectId]);
+
+    if (loading) return <p>Loading members...</p>;
+    if (error) return <p>{error}</p>;
+    if (!members.length) return <p>No members found.</p>;
     return (
         <>
             <link rel="stylesheet" type="text/css" href="/assets/css/Friends.css"/>
@@ -111,8 +150,8 @@ const Members = ({ projectId }) => {
             </div>
          
             <ul className="FriendsUl">
-                {membersToDisplay.map((member) => {
-                    return <ProfilePreview key={member.id} profileImg={member.profileImage} name={member.name} email={member.email}/>
+                {members.map((member) => {
+                    return <ProfilePreview key={member.id} profileImg={member.image} name={member.username} email={member.email}/>
                 })}
             </ul>
         </>

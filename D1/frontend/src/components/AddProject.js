@@ -9,12 +9,15 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
     const [project, setProject] = useState({
         name: '',
         languages: [],
+        hashtags: [],
+        files: [],
         version: '',
         type: '',
         description: '',
     });
 
     const [currentLanguage, setCurrentLanguage] = useState('');
+    const [currentHashtag, setCurrentHashtag] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -41,29 +44,58 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
         }));
     };
 
+
+    const handleAddHashtag = () => {
+        if (currentHashtag.trim() !== '') {
+            setProject(prevProject => ({
+                ...prevProject,
+                hashtags: [...prevProject.hashtags, currentHashtag.trim()],
+            }));
+            setCurrentHashtag('');
+        }
+    };
+
+    const handleRemoveHashtag = (tagToRemove) => {
+        setProject(prevProject => ({
+            ...prevProject,
+            hashtags: prevProject.hashtags.filter(tag => tag !== tagToRemove),
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        onAddProject(project);
+        const userId = localStorage.getItem("userId");
+
+        onAddProject({
+            ...project,
+            userId: Number(userId)
+        });
 
         setProject({
         name: "",
         languages: [],
+        hashtags: [],
+        files: [],
         version: "",
         type: "",
         description: "",
         });
         setCurrentLanguage("");
+        setCurrentHashtag("");
     };
 
     const handleCancel = () => {
         setProject({
         name: "",
         languages: [],
+        hashtags: [],
+        files: [],
         version: "",
         type: "",
         description: "",
         });
         setCurrentLanguage("");
+        setCurrentHashtag("");
     };
 
     return (
@@ -130,6 +162,38 @@ const AddProject = ({ onAddProject, onCancel, className }) => {
                     </div>
                 </div>
                 <span></span>
+                <br/>
+
+                <div>
+                    <label htmlFor="hashtags">Hashtags</label>
+                    <div>
+                        <input
+                            type="text"
+                            id="hashtags"
+                            value={currentHashtag}
+                            onChange={(e) => setCurrentHashtag(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    handleAddHashtag();
+                                }
+                            }}
+                            placeholder="e.g., #opensource"
+                        />
+                        <button type="button" onClick={handleAddHashtag}>Add</button>
+                    </div>
+
+                    <div>
+                        {project.hashtags.map((tag, index) => (
+                            <span key={index} className="tag">
+                                {tag}
+                                <button type="button" onClick={() => handleRemoveHashtag(tag)}>
+                                    &times;
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+                </div>
                 <br/>
 
                 <div>

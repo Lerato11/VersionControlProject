@@ -8,6 +8,7 @@ const { getFeeds,
 } = require("../models/feedsModel");
 
 const { getUserById } = require("../models/usersModel");
+const { getProjectById } = require("../models/projectsModel");
 
 const router = express.Router();
 
@@ -17,7 +18,22 @@ router.get("/", async (req, res) => {
 
     try {
         const feeds = await getFeeds();
-        res.json(feeds);
+
+        const enrichedFeeds = await Promise.all(
+            feeds.map(async (feed) => {
+                const user = await getUserById(feed.user_id);
+                const project = await getProjectById(feed.project_id);
+
+                return {
+                    ...feed,
+                    userName: user?.username || "Unknown",
+                    profilePic: user?.image || "/assets/images/default-user.jpg",
+                    profileImage: project?.projectImage || "/assets/images/default-project.jpg"
+                };
+            })
+        );
+
+        res.json(enrichedFeeds);
 
     } catch (err) {
 
@@ -39,7 +55,7 @@ router.get("/local", async (req, res) => {
 
             return res.status(401).json({
                     success: false,
-                    message: "Missing userId" 
+                    message: "Missing or invalid userId" 
                 });
         }
 
@@ -47,9 +63,24 @@ router.get("/local", async (req, res) => {
 
         const feeds = await getFriendsFeed(userId);
 
+        const enrichedFeeds = await Promise.all(
+            feeds.map(async (feed) => {
+                const user = await getUserById(feed.user_id);
+                const project = await getProjectById(feed.project_id);
+
+                return {
+                    ...feed,
+                    userName: user?.username || "Unknown",
+                    profilePic: user?.image || "/assets/images/default-user.jpg",
+                    profileImage: project?.projectImage || "/assets/images/default-project.jpg"
+                };
+            })
+        );
+        
+
         res.json({ 
             success: true, 
-            feeds 
+            enrichedFeeds 
         });
 
     } catch (err) {

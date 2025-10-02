@@ -148,17 +148,20 @@ const activityFeed = [
 ];
 
 
-const ProjectFeeds = ({projectId}) => {
-  var scopedFeed = mockProjects.filter((project) => {
-        return project.id == projectId;
-      });
+const ProjectFeeds = ({activities}) => {
+    if (!activities || activities.length === 0) {
+      return <p>No recent activity</p>;
+    }
+
+    console.log(activities)
+
   return (
     <>
         <link rel="stylesheet" type="text/css" href="/assets/css/ProjectFeeds.css"/>
         <h2 className="ProjectFeedsH2">Activity Feed</h2>
 
         <ul className="ProjectFeeds">
-            {scopedFeed[0].activities.map((activity, activityIndex) => {
+            {activities.map((activity, activityIndex) => {
                 return <li key={activityIndex}><h3>{activity.type}</h3>  <h4>{activity.modifiedBy}</h4> <p>"{activity.comment}"</p> </li>
             })}
         </ul>

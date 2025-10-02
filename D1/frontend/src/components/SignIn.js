@@ -11,6 +11,9 @@ import { useState, useRef } from "react";
 
 const SignIn = ({signUp}) => {
 
+    const [errorMessage, setErrorMessage] = useState("");
+
+
     // emailName 
     const [emailValue, setEmailValue] = useState("");
     
@@ -32,27 +35,42 @@ const SignIn = ({signUp}) => {
 
 
     const handleSubmit = async (e) => {
-          e.preventDefault();
+        e.preventDefault();
+        setErrorMessage("");
 
-          const response = await fetch("/auth/signin", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
+        try{
+            const response = await fetch("/api/auth/signin", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
 
-              body: JSON.stringify({
-                email: emailValue,
-                password: passwordValue,
-            }),
-          });
+                body: JSON.stringify({
+                    email: emailValue,
+                    password: passwordValue,
+                }),
+            });
 
             const data = await response.json();
             console.log("Signup response: ", data);
 
+
+            if(!response.ok){
+                setErrorMessage(data.message);
+                return;
+            }
+
+
             // local storage the token
-            localStorage.setItem("token", data.token);
+            localStorage.setItem("userId", data.user.id);
 
             // to home page
             window.location.href = "/home";
-        };
+
+        }catch (err){
+            
+            setErrorMessage("Something went Wrong, please try again");
+            console.error(err);
+        }
+    };
 
     return (
         <>
@@ -77,6 +95,8 @@ const SignIn = ({signUp}) => {
                     <br/>
 
                     <button type="submit">Sign In</button>
+
+                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
                 </form>
 
                 <p>Don't have an account?</p>

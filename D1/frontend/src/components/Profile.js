@@ -1,7 +1,7 @@
 // 6-u21769584
 
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import ReactDOM from "react-dom/client";
 import { Nav } from "../components/Nav";
@@ -23,10 +23,152 @@ const mockUserProfile = {
 };
 
 
-const Profile = () => {
+const Profile = ({userId}) => {
 
-    const [profile, setProfile] = useState(mockUserProfile);
+    const [profile, setProfile] = useState(null);
     const [editMode, setEditMode] = useState(false);
+
+    const loggedInUserId = parseInt(localStorage.getItem("userId"));
+    const [showRequestsModal, setShowRequestsModal] = useState(false);
+    const [friendRequests, setFriendRequests] = useState([]);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            if (!userId) return;
+
+            try {
+                setLoading(true);
+                const res = await fetch(`/api/users/${userId}`);
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    setError(data.message);
+                    setProfile(null);
+                } else {
+                    setProfile(data.user);
+
+                    if (userId === loggedInUserId) {
+                        const reqRes = await fetch(`/api/users/friendRequests/${userId}`);
+                        const reqData = await reqRes.json();
+                        if (reqRes.ok && reqData.success) {
+                            setFriendRequests(reqData.requests); 
+                        }
+                    }
+
+                }
+            } catch (err) {
+                setError("Network error, try again");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchFriendRequests = async () => {
+            if (userId !== loggedInUserId) return;
+
+            try {
+                const reqRes = await fetch(`/api/users/friendRequests/${userId}`);
+                const reqData = await reqRes.json();
+                if (reqRes.ok && reqData.success) {
+                    // reqData.requests is an array of IDs
+                    const users = await Promise.all(
+                        reqData.requests.map(id =>
+                            fetch(`/api/users/${id}`)
+                                .then(res => res.json())
+                                .then(d => d.user) // make sure your /api/users/:id returns { user: {...} }
+                        )
+                    );
+                    setFriendRequests(users);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchFriendRequests();
+    }, [userId]);
+
+
+
+    const handleSendFriendReq = async () => {
+        try {
+            const res = await fetch(`/api/users/sendFriendReq/${profile.id}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ senderId: loggedInUserId })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) alert("Friend request sent!");
+            else alert(data.message);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
+    const handleRemoveFriend = async () => {
+        try {
+            const res = await fetch(`/api/users/removeFriend/${profile.id}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: loggedInUserId })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) alert("Friend removed!");
+            else alert(data.message);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const toggleRequestsModal = () => {
+        setShowRequestsModal(prev => !prev);
+    };
+
+
+
+    const handleAcceptRequest = async (senderId) => {
+        try {
+            const res = await fetch(`/api/users/acceptFriendReq/${senderId}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ acceptingId: loggedInUserId })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                // remove accepted request from state
+                setFriendRequests(prev => prev.filter(req => req.id !== senderId));
+                alert(`You are now friends with user ${senderId}`);
+            } else alert(data.message);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleRejectRequest = async (senderId) => {
+        try {
+            const res = await fetch(`/api/users/rejectFriendReq/${senderId}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rejectingId: loggedInUserId })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                setFriendRequests(prev => prev.filter(req => req.id !== senderId));
+                alert(`Friend request from user ${senderId} rejected`);
+            } else alert(data.message);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
 
     // refs for form fields
     const firstnameRef = useRef();
@@ -42,19 +184,41 @@ const Profile = () => {
         setEditMode(prev => (prev === true ? false : true));
     };
 
-    const saveProfile = (e) => {
+    const saveProfile = async (e) => {
         e.preventDefault();
-        setProfile({
-            ...profile,
-            firstname: firstnameRef.current.value,
-            lastname: lastnameRef.current.value,
+
+        const updates = {
+            firstName: firstnameRef.current.value,
+            lastName: lastnameRef.current.value,
             username: usernameRef.current.value,
             email: emailRef.current.value,
             company: companyRef.current.value,
             addressLine1: address1Ref.current.value,
             addressLine2: address2Ref.current.value,
-        });
-        setEditMode(false);
+            // phone: phoneRef.current.value
+        };
+
+        try {
+            const res = await fetch("/api/users", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ idNum: profile.id, updates })
+            });
+
+            const data = await res.json();
+
+
+            if (!res.ok || !data.success) {
+                setError(data.message);
+                return;
+            }
+
+            
+            setProfile(data.user);
+            setEditMode(false);
+        } catch (err) {
+            setError("Network error while saving profile");
+        }
     };
 
 
@@ -131,7 +295,7 @@ const Profile = () => {
         setAddressValue(value);
 
         if (value.length <= 1) {
-            setAddressMessage("Adress should be longer than 1 character.");
+            setAddressMessage("Address should be longer than 1 character.");
         } else {
             setAddressMessage("");
         }
@@ -147,6 +311,14 @@ const Profile = () => {
         (emailValue.includes("@") && emailValue.includes(".") && !emailMessage) &&
         (addressValue.length > 1 && !addressMessage);
 
+
+    if (loading) return <p>Loading profile...</p>;
+    if (error) return <p>{error}</p>;
+    if (!profile) return <p>No profile found.</p>;
+
+    const isOwnProfile = userId === loggedInUserId;
+    const isFriend = profile.friends?.includes(loggedInUserId);
+
     return (
         <>
             <link rel="stylesheet" type="text/css" href="/assets/css/Profile.css" />
@@ -155,31 +327,48 @@ const Profile = () => {
             <div className="ProfileCardDiv">
 
                 <div className="ProfileImageDiv">
-                    <img src={`${profile.profileImage}`} ></img> {/* profile image */}
+                    <img src={`${profile.image}`} ></img> {/* profile image */}
                     
                 </div>
                 <div>
                     <div className="ProjectsHeaders">
-                        <h2>{`${profile.firstname} ${profile.lastname}`}</h2>
+                        <h2>{`${profile.firstName} ${profile.lastName}`}</h2>
 
-                        <button onClick={toggleEdit}>
-                            Edit Profile
-                        </button>
+                        {isOwnProfile ? (
+                            <>
+                                <button onClick={toggleEdit}>Edit Profile</button>
+                                <button
+                                    onClick={toggleRequestsModal}
+                                >
+                                    Friend Requests ({friendRequests.length})
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                {!isFriend ? (
+                                    <button onClick={handleSendFriendReq}>
+                                        Send Friend Request
+                                    </button>
+                                ) : (
+                                    <button onClick={handleRemoveFriend}>Remove Friend</button>
+                                )}
+                            </>
+                        )}
                     </div>
 
                     <div className="ProfileMainDetails">
                         <div>
                             <p>Username: {`${profile.username}`}</p>
                             <p>Email: {`${profile.email}`}</p>
-                            <p>Phone: {`${profile.phoneNumber}`}</p>
+                            <p>Phone: {`${profile.phone}`}</p>
                             <p>Company: {`${profile.company}`}</p>
                         </div>
 
                         <div>
-                            <p>Adress Line 1: {`${profile.addressLine1}`}</p>
-                            <p>Adress Line 2: {`${profile.addressLine2}`}</p>
-                            <p>Projects: {`${profile.numberOfProjects}`}</p>
-                            <p>Friends: {`${profile.numberOfFriends}`}</p>
+                            <p>Adress Line 1: {`${profile.address1}`}</p>
+                            <p>Adress Line 2: {`${profile.address2}`}</p>
+                            <p>Projects: {`${profile.projects.length}`}</p>
+                            <p>Friends: {`${profile.friends.length}`}</p>
                         </div>
                     </div>
                         
@@ -248,6 +437,36 @@ const Profile = () => {
                             </div>
                         </div>
                     )}
+
+                    {showRequestsModal && (
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h2>Friend Requests</h2>
+                                    <button className="Profile-close-btn" onClick={toggleRequestsModal}>&times;</button>
+                                </div>
+                                <ul className="friend-requests-list">
+                                    {friendRequests.length === 0 ? (
+                                        <li>No pending requests</li>
+                                    ) : (
+                                        friendRequests.map(req => (
+                                            <li key={req.id} className="friend-request-item">
+                                                <div>
+                                                    <img src={req.image} alt="profile" className="profilePictureSmall" />
+                                                    <span>{req.username}</span>
+                                                </div>
+                                                <div>
+                                                    <button onClick={() => handleAcceptRequest(req.id)}>Accept</button>
+                                                    <button onClick={() => handleRejectRequest(req.id)}>Reject</button>
+                                                </div>
+                                            </li>
+                                        ))
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
+
             </div>
             
         </>

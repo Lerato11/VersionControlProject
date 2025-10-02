@@ -9,7 +9,8 @@ const { getUsers,
     rejectFriendRequest,
     addUserProject,
     updateUserImage, 
-    removeUser
+    removeUser,
+    removeFriend
 } = require("../models/usersModel");
 
 const router = express.Router();
@@ -62,6 +63,42 @@ router.get("/friends", async (req, res) => {
 });
 
 
+// get user by id
+router.get("/:id", async (req, res) => {
+
+    try{
+        // get id from local storage
+        const {id} = req.params; // for testing
+
+        const user = await getUserById(Number(id));
+
+        if (!user) {
+
+            return res.status(401).json({
+                    success: false,
+                    message: "Invalid Userssssss Id" 
+                });
+            }
+
+
+        res.json({
+            success: true,
+            message: "Retrieved User successfully", 
+            user 
+        });
+
+    }
+     catch (err) {
+        res.status(500).json({
+             error: err.message 
+        });
+    }
+});
+
+
+
+
+
 
 // edit user
 // update user
@@ -92,6 +129,20 @@ router.put("/", async (req, res) => {
         res.status(500).json({
              error: err.message 
         });
+    }
+});
+
+
+router.get("/friendRequests/:id", async (req, res) => {
+    const userId = parseInt(req.params.id);
+    try {
+        const user = await getUserById(userId);
+        if (!user) return res.status(401).json({ success: false, message: "Invalid User ID" });
+
+        const requests = user.requests || [];
+        res.json({ success: true, requests });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 });
 
@@ -207,6 +258,27 @@ router.post("/acceptFriendReq/:id", async (req, res) => {
     }
 });
 
+router.post("/removeFriend/:id", async (req, res) => {
+    const removedId = parseInt(req.params.id);
+    const { userId } = req.body;
+
+    try {
+        const removedUser = await getUserById(removedId);
+        const user = await getUserById(userId);
+
+        if (!user || !removedUser) {
+            return res.status(401).json({ success: false, message: "Invalid user ID(s)" });
+        }
+
+        await removeFriend(userId, removedId);
+
+        res.json({ success: true, message: "Friend removed successfully" });
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 
 router.post("/rejectFriendReq/:id", async (req, res) => {
 
@@ -232,7 +304,7 @@ router.post("/rejectFriendReq/:id", async (req, res) => {
 
             return res.status(401).json({
                     success: false,
-                    message: "User did not send Friend Request" 
+                    message: "Usersss did not send Friend Request" 
             });
         }
 

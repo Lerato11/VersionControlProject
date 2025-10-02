@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import PropTypes from 'prop-types'
 
@@ -152,14 +152,71 @@ const Feeds = ({scope}) => {
       return activityFeed.scope == scope;
     });
 
+
+    const [feeds, setFeeds] = useState([]);
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
+    
+
+    let userId = localStorage.getItem("userId");
+
+    useEffect(() => {
+          const fetchFeeds = async () => {
+            
+            setLoading(true);
+            setError("");
+
+             try {
+
+              let url = "/api/feeds";
+                  
+              if (scope === "local") {
+                if (!userId) {
+                  setError("No user logged in");
+                  setLoading(false);
+                  return;
+                }
+                url = `/api/feeds/local?userId=${userId}`;
+              }
+
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+    
+                if (!response.ok) {
+                    setError(data.message);
+    
+                  } else {
+                    setFeeds(scope === "local" ? data.enrichedFeeds : data);
+                  }
+    
+              } catch (err) {
+                  setError("Network error, try again");
+              } finally {
+                  setLoading(false);
+              }
+        };
+    
+        if (userId) fetchFeeds();
+    
+                
+        }, [scope, userId])
+
+
+        if (loading) return <h3>Loading {scope} feed...</h3>;
+        if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
+
+
   return (
       <>
         
         <link rel="stylesheet" type="text/css" href="/assets/css/Feeds.css"/>
         {/* <h2>Activity Feed</h2> */}
         <ul className="FeedsUl">
-          {scopedFeed.map((feed, feedIndex) => {
-            return <Feed key= {feedIndex} id={feed.projectId} activity={feed.activities[0]} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.description} username={feed.userName}/>
+          {feeds.map((feed, feedIndex) => {
+            // console.log(feed)
+            return <Feed key= {feedIndex} id={feed.id} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.message} username={feed.userName}/>
           })}
         </ul>
       </>
