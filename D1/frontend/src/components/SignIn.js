@@ -61,6 +61,7 @@ const SignIn = ({signUp}) => {
 
             // local storage the token
             localStorage.setItem("userId", data.user.id);
+            localStorage.setItem("firstName", data.user.firstName);
 
             // to home page
             window.location.href = "/home";

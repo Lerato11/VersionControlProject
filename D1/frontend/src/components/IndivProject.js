@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FeedDescr } from "./FeedDescr";
 import { Members } from "./Members";
@@ -18,11 +19,21 @@ import {Nav} from "../components/Nav";
 
 
 const IndivProject = ({id}) => {
+    const navigate = useNavigate();
+
 
     const [project, setProject] = useState(null);
     const [editMode, setEditMode] = useState("hidden");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
+
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalType, setModalType] = useState(""); 
+    const [modalMessage, setModalMessage] = useState("");
+
+
+
 
 
     const nameRef = useRef();
@@ -85,7 +96,7 @@ const IndivProject = ({id}) => {
         setEditMode("hidden");
     };
 
-
+    const loggedInUserName = localStorage.getItem("firstName");
     const loggedInUserId = parseInt(localStorage.getItem("userId"));
 
 const handleLeaveProject = async () => {
@@ -102,7 +113,7 @@ const handleLeaveProject = async () => {
         if (res.ok && data.success) {
             alert(data.message);
             
-            window.location.href = "/home";
+            navigate("/home");
         } else {
             alert(data.message);
         }
@@ -112,10 +123,68 @@ const handleLeaveProject = async () => {
     }
 };
 
+    const handleModalSubmit = async () => {
+        try {
+            console.log("Submitting", modalType, "to", `/api/projects/${modalType === "checkout" ? "checkOut" : "checkIn"}/${project.id}`);
+            const res = await fetch(`/api/projects/${modalType === "checkout" ? "checkOut" : "checkIn"}/${project.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userId: loggedInUserId,
+                message: modalMessage
+            })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                alert(data.message);
+
+                // project activities
+                setProject(prev => ({
+                    ...prev,
+                    status: modalType === "checkout" ? "Checked Out" : "Checked In",
+                    checkedOutBy: modalType === "checkout" ? loggedInUserId : null,
+                    activities: [...prev.activities, {
+                    type: modalType === "checkout" ? "Checked Out" : "Checked In",
+                    modifiedBy: loggedInUserName, 
+                    comment: modalMessage
+                    }]
+                }));
+
+
+                // global activities
+
+                await fetch("/api/feeds", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: modalMessage,
+                    user_id: loggedInUserId,
+                    project_id: project.id,
+                    type: modalType === "checkout" ? "Checked Out" : "Checked In"
+                })
+            });
+
+
+            } else {
+                alert(data.message || "Action failed");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Network error");
+        } finally {
+            setModalMessage("");
+            setModalOpen(false);
+        }
+    };
+
+
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
     if (!project) return <p>No project found</p>;
+
 
     return (
         <>
@@ -170,8 +239,24 @@ const handleLeaveProject = async () => {
                                         {"Edit Project"}
                                     </button>
 
-                                    <button>Check In</button>
-                                    <button>Check Out</button>
+                                    
+                                    
+                                    <button
+                                        disabled={project.status === "Checked Out" && project.checkedOutBy !== loggedInUserId}
+                                        onClick={() => { setModalType("checkout"); setModalOpen(true); }}
+                                        >
+                                        Check Out
+                                    </button>
+
+                                    <button
+                                        disabled={project.checkedOutBy !== loggedInUserId}
+                                        onClick={() => { setModalType("checkin"); setModalOpen(true); }}
+                                        >
+                                        Check In
+                                    </button>
+
+
+
                                     <button onClick={handleLeaveProject}>Leave Project</button>
                             </div>
                         </div>
@@ -237,6 +322,33 @@ const handleLeaveProject = async () => {
                     </div>
                 </div>
             )}
+
+
+            {modalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                    <h2>{modalType === "checkout" ? "Check Out Project" : "Check In Project"}</h2>
+                    <textarea
+                        placeholder="Enter a message..."
+                        value={modalMessage}
+                        onChange={(e) => setModalMessage(e.target.value)}
+                    />
+
+                    <div className="modal-actions">
+                        <button onClick={() => setModalOpen(false)}>Cancel</button>
+                        <button onClick={async () => {
+                            await handleModalSubmit();
+                            setModalOpen(false);
+                            }}>
+                            Submit
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                )}
+
+
+
             </div>
 
 
