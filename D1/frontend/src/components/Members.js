@@ -96,6 +96,10 @@ const Members = ({ projectId }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const [addMemberModalOpen, setAddMemberModalOpen] = useState(false);
+    const [friendOptions, setFriendOptions] = useState([]);
+    const [selectedFriends, setSelectedFriends] = useState([]);
+
     useEffect(() => {
       const fetchMembers = async () => {
         if (!projectId) return;
@@ -139,6 +143,31 @@ const Members = ({ projectId }) => {
     if (loading) return <p>Loading members...</p>;
     if (error) return <p>{error}</p>;
     if (!members.length) return <p>No members found.</p>;
+
+    const handleAddMemberClick = async () => {
+
+      const loggedInUserId = parseInt(localStorage.getItem("userId"));
+      const res = await fetch(`/api/users/${loggedInUserId}`);
+      const data = await res.json();
+      
+      if (!res.ok || !data.success) return alert("Failed to fetch friends");
+
+
+      const nonMembers = data.user.friends.filter(fId => !members.some(m => m.id === fId));
+
+
+      const friendDetails = await Promise.all(nonMembers.map(async id => {
+        const res = await fetch(`/api/users/${id}`);
+        const friendData = await res.json();
+        return friendData.user;
+      }));
+
+      setFriendOptions(friendDetails);
+      setSelectedFriends([]);
+      setAddMemberModalOpen(true);
+    };
+
+
     return (
         <>
             <link rel="stylesheet" type="text/css" href="/assets/css/Friends.css"/>
@@ -146,7 +175,8 @@ const Members = ({ projectId }) => {
 
             <div className="ProjectsHeaders">
               <h2 className="ProjectH2-2">Members</h2>
-              <button>+ Member</button>
+              <button onClick={handleAddMemberClick}>+ Member</button>
+
             </div>
          
             <ul className="FriendsUl">
@@ -154,6 +184,85 @@ const Members = ({ projectId }) => {
                     return <ProfilePreview key={member.id} profileImg={member.image} name={member.username} email={member.email}/>
                 })}
             </ul>
+
+
+
+
+          {addMemberModalOpen && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+
+                {/* 1. Add the modal-header structure */}
+                <div className="modal-header">
+                  <h2>Select friends to add</h2>
+                  {/* 2. Add the close button with class close-btn */}
+                  <button 
+                    className="close-btn" 
+                    onClick={() => setAddMemberModalOpen(false)}
+                  >
+                    &times;
+                  </button>
+                </div>
+
+                {/* 3. Wrap the content and actions in a container for styling, 
+                      like the .add-project-form div (or just a new div) */}
+                <div className="add-project-form"> 
+                  
+                  {/* Modal content list */}
+                  <ul>
+                    {friendOptions.map(friend => (
+                      <li key={friend.id}>
+                        <label>
+                          <input 
+                            type="checkbox" 
+                            value={friend.id} 
+                            checked={selectedFriends.includes(friend.id)}
+                            onChange={e => {
+                              const id = parseInt(e.target.value);
+                              setSelectedFriends(prev => 
+                                prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+                              );
+                            }}
+                          />
+                          {friend.username} ({friend.email})
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Action buttons (you can add a wrapper div here if needed) */}
+                  <div className="modal-actions">
+                    <button 
+                      onClick={async () => {
+                        // ... your existing logic for adding members ...
+                        const loggedInUserId = parseInt(localStorage.getItem("userId"));
+
+                        for (let fId of selectedFriends) {
+                          await fetch(`/api/projects/addMember/${projectId}`, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              addedMemberId: fId,
+                              addingMemberId: loggedInUserId
+                            })
+                          });
+                        }
+
+                        // Refresh members
+                        setAddMemberModalOpen(false);
+                        // Trigger re-fetch of members list
+                        setMembers(prev => [...prev, ...friendOptions.filter(f => selectedFriends.includes(f.id))]);
+                      }}
+                    >
+                      Add Selected
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
         </>
     )
 }

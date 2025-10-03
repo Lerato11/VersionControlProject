@@ -166,20 +166,21 @@ async function removeUserProject(userId, projectId) {
 }
 
 // update profile image
-async function updateUserImage(id, imagePath) {
+async function updateUserImage(idNum, imagePath) {
     console.log("backend: "+ imagePath);
+    console.log("id: "+ idNum);
     
     await runUpdateQuery(
     "users",
 
     // change path of image
-    { id },
+    { id: parseInt(idNum) },
     
     { $set: { image: imagePath } }
     );
 
     
-    return await getUserById(id);
+    return await getUserById(idNum);
 }
 
 // Delete

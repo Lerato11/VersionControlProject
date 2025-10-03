@@ -37,10 +37,10 @@
   width: 200px;
 }
 
-.search-form input[type="search"]::placeholder {
+/* .search-form input[type="search"]::placeholder {
   color: #888;
   transition: color 0.3s ease;
-}
+} */
 
 
 .search-form button {
@@ -62,3 +62,74 @@
     height: 15px;
 }
 
+
+/* Style the new search input area inside the modal */
+.search-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px; /* Space above results */
+}
+
+/* Style the input inside the modal to match other inputs */
+.add-project-form .search-input-area input {
+    /* Override wide width from .add-project-form input */
+    width: 100%;
+    /* Keep other styles inherited from .add-project-form input for consistency */
+}
+
+/* Fix the tall button issue and style the button */
+.add-project-form .search-input-area button {
+    /* Reset height to a standard size */
+    height: 40px; 
+    /* Use padding to set width */
+    padding: 0 15px; 
+    /* Apply consistent button styling */
+    background-color: #1d5f69;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: none; /* Remove heavy shadow */
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.add-project-form .search-input-area button:hover {
+    background-color: #278290;
+}
+
+
+/* Style search results list (optional, but good for layout) */
+.search-results ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.search-results li {
+    padding: 8px 0;
+    cursor: pointer;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.1s ease;
+    font-size: 0.95rem;
+}
+
+.search-results li:hover {
+    background-color: #f7f7f7;
+    color: #1d5f69;
+}
+
+/* Ensure the container itself is a block container */
+.search-results {
+    display: block; /* Ensures the container behaves normally */
+}
+
+/* Ensure children stack if they were somehow set to inline or inline-block */
+.search-results > h3,
+.search-results > ul {
+    display: block; /* Ensure they are block-level and stack */
+    margin-bottom: 10px; /* Add some space between sections */
+}

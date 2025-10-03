@@ -39,7 +39,7 @@ const Nav = () => {
             <Link to="/home" className="navLink">Home</Link>
             <Link to="/profile" className="navLink">Profile</Link>
 
-            <button onClick={handleLogout}>
+            <button onClick={handleLogout} className="navButton">
                     Logout
                 </button>
             {/* <Link to="/projects" className="navLink">Project</Link> */}

@@ -14,6 +14,8 @@ import { activityFeed } from "./Feeds";
 import { mockProjects } from "./Projects";
 import { Files } from "./Files";
 
+// import {image} from "../../public/assets/images/"
+
 import {Nav} from "../components/Nav";
 
 
@@ -32,9 +34,10 @@ const IndivProject = ({id}) => {
     const [modalType, setModalType] = useState(""); 
     const [modalMessage, setModalMessage] = useState("");
 
-
-
-
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    
 
     const nameRef = useRef();
     const versionRef = useRef();
@@ -99,6 +102,8 @@ const IndivProject = ({id}) => {
     const loggedInUserName = localStorage.getItem("firstName");
     const loggedInUserId = parseInt(localStorage.getItem("userId"));
 
+    
+
 const handleLeaveProject = async () => {
     if (!window.confirm("Are you sure you want to leave this project?")) return;
 
@@ -127,13 +132,25 @@ const handleLeaveProject = async () => {
         try {
             console.log("Submitting", modalType, "to", `/api/projects/${modalType === "checkout" ? "checkOut" : "checkIn"}/${project.id}`);
             const res = await fetch(`/api/projects/${modalType === "checkout" ? "checkOut" : "checkIn"}/${project.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                userId: loggedInUserId,
-                message: modalMessage
-            })
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: loggedInUserId,
+                    message: modalMessage
+                })
             });
+
+            if (modalType === "checkin" && selectedFiles?.length > 0) {
+                const formData = new FormData();
+                for (let file of selectedFiles) {
+                    formData.append("files", file);
+                }
+
+                await fetch(`/api/projects/uploadFiles/${project.id}`, {
+                    method: "POST",
+                    body: formData
+                });
+            }
 
             const data = await res.json();
 
@@ -185,6 +202,34 @@ const handleLeaveProject = async () => {
     if (error) return <p>{error}</p>;
     if (!project) return <p>No project found</p>;
 
+    const handleImageUpload = async (e) => {
+        e.preventDefault();
+
+        if (!selectedImage) return alert("No image selected!");
+
+        const formData = new FormData();
+        formData.append("idNum", project.id);
+        formData.append("image", selectedImage);
+
+        const res = await fetch("/api/projects/projectImage", {
+            method: "PATCH",
+            body: formData,
+        });
+
+        console.log(formData);
+
+        const data = await res.json();
+        
+        if (res.ok && data.success) {
+            setProject(data.project);
+            setShowImageModal(false);
+
+        } else {
+            alert(data.message || "Upload failed");
+        }
+    };
+
+    const isMember = project.members?.includes(loggedInUserId);
 
     return (
         <>
@@ -195,19 +240,40 @@ const handleLeaveProject = async () => {
                 <div className="IndivOuterProjectDiv">
                     <div className="ProjectInfoDiv">
 
-                        <div className="projectIndivImage">
+                        <div className="projectIndivImage" onClick={isMember ? () => setShowImageModal(true) : null} style={{ cursor: isMember ? "pointer" : "not-allowed" }}>
                             <img src={project.projectImage} alt={project.name}></img> {/* project image */}
                         </div>
+
+
+                        {showImageModal && (
+                            <div className="modal-overlay">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h2>Upload Project Image</h2>
+                                    <button className="close-btn" onClick={() => setShowImageModal(false)}>
+                                    &times;
+                                    </button>
+                                </div>
+
+                                <form onSubmit={handleImageUpload}>
+                                    <input 
+                                    type="file" 
+                                    accept="image/*"
+                                    onChange={(e) => setSelectedImage(e.target.files[0])}
+                                    />
+                                    <button type="submit">Upload</button>
+                                </form>
+                                </div>
+                            </div>
+                            )}
 
                         <div className="fileNames">
 
 
                              <div >
                                 <h5>Files</h5>
-                                <Files files={project.files} />
-                                <div>
-                                    <button >Download Files</button>
-                                </div>
+                                <Files files={project.files} projectId={project.id} />
+   
                             </div>
 
                             <div>
@@ -235,21 +301,21 @@ const handleLeaveProject = async () => {
                             </div>
 
                              <div className="ProjectButtonsDiv">
-                                    <button onClick={onEditProject}>
+                                    <button onClick={onEditProject} disabled={!isMember}>
                                         {"Edit Project"}
                                     </button>
 
                                     
                                     
                                     <button
-                                        disabled={project.status === "Checked Out" && project.checkedOutBy !== loggedInUserId}
+                                        disabled={!isMember || (project.status === "Checked Out" && project.checkedOutBy !== loggedInUserId)}
                                         onClick={() => { setModalType("checkout"); setModalOpen(true); }}
                                         >
                                         Check Out
                                     </button>
 
                                     <button
-                                        disabled={project.checkedOutBy !== loggedInUserId}
+                                        disabled={!isMember || project.checkedOutBy !== loggedInUserId}
                                         onClick={() => { setModalType("checkin"); setModalOpen(true); }}
                                         >
                                         Check In
@@ -257,7 +323,7 @@ const handleLeaveProject = async () => {
 
 
 
-                                    <button onClick={handleLeaveProject}>Leave Project</button>
+                                    <button onClick={handleLeaveProject} disabled={!isMember}>Leave Project</button>
                             </div>
                         </div>
                                         
@@ -327,21 +393,52 @@ const handleLeaveProject = async () => {
             {modalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                    <h2>{modalType === "checkout" ? "Check Out Project" : "Check In Project"}</h2>
-                    <textarea
+
+    
+                    <div className="modal-header">
+                        <h2>{modalType === "checkout" ? "Check Out Project" : "Check In Project"}</h2>
+                        <button className="close-btn" onClick={() => setModalOpen(false)}>
+                        &times;
+                        </button>
+                    </div>
+
+                 
+                    <div className="add-project-form">
+                        <label>Enter a message... :</label>
+                        <textarea
                         placeholder="Enter a message..."
                         value={modalMessage}
                         onChange={(e) => setModalMessage(e.target.value)}
-                    />
+                        />
 
-                    <div className="modal-actions">
-                        <button onClick={() => setModalOpen(false)}>Cancel</button>
-                        <button onClick={async () => {
+                        {modalType === "checkin" && (
+                        <>  
+                        <label>Upload Project Files :</label>
+
+                            <input 
+                                id="file-upload"
+                                type="file" 
+                                multiple 
+                                onChange={(e) => setSelectedFiles(e.target.files)} 
+                                style={{ display: "none" }} // hidden
+                                />
+
+                            
+                            <label htmlFor="file-upload" className="uploadButton">
+                                Choose Files
+                            </label>
+                        </>  
+                        )}
+
+                        <div className="modal-actions">
+                        {/* <button type="button" onClick={() => setModalOpen(false)}>Cancel</button> */}
+                        <button type="button" onClick={async () => {
                             await handleModalSubmit();
                             setModalOpen(false);
-                            }}>
+                        }}>
                             Submit
                         </button>
+                        </div>
                     </div>
                     </div>
                 </div>

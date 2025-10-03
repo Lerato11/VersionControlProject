@@ -19,6 +19,13 @@ const { getUserById, addUserProject, removeUserProject } = require("../models/us
 
 const router = express.Router();
 
+const { uploadImage, uploadFile } = require("../utils/fileUploads");
+
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+
+
 
 // get all projects
 router.get("/", async (req, res) => {
@@ -146,7 +153,7 @@ router.put("/:id", async (req, res) => {
 
 
 // update project image
-router.patch("/projectImage", async (req, res) => {
+router.patch("/projectImage", uploadImage.single("image"), async (req, res) => {
     // console.log("Test");
 
     // return res.status(401).json({
@@ -154,18 +161,21 @@ router.patch("/projectImage", async (req, res) => {
     //                 message: "Invalid Project Idsssss" 
     //             });
             
-    const { idNum, projectImage } = req.body;
+    const { idNum } = req.body;
     const id = parseInt(idNum);
 
-    console.log("routes: "+ projectImage)
+    const imagePath = `/assets/images/${req.file.filename}`;
+    
 
-    if (isNaN(id) || !projectImage) {
+    console.log("routes: "+ imagePath)
+
+    if (isNaN(id) || !imagePath) {
         return res.status(400).json({ success: false, message: "Invalid ID or missing image path." });
     }
 
 
     try{
-        const project = await updateProjectImage(id, projectImage);
+        const project = await updateProjectImage(id, imagePath);
 
 
         if (!project || project.id != id) {
@@ -501,7 +511,54 @@ router.delete("/:id", async (req, res) => {
 });
 
 
+router.post("/uploadFiles/:id", uploadFile.array("files", 10), async (req, res) => {
+    try {
+        const idNum = parseInt(req.params.id);
+        const project = await getProjectById(idNum);
 
+        if (!project) {
+            return res.status(404).json({ success: false, message: "Project not found" });
+        }
+
+        console.log("Uploaded files:", req.files);
+
+        const fileNames = req.files.map(f => f.filename);
+
+        const updatedFiles = fileNames;
+
+
+        const updated = await updateProject(idNum, { files: updatedFiles });
+
+        res.json({
+            success: true,
+            message: "Files uploaded successfully",
+            project: updated
+        });
+    } catch (err) {
+        console.error("Upload error:", err);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
+
+
+
+router.get("/downloadFile/:projectId/:filename", async (req, res) => {
+    const { projectId, filename } = req.params;
+
+    const filePath = path.join(__dirname, "..", "public", "assets", "files", filename);
+
+
+    // console.log("filepathssss: ")
+    // console.log(filePath);
+    if (!fs.existsSync(filePath)) {
+        console.log("nope")
+        return res.status(404).json({ success: false, message: "File not found" });
+    }
+
+    // console.log("filepath: ")
+    // console.log(filePath);
+    res.download(filePath);
+});
 
 
 

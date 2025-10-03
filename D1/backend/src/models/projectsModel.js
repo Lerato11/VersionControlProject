@@ -166,20 +166,20 @@ async function getNextProjectId() {
 
 
 // update project image
-async function updateProjectImage(id, imagePath) {
+async function updateProjectImage(idNum, imagePath) {
     console.log("backend: "+ imagePath);
     
     await runUpdateQuery(
     "projects",
 
     // change path of image
-    { id },
+    { id: parseInt(idNum) },
     
     { $set: { projectImage: imagePath } }
     );
 
     
-    return await getProjectById(id);
+    return await getProjectById(idNum);
 }
 
 

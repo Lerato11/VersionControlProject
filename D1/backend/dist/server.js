@@ -14,6 +14,7 @@ var projectRoutes = require("./routes/projectsRoutes");
 var feedRoutes = require("./routes/feedsRoutes");
 var userRoutes = require("./routes/usersRoutes");
 var authRoutes = require("./routes/authRoutes");
+var searchRoutes = require("./routes/searchRoutes");
 var app = express();
 var PORT = 3000;
 
@@ -25,56 +26,8 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/feeds", feedRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-
-// app.post('/auth/signin', (req, res) => {
-//     const {email, password} = req.body;
-
-//     console.log("Sign in attempt:", email);
-
-//     // demo success
-//     res.json({
-//         success: true,
-//         message: "Signed in successfully (stub)",
-//         user: { 
-//             id: 2, 
-//             email 
-//         },
-
-//         token: "sni@42sm$i*1", // for auth
-//     });
-// });
-
-app.post("/auth/signup", function (req, res) {
-  var _req$body = req.body,
-    firstName = _req$body.firstName,
-    lastName = _req$body.lastName,
-    email = _req$body.email,
-    username = _req$body.username,
-    phoneNumber = _req$body.phoneNumber,
-    company = _req$body.company,
-    addressLine1 = _req$body.addressLine1,
-    addressLine2 = _req$body.addressLine2,
-    password = _req$body.password;
-  console.log("New user sign up:", req.body);
-
-  // Respond with dummy user + fake token
-  res.json({
-    success: true,
-    message: "User registered successfully",
-    user: {
-      id: 1,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      username: username,
-      phoneNumber: phoneNumber,
-      company: company,
-      addressLine1: addressLine1,
-      addressLine2: addressLine2
-    },
-    token: "cn3io4@m4!2*2"
-  });
-});
+app.use("/api/search", searchRoutes);
+app.use("/assets/images", express["static"](path.join(__dirname, "assets/images")));
 app.use(express["static"]("frontend/public"));
 app.get("/api", function (req, res) {
   res.json({
@@ -100,7 +53,6 @@ function _startServer() {
           _context.n = 1;
           return dbConnect();
         case 1:
-          // 👈 connect first
           console.log("✅ Connected to MongoDB");
           app.listen(PORT, function () {
             console.log("Server running on http://localhost:".concat(PORT));

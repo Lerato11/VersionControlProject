@@ -18,7 +18,7 @@ const Project = ({project}) => {
                 <link rel="stylesheet" type="text/css" href="/assets/css/Project.css"/>
                 
                 <div className="projectContainer">
-                    < ProjectHeader projectImg={project.image} languages={project.languages} />
+                    < ProjectHeader projectImg={project.projectImage} languages={project.languages} />
                     < ProjectDetails projectName={project.name} projectType={project.type} projectVersion={project.version}  projectStatus={project.status}  projectDescr={project.description}/>
                 </div>
             </li>

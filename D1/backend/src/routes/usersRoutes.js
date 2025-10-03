@@ -15,6 +15,8 @@ const { getUsers,
 
 const router = express.Router();
 
+const {uploadImage} = require("../utils/fileUploads");
+
 
 // get all users
 router.get("/", async (req, res) => {
@@ -328,24 +330,19 @@ router.post("/rejectFriendReq/:id", async (req, res) => {
 
 
 // update user image
-router.put("/profileImage", async (req, res) => {
+router.patch("/profileImage", uploadImage.single("image"), async (req, res) => {
 
-    const {idNum,image} = req.body;
+    const {idNum} = req.body;
 
-    console.log("route: "+ image)
+    const imagePath = `/assets/images/${req.file.filename}`;
+
+    console.log("route: "+ imagePath)
 
 
     try{
-        const user = await updateUserImage(idNum, image);
+        const user = await updateUserImage(idNum, imagePath);
 
-        if (!user || user.id != idNum) {
-
-            return res.status(401).json({
-                    success: false,
-                    message: "Invalid User Id" 
-                });
-            }
-
+    
         res.json({
             success: true,
             message: "Profile Image Updated Successfully", 

@@ -35,6 +35,10 @@ const Profile = ({userId}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+
     useEffect(() => {
         const fetchProfile = async () => {
             if (!userId) return;
@@ -47,6 +51,7 @@ const Profile = ({userId}) => {
                 if (!res.ok || !data.success) {
                     setError(data.message);
                     setProfile(null);
+
                 } else {
                     setProfile(data.user);
 
@@ -319,6 +324,36 @@ const Profile = ({userId}) => {
     const isOwnProfile = userId === loggedInUserId;
     const isFriend = profile.friends?.includes(loggedInUserId);
 
+
+
+    const handleImageUpload = async (e) => {
+        e.preventDefault();
+
+        if (!selectedImage) return alert("No image selected!");
+
+        const formData = new FormData();
+        formData.append("idNum", profile.id);
+        formData.append("image", selectedImage);
+
+        const res = await fetch("/api/users/profileImage", {
+            method: "PATCH",
+            body: formData,
+        });
+
+        console.log(formData);
+
+        const data = await res.json();
+        
+        if (res.ok && data.success) {
+            setProfile(data.user);
+            setShowImageModal(false);
+
+        } else {
+            alert(data.message || "Upload failed");
+        }
+    };
+
+
     return (
         <>
             <link rel="stylesheet" type="text/css" href="/assets/css/Profile.css" />
@@ -326,10 +361,33 @@ const Profile = ({userId}) => {
 
             <div className="ProfileCardDiv">
 
-                <div className="ProfileImageDiv">
+                <div className="ProfileImageDiv" onClick={() => setShowImageModal(true)}  style={{ cursor: "pointer" }}>
                     <img src={`${profile.image}`} ></img> {/* profile image */}
                     
                 </div>
+
+                {showImageModal && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h2>Upload Profile Image</h2>
+                            <button className="Profile-close-btn" onClick={() => setShowImageModal(false)}>
+                            &times;
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleImageUpload}>
+                            <input 
+                            type="file" 
+                            accept="image/*"
+                            onChange={(e) => setSelectedImage(e.target.files[0])}
+                            />
+                            <button type="submit">Upload</button>
+                        </form>
+                        </div>
+                    </div>
+                    )}
+
                 <div>
                     <div className="ProjectsHeaders">
                         <h2>{`${profile.firstName} ${profile.lastName}`}</h2>

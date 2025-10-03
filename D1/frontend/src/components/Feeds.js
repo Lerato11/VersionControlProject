@@ -216,7 +216,7 @@ const Feeds = ({scope}) => {
         <ul className="FeedsUl">
           {feeds.map((feed, feedIndex) => {
             // console.log(feed)
-            return <Feed key= {feedIndex} id={feed.id} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.message} username={feed.userName}/>
+            return <Feed key= {feedIndex} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.message} username={feed.userName} projectId={feed.project_id}/>
           })}
         </ul>
       </>
