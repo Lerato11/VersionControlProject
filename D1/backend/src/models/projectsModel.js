@@ -141,9 +141,9 @@ async function removeProjectMember(projectId, memberId) {
 
 // update project image
 // Edit a project 
-async function updateProject(id, updates) {
-  return await runUpdateQuery("projects", { id }, { $set: updates });
-}
+// async function updateProject(id, updates) {
+//   return await runUpdateQuery("projects", { id }, { $set: updates });
+// }
 
 
 // Delete

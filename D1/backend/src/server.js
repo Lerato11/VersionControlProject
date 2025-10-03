@@ -47,6 +47,12 @@ async function startServer() {
     await dbConnect(); 
     console.log("✅ Connected to MongoDB");
 
+    // register routes after DB is ready
+    app.use("/api/projects", projectRoutes);
+    app.use("/api/feeds", feedRoutes);
+    app.use("/api/users", userRoutes);
+    app.use("/api/auth", authRoutes);
+    app.use("/api/search", searchRoutes);
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

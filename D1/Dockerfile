@@ -2,17 +2,15 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# Copy package.json first to leverage cache
 COPY package*.json ./
-
 RUN npm install
 
+# Copy all code
 COPY . .
 
-# WORKDIR /app/frontend
-RUN npm run build
-
-# WORKDIR /app/backend/dist
-
+# Expose the backend port
 EXPOSE 3000
 
-CMD [ "node", "backend/dist/server.js" ]
+# Run the backend
+CMD ["node", "backend/src/server.js"]

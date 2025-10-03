@@ -4,81 +4,67 @@ function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present,
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-var express = require('express');
-var _require = require('http'),
-  get = _require.get;
-var path = require('path');
-var _require2 = require("../src/database"),
-  dbConnect = _require2.dbConnect;
-var projectRoutes = require("./routes/projectsRoutes");
-var feedRoutes = require("./routes/feedsRoutes");
-var userRoutes = require("./routes/usersRoutes");
-var authRoutes = require("./routes/authRoutes");
-var searchRoutes = require("./routes/searchRoutes");
-var app = express();
-var PORT = 3000;
-
-// const projectRoutes = require("./routes/projectsRoutes");
-
-app.use(express.json());
-app.use(express["static"](path.join(__dirname, "../frontend/public")));
-app.use("/api/projects", projectRoutes);
-app.use("/api/feeds", feedRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/search", searchRoutes);
-app.use("/assets/images", express["static"](path.join(__dirname, "assets/images")));
-app.use(express["static"]("frontend/public"));
-app.get("/api", function (req, res) {
-  res.json({
-    message: "Hello from Backend"
-  });
-});
-
-// app.use("/api/projects", projectRoutes);
-
-app.get('/{*any}', function (req, res) {
-  res.sendFile(path.resolve("frontend/public", "index.html"));
-});
-function startServer() {
-  return _startServer.apply(this, arguments);
-}
-function _startServer() {
-  _startServer = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    var _t;
+var express = require("express");
+var _require = require("../models/usersModel"),
+  addUser = _require.addUser,
+  getUserByEmail = _require.getUserByEmail;
+var router = express.Router();
+router.post("/signin", /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee(req, res) {
+    var _req$body, email, password, user;
     return _regenerator().w(function (_context) {
-      while (1) switch (_context.p = _context.n) {
+      while (1) switch (_context.n) {
         case 0:
-          _context.p = 0;
+          _req$body = req.body, email = _req$body.email, password = _req$body.password;
           _context.n = 1;
-          return dbConnect();
+          return getUserByEmail(email);
         case 1:
-          console.log("✅ Connected to MongoDB");
-
-          // register routes after DB is ready
-          app.use("/api/projects", projectRoutes);
-          app.use("/api/feeds", feedRoutes);
-          app.use("/api/users", userRoutes);
-          app.use("/api/auth", authRoutes);
-          app.use("/api/search", searchRoutes);
-          app.listen(PORT, function () {
-            console.log("Server running on http://localhost:".concat(PORT));
-          });
-          _context.n = 3;
-          break;
+          user = _context.v;
+          if (!(!user || user.password !== password)) {
+            _context.n = 2;
+            break;
+          }
+          return _context.a(2, res.status(401).json({
+            success: false,
+            message: "Invalid credentials"
+          }));
         case 2:
-          _context.p = 2;
-          _t = _context.v;
-          console.error("❌ Failed to start server:", _t.message);
+          res.json({
+            success: true,
+            message: "Signed in",
+            user: user
+          });
         case 3:
           return _context.a(2);
       }
-    }, _callee, null, [[0, 2]]);
+    }, _callee);
   }));
-  return _startServer.apply(this, arguments);
-}
-startServer();
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}());
+router.post("/register", /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(req, res) {
+    var newUser;
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.n) {
+        case 0:
+          _context2.n = 1;
+          return addUser(req.body);
+        case 1:
+          newUser = _context2.v;
+          res.json({
+            success: true,
+            message: "User registered",
+            user: newUser
+          });
+        case 2:
+          return _context2.a(2);
+      }
+    }, _callee2);
+  }));
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}());
+module.exports = router;

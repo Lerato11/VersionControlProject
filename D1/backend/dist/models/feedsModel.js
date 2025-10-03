@@ -4,81 +4,140 @@ function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present,
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
-var express = require('express');
-var _require = require('http'),
-  get = _require.get;
-var path = require('path');
-var _require2 = require("../src/database"),
-  dbConnect = _require2.dbConnect;
-var projectRoutes = require("./routes/projectsRoutes");
-var feedRoutes = require("./routes/feedsRoutes");
-var userRoutes = require("./routes/usersRoutes");
-var authRoutes = require("./routes/authRoutes");
-var searchRoutes = require("./routes/searchRoutes");
-var app = express();
-var PORT = 3000;
+var _require = require("../database"),
+  runFindQuery = _require.runFindQuery,
+  runInsertQuery = _require.runInsertQuery,
+  runUpdateQuery = _require.runUpdateQuery;
+var _require2 = require("../models/usersModel"),
+  getUserById = _require2.getUserById;
 
-// const projectRoutes = require("./routes/projectsRoutes");
+// Read
 
-app.use(express.json());
-app.use(express["static"](path.join(__dirname, "../frontend/public")));
-app.use("/api/projects", projectRoutes);
-app.use("/api/feeds", feedRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/search", searchRoutes);
-app.use("/assets/images", express["static"](path.join(__dirname, "assets/images")));
-app.use(express["static"]("frontend/public"));
-app.get("/api", function (req, res) {
-  res.json({
-    message: "Hello from Backend"
-  });
-});
-
-// app.use("/api/projects", projectRoutes);
-
-app.get('/{*any}', function (req, res) {
-  res.sendFile(path.resolve("frontend/public", "index.html"));
-});
-function startServer() {
-  return _startServer.apply(this, arguments);
-}
-function _startServer() {
-  _startServer = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
-    var _t;
+// get all feeds (global)
+function getFeeds() {
+  return _getFeeds.apply(this, arguments);
+} // get friend feeds (local)
+function _getFeeds() {
+  _getFeeds = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+    var feeds;
     return _regenerator().w(function (_context) {
-      while (1) switch (_context.p = _context.n) {
+      while (1) switch (_context.n) {
         case 0:
-          _context.p = 0;
           _context.n = 1;
-          return dbConnect();
+          return runFindQuery("feeds");
         case 1:
-          console.log("✅ Connected to MongoDB");
-
-          // register routes after DB is ready
-          app.use("/api/projects", projectRoutes);
-          app.use("/api/feeds", feedRoutes);
-          app.use("/api/users", userRoutes);
-          app.use("/api/auth", authRoutes);
-          app.use("/api/search", searchRoutes);
-          app.listen(PORT, function () {
-            console.log("Server running on http://localhost:".concat(PORT));
-          });
-          _context.n = 3;
-          break;
-        case 2:
-          _context.p = 2;
-          _t = _context.v;
-          console.error("❌ Failed to start server:", _t.message);
-        case 3:
-          return _context.a(2);
+          feeds = _context.v;
+          return _context.a(2, feeds || null);
       }
-    }, _callee, null, [[0, 2]]);
+    }, _callee);
   }));
-  return _startServer.apply(this, arguments);
+  return _getFeeds.apply(this, arguments);
 }
-startServer();
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
+function getFeedsByUserId(_x) {
+  return _getFeedsByUserId.apply(this, arguments);
+} // Create
+// create a feed (on check in / out)
+function _getFeedsByUserId() {
+  _getFeedsByUserId = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(userId) {
+    var feeds;
+    return _regenerator().w(function (_context2) {
+      while (1) switch (_context2.n) {
+        case 0:
+          _context2.n = 1;
+          return runFindQuery("feeds", {
+            userId: userId
+          });
+        case 1:
+          feeds = _context2.v;
+          return _context2.a(2, feeds[0] || null);
+      }
+    }, _callee2);
+  }));
+  return _getFeedsByUserId.apply(this, arguments);
+}
+function addFeed(_x2) {
+  return _addFeed.apply(this, arguments);
+}
+function _addFeed() {
+  _addFeed = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(newFeed) {
+    return _regenerator().w(function (_context3) {
+      while (1) switch (_context3.n) {
+        case 0:
+          _context3.n = 1;
+          return runInsertQuery("feeds", newFeed);
+        case 1:
+          return _context3.a(2, _context3.v);
+      }
+    }, _callee3);
+  }));
+  return _addFeed.apply(this, arguments);
+}
+function getNextFeedId() {
+  return _getNextFeedId.apply(this, arguments);
+}
+function _getNextFeedId() {
+  _getNextFeedId = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+    var lastFeed;
+    return _regenerator().w(function (_context4) {
+      while (1) switch (_context4.n) {
+        case 0:
+          _context4.n = 1;
+          return runFindQuery("feeds", {}, {
+            sort: {
+              id: -1
+            },
+            limit: 1
+          });
+        case 1:
+          lastFeed = _context4.v;
+          return _context4.a(2, lastFeed.length ? lastFeed[0].id + 1 : 1);
+      }
+    }, _callee4);
+  }));
+  return _getNextFeedId.apply(this, arguments);
+}
+function getFriendsFeed(_x3) {
+  return _getFriendsFeed.apply(this, arguments);
+} // Update and Delete a feed? 
+function _getFriendsFeed() {
+  _getFriendsFeed = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee5(userId) {
+    var user, friendsIds, feeds;
+    return _regenerator().w(function (_context5) {
+      while (1) switch (_context5.n) {
+        case 0:
+          _context5.n = 1;
+          return getUserById(userId);
+        case 1:
+          user = _context5.v;
+          if (user) {
+            _context5.n = 2;
+            break;
+          }
+          return _context5.a(2, []);
+        case 2:
+          friendsIds = user.friends || []; // get feeds where feed.userId is in friendsIds
+          _context5.n = 3;
+          return runFindQuery("feeds", {
+            user_id: {
+              $in: friendsIds
+            }
+          }, {
+            sort: {
+              id: -1
+            }
+          });
+        case 3:
+          feeds = _context5.v;
+          return _context5.a(2, feeds);
+      }
+    }, _callee5);
+  }));
+  return _getFriendsFeed.apply(this, arguments);
+}
+module.exports = {
+  getFeeds: getFeeds,
+  getFeedsByUserId: getFeedsByUserId,
+  addFeed: addFeed,
+  getNextFeedId: getNextFeedId,
+  getFriendsFeed: getFriendsFeed
+};
