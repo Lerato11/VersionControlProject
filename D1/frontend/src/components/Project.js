@@ -19,7 +19,7 @@ const Project = ({project}) => {
                 
                 <div className="projectContainer">
                     < ProjectHeader projectImg={project.projectImage} languages={project.languages} />
-                    < ProjectDetails projectName={project.name} projectType={project.type} projectVersion={project.version}  projectStatus={project.status}  projectDescr={project.description}/>
+                    < ProjectDetails projectName={project.name} projectType={project.type} projectVersion={project.version}  projectStatus={project.status}  projectDescr={project.description} projectDate={project.createdAt}/>
                 </div>
             </li>
         </Link>

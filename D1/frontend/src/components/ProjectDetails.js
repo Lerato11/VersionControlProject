@@ -5,7 +5,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 
-const ProjectDetails = ({projectName, projectType, projectVersion, projectStatus, projectDescr}) => {
+const ProjectDetails = ({projectName, projectType, projectVersion, projectStatus, projectDescr, projectDate}) => {
     return (
         <div className="projectDetails">
             <link rel="stylesheet" type="text/css" href="/assets/css/ProjectDetails.css"/>
@@ -16,6 +16,7 @@ const ProjectDetails = ({projectName, projectType, projectVersion, projectStatus
                 <li><p>Type: {projectType}</p></li>
                 <li><p>Version: {projectVersion}</p></li>
                 <li><p>Status: {projectStatus}</p></li>
+                <li><p>Created: {new Date(projectDate).toLocaleDateString()}</p></li>
             </ul>
 
             <div>

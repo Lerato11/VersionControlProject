@@ -449,7 +449,7 @@ router.post("/", async (req, res) => {
             status: "Checked In",
             members: [userId],
             checkedOutBy: null,
-            projectImage: "",
+            projectImage: "/assets/images/placeholder.png",
             createdAt: new Date()
 
         };

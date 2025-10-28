@@ -73,6 +73,14 @@ body{
   display: block;
 }
 
+.HomeProjectsDiv {
+  /* background-color: #5ea5b0;
+  border-radius: 30px;
+  padding: 20px; */
+  
+  
+  align-self: start;
+}
 
 .FriendsDiv{
     background-color: #5ea5b0;

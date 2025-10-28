@@ -105,8 +105,7 @@ router.post("/", async (req, res) => {
             message, 
             user_id, 
             project_id, 
-            type,
-            createdAt: new Date()
+            type
         };
 
         const createdFeed = await addFeed(newFeed);

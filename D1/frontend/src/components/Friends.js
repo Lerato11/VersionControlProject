@@ -63,7 +63,7 @@ const Friends = ({userId}) => {
         <>
             <link rel="stylesheet" type="text/css" href="/assets/css/Friends.css"/>
 
-            <h2>Friends</h2>
+            <h2 className="secondaryHeader">Friends</h2>
 
             <ul className="FriendsUl">
                 {friends.map((friend) => (

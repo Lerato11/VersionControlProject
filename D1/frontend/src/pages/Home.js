@@ -11,6 +11,9 @@ import {Nav} from "../components/Nav";
 
 // import "../../../public/assets/css/"
 
+let userId = localStorage.getItem("userId");
+
+
 const Home = () => {
   const [scope, setScope] = useState("global");
 
@@ -25,7 +28,7 @@ const Home = () => {
         
         <div className="HomeGrid">
             <div className="HomeProjectsDiv">
-                <Projects />
+                <Projects userId={userId}/>
             </div>
 
             <div className="HomeFeedDiv">

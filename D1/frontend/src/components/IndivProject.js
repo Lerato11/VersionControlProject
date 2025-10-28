@@ -241,7 +241,7 @@ const handleLeaveProject = async () => {
                     <div className="ProjectInfoDiv">
 
                         <div className="projectIndivImage" onClick={isMember ? () => setShowImageModal(true) : null} style={{ cursor: isMember ? "pointer" : "not-allowed" }}>
-                            <img src={project.projectImage} alt={project.name}></img> {/* project image */}
+                            <img src={project.projectImage} alt={project.name}></img> 
                         </div>
 
 
@@ -257,10 +257,22 @@ const handleLeaveProject = async () => {
 
                                 <form onSubmit={handleImageUpload}>
                                     <input 
-                                    type="file" 
-                                    accept="image/*"
-                                    onChange={(e) => setSelectedImage(e.target.files[0])}
+                                        type="file" 
+                                        id="choose-file"
+                                        accept="image/*"
+                                        onChange={(e) => setSelectedImage(e.target.files[0])}
+                                        style={{ display: "none" }}
                                     />
+                                    <label htmlFor="choose-file" className="uploadButton">Choose File</label>
+
+                                    {selectedImage && (
+                                        <span className="file-name">{selectedImage.name}</span>
+                                    )}
+
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
                                     <button type="submit">Upload</button>
                                 </form>
                                 </div>
@@ -297,6 +309,7 @@ const handleLeaveProject = async () => {
                                     <li><p>Type: {project.type}</p></li>
                                     <li><p>Version: {project.version}</p></li>
                                     <li><p>Status: {project.status}</p></li>
+                                    <li><p>Created: {new Date(project.createdAt).toLocaleDateString()}</p></li>
                                 </ul>
                             </div>
 

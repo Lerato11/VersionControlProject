@@ -378,10 +378,19 @@ const Profile = ({userId}) => {
 
                         <form onSubmit={handleImageUpload}>
                             <input 
-                            type="file" 
-                            accept="image/*"
-                            onChange={(e) => setSelectedImage(e.target.files[0])}
-                            />
+                                    type="file" 
+                                    id="choose-file"
+                                    accept="image/*"
+                                    onChange={(e) => setSelectedImage(e.target.files[0])}
+                                    style={{ display: "none" }}
+                                />
+                                
+                                <label htmlFor="choose-file" className="uploadButton">Choose File</label>
+                                {selectedImage && (
+                                    <span className="file-name">{selectedImage.name}</span>
+                                )}
+
+                                <br/>
                             <button type="submit">Upload</button>
                         </form>
                         </div>

@@ -34,7 +34,9 @@ const ProfilePage = () => {
             </div>
             
             <div className="HomeProjectsDiv">
-                <Projects />  {/* id of signed in user or user selected by another user */}
+                <Projects userId={userIdToShow}/>  
+                <Friends userId={userIdToShow}/>
+
             </div>
             
             <div className="FeedsDiv">
@@ -43,10 +45,6 @@ const ProfilePage = () => {
                 <Feeds scope={"local"}/>
             </div>
 
-            <div className="FriendsDiv">
-                {/* <h3>Friends</h3> */}
-                <Friends userId={userIdToShow}/>
-            </div>
 
         </div>
 

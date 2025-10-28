@@ -224,3 +224,94 @@
 .profile-form input[type="submit"]:hover:not(:disabled) {
     background: #146C94;
 }
+
+.modal-content form label.uploadButton {
+  display: block;
+  margin-right: auto;
+  background-color: #1d5f69;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 900;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 0 #16454c, 0 6px 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  font-size: 15px;
+  height: 55px;
+  width: 150px;
+  border: 2px white solid;
+}
+
+.modal-content form label.uploadButton:hover {
+  background-color: #278290;
+}
+
+.modal-content form label.uploadButton:active {
+  transform: translateY(1px);
+}
+
+
+.modal-content form button[type="submit"] {
+  background-color: #1d5f69;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 3px 0 #16454c, 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content form button[type="submit"]:hover {
+  background-color: #278290;
+}
+
+
+.modal-content .add-project-form input[type="file" i] {
+    display: inline-block;
+    background-color: #1d5f69;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 0 #16454c, 0 6px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 5rem;
+}
+
+.modal-content .add-project-form label.uploadButton:hover {
+    background-color: #278290;
+}
+
+
+
+.fileNames a {
+  display: inline-block;
+  color: #1d5f69;
+  text-decoration: none;
+  font-weight: 600;
+  background-color: #e8f5f7;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  margin: 3px;
+}
+
+.fileNames a:hover {
+  background-color: #cdebee;
+  color: #124247;
+  transform: scale(1.03);
+}
+
+.file-name {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #0b4976;
+  font-weight: 600;
+  word-break: break-all;
+}

@@ -28,7 +28,7 @@ ul{
 }
 
 
-.ProjectsHeaders button{
+.ProjectsHeaders button, .showMoreBtn{
     height: 60px;
     padding: 0 20px;
     border: 2px white solid;
@@ -41,6 +41,13 @@ ul{
     transition: translate 0.3s ease-out;
 
 }
+
+.showMoreContainer {
+  text-align: center;
+  margin-top: 40px; 
+}
+
+
 
 
 .ProjectsHeaders button:hover{

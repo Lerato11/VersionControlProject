@@ -189,7 +189,9 @@ const Projects = (props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  let userId = localStorage.getItem("userId");
+  const [showAll, setShowAll] = useState(false);
+
+  // let userId = localStorage.getItem("userId");
 
 
   useEffect(() => {
@@ -198,14 +200,14 @@ const Projects = (props) => {
          try {
               
 
-            if (!userId) {
+            if (!props.userId) {
               setError("No user logged in");
               setLoading(false);
               return;
             }
 
 
-            const response = await fetch(`/api/projects/user?id=${userId}`);
+            const response = await fetch(`/api/projects/user?id=${props.userId}`);
             const data = await response.json();
 
               if (!response.ok) {
@@ -222,10 +224,10 @@ const Projects = (props) => {
           }
     };
 
-    if (userId) fetchProjects();
+    fetchProjects();
 
             
-    }, [userId])
+    },  [props.userId])
     
 
   const handleAddProject = async (project) => {
@@ -270,16 +272,16 @@ const Projects = (props) => {
 
   if (props.userId != undefined) {
 
-    const user = mockMembers.find(member => member.id === props.userId);
+    // const user = mockMembers.find(member => member.id === props.userId);
 
 
-    if (!user) {
-      return <h2>User not found.</h2>;
-    }
+    // if (!user) {
+    //   return <h2>User not found.</h2>;
+    // }
 
-    const userProjects = projects.filter(project =>
-      user.projects.includes(project.id)
-    );
+    // const userProjects = projects.filter(project =>
+    //   user.projects.includes(project.id)
+    // );
 
 
     if (loading) return <h2>Loading projects...</h2>;
@@ -308,9 +310,22 @@ const Projects = (props) => {
             </div>
           )}
 
-          {userProjects.map((project, projectIndex) => {
-            return <Project key={projectIndex} project={project} />
-          })}
+          {projects
+            .slice(0, showAll ? projects.length : 3)
+            .map((project, index) => (
+              <Project key={index} project={project} />
+          ))}
+
+          {projects.length > 3 && (
+            <div className="showMoreContainer">
+              <button 
+                className="showMoreBtn"
+                onClick={() => setShowAll(!showAll)}
+              >
+                {showAll ? "Show Less" : `Show ${projects.length - 3} More`}
+              </button>
+            </div>
+          )}
         </ul>
 
       </>

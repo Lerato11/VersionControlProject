@@ -77,3 +77,8 @@ body {
 .FeedsUl {
     padding: 0;
 }
+
+.HomeProjectsDiv {
+    align-self: start;
+    height: fit-content;
+}

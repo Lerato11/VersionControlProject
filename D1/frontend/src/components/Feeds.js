@@ -142,6 +142,8 @@ const activityFeed = [
     scope: "global",
     projectId: 10
   }
+
+  
 ];
 
 
@@ -186,11 +188,7 @@ const Feeds = ({scope}) => {
                     setError(data.message);
     
                   } else {
-                     const sorted = data.sort(
-                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    );
-
-                    setFeeds(scope === "local" ? sorted : sorted);
+                    setFeeds(scope === "local" ? data.enrichedFeeds : data);
                   }
     
               } catch (err) {
@@ -216,7 +214,7 @@ const Feeds = ({scope}) => {
         <link rel="stylesheet" type="text/css" href="/assets/css/Feeds.css"/>
         {/* <h2>Activity Feed</h2> */}
         <ul className="FeedsUl">
-          {feeds.map((feed, feedIndex) => {
+          {(scope === "global" ? feeds.slice().reverse() : feeds).map((feed, feedIndex) => {
             // console.log(feed)
             return <Feed key= {feedIndex} projectImg= {feed.profileImage} profileImg={feed.profilePic} projectDscr={feed.message} username={feed.userName} projectId={feed.project_id}/>
           })}

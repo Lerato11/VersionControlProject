@@ -181,7 +181,7 @@ const Members = ({ projectId }) => {
          
             <ul className="FriendsUl">
                 {members.map((member) => {
-                    return <ProfilePreview key={member.id} profileImg={member.image} name={member.username} email={member.email}/>
+                    return <ProfilePreview key={member.id} profileImg={member.image} name={member.username} email={member.email} userId={member.id}/>
                 })}
             </ul>
 
@@ -192,10 +192,9 @@ const Members = ({ projectId }) => {
             <div className="modal-overlay">
               <div className="modal-content">
 
-                {/* 1. Add the modal-header structure */}
                 <div className="modal-header">
                   <h2>Select friends to add</h2>
-                  {/* 2. Add the close button with class close-btn */}
+
                   <button 
                     className="close-btn" 
                     onClick={() => setAddMemberModalOpen(false)}
@@ -204,11 +203,10 @@ const Members = ({ projectId }) => {
                   </button>
                 </div>
 
-                {/* 3. Wrap the content and actions in a container for styling, 
-                      like the .add-project-form div (or just a new div) */}
+               
                 <div className="add-project-form"> 
                   
-                  {/* Modal content list */}
+              
                   <ul>
                     {friendOptions.map(friend => (
                       <li key={friend.id}>
@@ -230,7 +228,6 @@ const Members = ({ projectId }) => {
                     ))}
                   </ul>
 
-                  {/* Action buttons (you can add a wrapper div here if needed) */}
                   <div className="modal-actions">
                     <button 
                       onClick={async () => {
