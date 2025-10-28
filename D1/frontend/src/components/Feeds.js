@@ -142,8 +142,6 @@ const activityFeed = [
     scope: "global",
     projectId: 10
   }
-
-  
 ];
 
 
@@ -188,7 +186,11 @@ const Feeds = ({scope}) => {
                     setError(data.message);
     
                   } else {
-                    setFeeds(scope === "local" ? data.enrichedFeeds : data);
+                     const sorted = data.sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    );
+
+                    setFeeds(scope === "local" ? sorted : sorted);
                   }
     
               } catch (err) {

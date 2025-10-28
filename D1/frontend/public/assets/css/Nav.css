@@ -34,10 +34,11 @@
   width: 40%; 
 } */
 
-.navBar div:last-child {
+.navButtons {
   display: flex;
   gap: 1rem; 
   align-items: center;
+  flex-shrink: 0;
 }
 
 .navLink {

@@ -87,7 +87,8 @@ async function checkOutProject(projectId, userId, message) {
     const activity = {
       type: "Checked out",
       modifiedBy: user.username,
-      comment: message
+      comment: message,
+      createdAt: new Date(),
     };
 
     // make check out 

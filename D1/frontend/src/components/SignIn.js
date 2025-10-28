@@ -85,13 +85,13 @@ const SignIn = ({signUp}) => {
                 <form className="add-project-form" onSubmit={handleSubmit}>
                     <br/>
 
-                    <label>Email:</label>
-                    <input name="email" type="email" required onBlur={handleEmailOnBlur} /><br/>
+                    <label htmlFor="email">Email:</label>
+                    <input name="email" type="email" id="email" required onBlur={handleEmailOnBlur} /><br/>
                     <span></span>
                     <br/>
 
-                    <label>Password:</label>
-                    <input name="password" type="password" required  onBlur={handlePasswordOnBlur}/>
+                    <label htmlFor="password">Password:</label>
+                    <input name="password" type="password" id="password" required  onBlur={handlePasswordOnBlur}/>
                     <span></span>
                     <br/>
 

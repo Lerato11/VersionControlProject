@@ -332,7 +332,7 @@ const Profile = ({userId}) => {
         if (!selectedImage) return alert("No image selected!");
 
         const formData = new FormData();
-        formData.append("idNum", profile.id);
+        formData.append("idNum", profile.id); // the key valu pairs in video
         formData.append("image", selectedImage);
 
         const res = await fetch("/api/users/profileImage", {

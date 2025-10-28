@@ -27,7 +27,7 @@ const Nav = () => {
 
         <div className="navLogo">
             <Link to="/home" className="navLink">
-                <img src="/assets/images/logo.png" className="logo"></img> {/* profile image */}
+                <img src="/assets/images/logo2.png" className="logo"></img> {/* profile image */}
             </Link>
         </div>
 
@@ -35,7 +35,7 @@ const Nav = () => {
             <Search />
         </div>
 
-        <div>
+        <div className="navButtons">
             <Link to="/home" className="navLink">Home</Link>
             <Link to="/profile" className="navLink">Profile</Link>
 

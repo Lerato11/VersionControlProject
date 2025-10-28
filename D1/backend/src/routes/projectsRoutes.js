@@ -449,7 +449,9 @@ router.post("/", async (req, res) => {
             status: "Checked In",
             members: [userId],
             checkedOutBy: null,
-            projectImage: ""
+            projectImage: "",
+            createdAt: new Date()
+
         };
 
         const createdProject = await addProject(newProject);
