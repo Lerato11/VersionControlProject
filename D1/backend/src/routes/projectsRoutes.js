@@ -254,7 +254,7 @@ router.put("/checkIn/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: `Project ${project.name} Checked in Successfully by ${userId}`,
+            message: `Project ${project.name} Checked in Successfully!`,
             checkIn 
 
         });
@@ -298,7 +298,7 @@ router.put("/checkOut/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: `Project ${project.name} Checked Out Successfully by ${userId}`,
+            message: `Project ${project.name} Checked out Successfully!`,
             checkOut 
 
         });
@@ -357,7 +357,7 @@ router.put("/addMember/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: `Member ${addingMemberId} added user ${addedMemberId} successfully`, 
+            message: `User successfully added as Member`, 
             addedMember 
         });
 
@@ -416,7 +416,7 @@ router.put("/removeMember/:id", async (req, res) => {
         
         res.json({
             success: true,
-            message: `Member ${removingMemberId} removed user ${removedMemberId} successfully`, 
+            message: `Member Successfully removed`, 
             removedMember 
         });
 

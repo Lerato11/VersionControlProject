@@ -137,16 +137,43 @@ router.put("/", async (req, res) => {
 
 router.get("/friendRequests/:id", async (req, res) => {
     const userId = parseInt(req.params.id);
+
     try {
         const user = await getUserById(userId);
-        if (!user) return res.status(401).json({ success: false, message: "Invalid User ID" });
+        if (!user) {
+            return res.status(401).json({ success: false, message: "Invalid User ID" });
+        }
 
         const requests = user.requests || [];
-        res.json({ success: true, requests });
+
+        const requestProfiles = await Promise.all(
+        requests.map(async (id) => {
+            const sender = await getUserById(id);
+            return sender
+            ? {
+                id: sender.id,
+                username: sender.username,
+                firstName: sender.firstName,
+                lastName: sender.lastName,
+                image: sender.image,
+                email: sender.email,
+                }
+            : null;
+        })
+        );
+
+        
+        const validProfiles = requestProfiles.filter(Boolean); // the null ones
+
+        res.json({
+        success: true,
+        requests: validProfiles,
+        });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 });
+
 
 
 // send friend request : 
@@ -189,7 +216,7 @@ router.post("/sendFriendReq/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: `Friend Request successfully sent to user ${receiverId} `, 
+            message: `Friend Request successfully sent!`, 
             friendReq 
         });
 
@@ -248,7 +275,7 @@ router.post("/acceptFriendReq/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: `User ${acceptedId} is now a Friend`, 
+            message: `Friend Request Accepted`, 
             acceptReq 
         });
 
@@ -306,7 +333,7 @@ router.post("/rejectFriendReq/:id", async (req, res) => {
 
             return res.status(401).json({
                     success: false,
-                    message: "Usersss did not send Friend Request" 
+                    message: "Users did not send Friend Request" 
             });
         }
 
@@ -315,7 +342,7 @@ router.post("/rejectFriendReq/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: `User ${rejectedId}'s Friend Request was successfully rejected`, 
+            message: `Friend Request rejected!`, 
             acceptReq 
         });
 

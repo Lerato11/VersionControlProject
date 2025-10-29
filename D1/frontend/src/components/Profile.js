@@ -5,6 +5,10 @@ import { useState, useRef, useEffect } from "react";
 
 import ReactDOM from "react-dom/client";
 import { Nav } from "../components/Nav";
+import { Link } from "react-router-dom";
+import { PopupMessage } from "./PopupMessage";
+
+
 
 import { EmptyState } from "./EmptyState";
 
@@ -40,6 +44,10 @@ const Profile = ({userId, onFriendStatusChange}) => {
 
     const [showImageModal, setShowImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
+
+    const [popup, setPopup] = useState({ show: false, message: "", type: "success" });
+
+    const [imageUpdateCounter, setImageUpdateCounter] = useState(0);
 
 
     useEffect(() => {
@@ -90,7 +98,7 @@ const Profile = ({userId, onFriendStatusChange}) => {
         };
 
         fetchProfile();
-    }, [userId, onFriendStatusChange]);
+    }, [userId, onFriendStatusChange, imageUpdateCounter]);
 
     useEffect(() => {
         const fetchFriendRequests = async () => {
@@ -128,8 +136,10 @@ const Profile = ({userId, onFriendStatusChange}) => {
                 body: JSON.stringify({ senderId: loggedInUserId })
             });
             const data = await res.json();
-            if (res.ok && data.success) alert("Friend request sent!");
-            else alert(data.message);
+            if (res.ok && data.success) setPopup({ show: true, message: "Friend request sent!", type: "success" });
+            
+            else setPopup({ show: true, message: data.message, type: "error" });
+
         } catch (err) {
             console.error(err);
         }
@@ -144,8 +154,10 @@ const Profile = ({userId, onFriendStatusChange}) => {
                 body: JSON.stringify({ userId: loggedInUserId })
             });
             const data = await res.json();
-            if (res.ok && data.success) alert("Friend removed!");
-            else alert(data.message);
+            if (res.ok && data.success) setPopup({ show: true, message: "Friend removed!", type: "success" });
+
+            else setPopup({ show: true, message: data.message, type: "error" });
+
         } catch (err) {
             console.error(err);
         }
@@ -165,11 +177,14 @@ const Profile = ({userId, onFriendStatusChange}) => {
                 body: JSON.stringify({ acceptingId: loggedInUserId })
             });
             const data = await res.json();
+
             if (res.ok && data.success) {
-                // remove accepted request from state
+                
                 setFriendRequests(prev => prev.filter(req => req.id !== senderId));
-                alert(`You are now friends with user ${senderId}`);
-            } else alert(data.message);
+               
+                setPopup({ show: true, message: "Friend Request Accepted!", type: "success" });
+
+            } else setPopup({ show: true, message: data.message, type: "error" });
         } catch (err) {
             console.error(err);
         }
@@ -183,10 +198,13 @@ const Profile = ({userId, onFriendStatusChange}) => {
                 body: JSON.stringify({ rejectingId: loggedInUserId })
             });
             const data = await res.json();
+
             if (res.ok && data.success) {
                 setFriendRequests(prev => prev.filter(req => req.id !== senderId));
-                alert(`Friend request from user ${senderId} rejected`);
-            } else alert(data.message);
+                setPopup({ show: true, message: "Friend Request Rejected!", type: "success" });
+
+            } else setPopup({ show: true, message: data.message, type: "error" });
+
         } catch (err) {
             console.error(err);
         }
@@ -347,7 +365,7 @@ const Profile = ({userId, onFriendStatusChange}) => {
     const handleImageUpload = async (e) => {
         e.preventDefault();
 
-        if (!selectedImage) return alert("No image selected!");
+        if (!selectedImage) return setPopup({ show: true, message: "No image selected!", type: "error" });
 
         const formData = new FormData();
         formData.append("idNum", profile.id); // the key valu pairs in video
@@ -366,8 +384,10 @@ const Profile = ({userId, onFriendStatusChange}) => {
             setProfile(data.user);
             setShowImageModal(false);
 
+            setImageUpdateCounter(prev => prev + 1);
+
         } else {
-            alert(data.message || "Upload failed");
+            setPopup({ show: true, message: data.message, type: "error" });
         }
     };
 
@@ -376,6 +396,7 @@ const Profile = ({userId, onFriendStatusChange}) => {
         <>
             <link rel="stylesheet" type="text/css" href="/assets/css/Profile.css" />
             <link rel="stylesheet" type="text/css" href="/assets/css/Projects.css"/>
+            <link rel="stylesheet" type="text/css" href="/assets/css/PopupMessage.css"/>
 
             <div className="ProfileCardDiv">
 
@@ -546,14 +567,17 @@ const Profile = ({userId, onFriendStatusChange}) => {
                                     ) : (
                                         friendRequests.map((req, index) => (
                                             <li key={index} className="friend-request-item">
-                                                <div>
-                                                    <img src={req.image} alt="profile" className="profilePictureSmall" />
-                                                    <span>{req.username}</span>
-                                                </div>
+                                                <Link to={`/profile/${req.id}`} className="friend-request-link" onClick={toggleRequestsModal}>
+                                                    <div>
+                                                        <img src={req.image} alt="profile" className="profilePictureSmall" />
+                                                        <span>{req.username}</span>
+                                                    </div>
+                                                </Link>
                                                 <div>
                                                     <button onClick={() => handleAcceptRequest(req.id)}>Accept</button>
                                                     <button onClick={() => handleRejectRequest(req.id)}>Reject</button>
                                                 </div>
+                                                {console.log(req.id)}
                                             </li>
                                         ))
                                     )}
@@ -563,6 +587,14 @@ const Profile = ({userId, onFriendStatusChange}) => {
                     )}
 
             </div>
+
+            {popup.show && (
+                        <PopupMessage
+                            message={popup.message}
+                            type={popup.type}
+                            onClose={() => setPopup({ ...popup, show: false })}
+                        />
+            )}
             
         </>
     )

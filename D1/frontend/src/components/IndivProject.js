@@ -13,6 +13,7 @@ import { ProjectFeeds } from "./ProjectFeeds";
 import { activityFeed } from "./Feeds";
 import { mockProjects } from "./Projects";
 import { Files } from "./Files";
+import { PopupMessage } from "./PopupMessage";
 
 // import {image} from "../../public/assets/images/"
 
@@ -38,6 +39,7 @@ const IndivProject = ({id}) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
     
+    const [popup, setPopup] = useState({ show: false, message: "", type: "success" });
 
     const nameRef = useRef();
     const versionRef = useRef();
@@ -86,18 +88,48 @@ const IndivProject = ({id}) => {
         }
     }
 
-    const saveEdit = (e) => {
+    const saveEdit = async (e) => {
         e.preventDefault();
-        setProject({
-            ...project,
+
+        const updatedProject = {
             name: nameRef.current.value,
             version: versionRef.current.value,
             type: typeRef.current.value,
             description: descRef.current.value,
-        });
+        };
+
+        try {
+            const res = await fetch(`/api/projects/${project.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+
+                body: JSON.stringify({ 
+                    updates: updatedProject 
+                }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                setProject((prev) => ({ ...prev, ...updatedProject }));
+                // alert("Project updated successfully!");
+                setPopup({ show: true, message: "Project updated successfully!", type: "success" });
+
+            } else {
+                setPopup({ show: true, message: data.message, type: "error" });
+                // alert(data.message || "Failed to update project");
+            }
+
+        } catch (err) {
+            setPopup({ show: true, message: "Network error while saving changes", type: "error" });
+
+            // alert("Network error while saving changes");
+            console.error(err);
+        }
 
         setEditMode("hidden");
     };
+
 
     const loggedInUserName = localStorage.getItem("firstName");
     const loggedInUserId = parseInt(localStorage.getItem("userId"));
@@ -116,15 +148,21 @@ const handleLeaveProject = async () => {
 
         const data = await res.json();
         if (res.ok && data.success) {
-            alert(data.message);
+            // alert(data.message);
+            setPopup({ show: true, message: data.message, type: "success" });
+
             
             navigate("/home");
         } else {
-            alert(data.message);
+            setPopup({ show: true, message: data.message, type: "error" });
+
+            // alert(data.message);
         }
     } catch (err) {
         console.error(err);
-        alert("Network error, try again");
+        // alert("Network error, try again");
+        setPopup({ show: true, message: "Network error, try again", type: "error" });
+
     }
 };
 
@@ -155,7 +193,9 @@ const handleLeaveProject = async () => {
             const data = await res.json();
 
             if (res.ok && data.success) {
-                alert(data.message);
+                // alert(data.message);
+                setPopup({ show: true, message: data.message, type: "success" });
+
 
                 // project activities
                 setProject(prev => ({
@@ -185,11 +225,15 @@ const handleLeaveProject = async () => {
 
 
             } else {
-                alert(data.message || "Action failed");
+                setPopup({ show: true, message: data.message, type: "error" });
+
+                // alert(data.message || "Action failed");
             }
         } catch (err) {
             console.error(err);
-            alert("Network error");
+            // alert("Network error");
+            setPopup({ show: true, message: "Network error", type: "error" });
+
         } finally {
             setModalMessage("");
             setModalOpen(false);
@@ -205,7 +249,7 @@ const handleLeaveProject = async () => {
     const handleImageUpload = async (e) => {
         e.preventDefault();
 
-        if (!selectedImage) return alert("No image selected!");
+        if (!selectedImage) return setPopup({ show: true, message: "No image selected!", type: "error" });
 
         const formData = new FormData();
         formData.append("idNum", project.id);
@@ -225,7 +269,9 @@ const handleLeaveProject = async () => {
             setShowImageModal(false);
 
         } else {
-            alert(data.message || "Upload failed");
+            setPopup({ show: true, message: data.message, type: "error" });
+
+            // alert(data.message || "Upload failed");
         }
     };
 
@@ -234,6 +280,8 @@ const handleLeaveProject = async () => {
     return (
         <>
          <div className="IndivProjectDiv">
+        <link rel="stylesheet" type="text/css" href="/assets/css/PopupMessage.css"/>
+
          <link rel="stylesheet" type="text/css" href="/assets/css/IndivProject.css"/>
          
             <div>
@@ -455,7 +503,15 @@ const handleLeaveProject = async () => {
                     </div>
                     </div>
                 </div>
-                )}
+            )}
+
+            {popup.show && (
+                <PopupMessage
+                    message={popup.message}
+                    type={popup.type}
+                    onClose={() => setPopup({ ...popup, show: false })}
+                />
+            )}
 
 
 
