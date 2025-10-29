@@ -39,6 +39,14 @@ async function getUserById(id) {
 // Create
 // Add a user
 async function addUser(newUser) {
+
+    const users = await runFindQuery("users");
+
+    const maxId = users.reduce((max, user) => 
+        user.id && user.id > max ? user.id : max, 0
+    );
+
+    newUser.id = maxId + 1;
     return await runInsertQuery("users", newUser);
 }
 

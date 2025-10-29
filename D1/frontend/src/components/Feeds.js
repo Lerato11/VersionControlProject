@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import PropTypes from 'prop-types'
 
 import {Feed} from "./Feed";
+import { EmptyState } from "./EmptyState";
+
 
 
 
@@ -212,7 +214,15 @@ const Feeds = ({scope}) => {
       <>
         
         <link rel="stylesheet" type="text/css" href="/assets/css/Feeds.css"/>
-        {/* <h2>Activity Feed</h2> */}
+        
+        {feeds.length === 0 && (
+          <EmptyState
+            title={`No ${scope === "global" ? "Global" : "Local"} Feeds`}
+            message={`Looks like there aren't any ${scope} updates yet.`}
+            // image="/assets/images/empty-feed.svg"
+          />
+        )}
+
         <ul className="FeedsUl">
           {(scope === "global" ? feeds.slice().reverse() : feeds).map((feed, feedIndex) => {
             // console.log(feed)

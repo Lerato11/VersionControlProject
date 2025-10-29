@@ -4,6 +4,8 @@ import React from "react";
 
 import ReactDOM from "react-dom/client";
 import {ProfilePreview} from "./ProfilePreview";
+import { EmptyState } from "./EmptyState";
+
 
 import { useState, useRef, useEffect } from "react";
 
@@ -57,7 +59,7 @@ const Friends = ({userId}) => {
 
     if (loading) return <p>Loading friends...</p>;
     if (error) return <p>{error}</p>;
-    if (!friends.length) return <p>No friends found.</p>;
+    // if (!friends.length) return <p>No friends found.</p>;
 
     return (
         <>
@@ -65,18 +67,27 @@ const Friends = ({userId}) => {
 
             <h2 className="secondaryHeader">Friends</h2>
 
-            <ul className="FriendsUl">
-                {friends.map((friend) => (
-                        <ProfilePreview
-                            key={friend.id}
-                            profileImg={friend.image}
-                            name={friend.username}
-                            email={friend.email} 
-                            userId={friend.id}
-                        />
-                    ))
-                }
-            </ul>
+            <div className="friends-empty-state">
+            {friends.length === 0 ? (
+                <EmptyState
+                    title="No Friends Yet"
+                    message="You haven't added any friends. Try searching for people to connect with!"
+                    // image="/assets/images/empty-friends.svg"
+                />
+                ) : (
+                <ul className="FriendsUl">
+                    {friends.map((friend) => (
+                    <ProfilePreview
+                        key={friend.id}
+                        profileImg={friend.image}
+                        name={friend.username}
+                        email={friend.email}
+                        userId={friend.id}
+                    />
+                    ))}
+                </ul>
+            )}
+            </div>
         </>
     )
 }

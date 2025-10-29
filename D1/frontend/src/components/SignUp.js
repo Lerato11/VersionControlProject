@@ -7,6 +7,7 @@ import ReactDOM from "react-dom/client";
 import { useState } from "react";
 
 
+
 const SignUp = ({ signIn }) => {
 
   // first name validation
@@ -186,15 +187,15 @@ const SignUp = ({ signIn }) => {
           firstName: firstNameValue,
           lastName: lastNameValue,
           email: emailValue,
-          phoneNumber: phoneValue,
+          phone: phoneValue,
           company: companyValue,
-          addressLine1: address1Value,
-          addressLine2: address2Value,
+          address1: address1Value,
+          address2: address2Value,
           password: passwordValue,
           username: userNameValue,
           friends: [],
           projects: [],
-          image: "",
+          image: "/assets/images/placeholder.png",
           requests: []
 
         }),
@@ -255,18 +256,18 @@ const SignUp = ({ signIn }) => {
             <span id="phoneMessage">{phoneMessage}</span>
             <br />
 
-            <label>Company:</label><br />
-            <input name="company" type="text" onBlur={handleCompanyOnBlur} />
+            <label htmlFor="company">Company:</label><br />
+            <input name="company" type="text" id="company" onBlur={handleCompanyOnBlur} />
             <span></span>
             <br />
 
-            <label>Address Line 1:</label><br />
-            <input name="addressLine1" type="text" onBlur={handleAddress1OnBlur} />
+            <label htmlFor="addy1">Address Line 1:</label><br />
+            <input name="addressLine1" type="text" id="addy1" onBlur={handleAddress1OnBlur} />
             <span id="addressMessage">{addressMessage}</span>
             <br />
 
-            <label>Address Line 2 (optional):</label><br />
-            <input name="addressLine2" type="text" onBlur={handleAdress2OnBlur} />
+            <label htmlFor="addy2">Address Line 2 (optional):</label><br />
+            <input name="addressLine2" type="text" id="addy2" onBlur={handleAdress2OnBlur} />
             <span></span>
             <br />
 

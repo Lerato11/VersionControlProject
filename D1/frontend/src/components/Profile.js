@@ -6,6 +6,9 @@ import { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Nav } from "../components/Nav";
 
+import { EmptyState } from "./EmptyState";
+
+
 
 const mockUserProfile = {
     id: 1,
@@ -23,7 +26,7 @@ const mockUserProfile = {
 };
 
 
-const Profile = ({userId}) => {
+const Profile = ({userId, onFriendStatusChange}) => {
 
     const [profile, setProfile] = useState(null);
     const [editMode, setEditMode] = useState(false);
@@ -52,8 +55,23 @@ const Profile = ({userId}) => {
                     setError(data.message);
                     setProfile(null);
 
+                    if (onFriendStatusChange) {
+                        onFriendStatusChange(false, false);
+                    }
+
                 } else {
-                    setProfile(data.user);
+                    const fetchedProfile = data.user;
+                    setProfile(fetchedProfile);
+
+                    const currentUserId = parseInt(localStorage.getItem("userId"));
+                    const isOwn = userId === currentUserId;
+
+                    const isFriendStatus = fetchedProfile.friends?.includes(currentUserId); 
+
+       
+                    if (onFriendStatusChange) {
+                        onFriendStatusChange(isFriendStatus, isOwn);
+                    }
 
                     if (userId === loggedInUserId) {
                         const reqRes = await fetch(`/api/users/friendRequests/${userId}`);
@@ -72,7 +90,7 @@ const Profile = ({userId}) => {
         };
 
         fetchProfile();
-    }, [userId]);
+    }, [userId, onFriendStatusChange]);
 
     useEffect(() => {
         const fetchFriendRequests = async () => {
@@ -397,7 +415,7 @@ const Profile = ({userId}) => {
                     </div>
                     )}
 
-                <div>
+                <div className="userProfile">
                     <div className="ProjectsHeaders">
                         <h2>{`${profile.firstName} ${profile.lastName}`}</h2>
 
@@ -423,6 +441,7 @@ const Profile = ({userId}) => {
                         )}
                     </div>
 
+                    {isFriend || isOwnProfile ? (
                     <div className="ProfileMainDetails">
                         <div>
                             <p>Username: {`${profile.username}`}</p>
@@ -438,6 +457,15 @@ const Profile = ({userId}) => {
                             <p>Friends: {`${profile.friends.length}`}</p>
                         </div>
                     </div>
+
+                    ) : (
+                       
+                        <EmptyState
+                            title={`Send ${profile.firstName} a Friend Request to see their details.`}
+                            // image="/assets/images/empty-feed.svg"
+                         />
+                    )}
+                    
                         
                 </div>
 
@@ -516,8 +544,8 @@ const Profile = ({userId}) => {
                                     {friendRequests.length === 0 ? (
                                         <li>No pending requests</li>
                                     ) : (
-                                        friendRequests.map(req => (
-                                            <li key={req.id} className="friend-request-item">
+                                        friendRequests.map((req, index) => (
+                                            <li key={index} className="friend-request-item">
                                                 <div>
                                                     <img src={req.image} alt="profile" className="profilePictureSmall" />
                                                     <span>{req.username}</span>

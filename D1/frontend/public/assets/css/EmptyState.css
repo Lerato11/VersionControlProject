@@ -1,0 +1,42 @@
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #16454c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins"
+}
+
+
+.empty-state h2 {
+  font-size: 26px;
+  margin-top: 20px;
+  color: #146C94;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: #27798c;
+  max-width: 500px;
+  margin-top: 10px;
+}
+
+
+.ProjectsProfileDiv .empty-state h2, .friends-empty-state .empty-state h2, .userProfile .empty-state h2, .HomeProjectsDiv .empty-state h2{
+  font-size: 26px;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.ProjectsProfileDiv .empty-state p, .friends-empty-state .empty-state p {
+  font-size: 18px;
+  color: #ffffff;
+  max-width: 500px;
+  margin-top: 10px;
+}
+
+
+
+

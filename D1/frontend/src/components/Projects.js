@@ -11,6 +11,7 @@ import { useState, useRef, useEffect } from "react";
 import { Project } from "./Project";
 import { mockMembers } from "./Members";
 import { AddProject } from "./AddProject";
+import { EmptyState } from "./EmptyState";
 // import { useState } from "react";
 
 
@@ -310,6 +311,16 @@ const Projects = (props) => {
             </div>
           )}
 
+
+
+          {projects.length === 0 && (
+            <EmptyState
+              title="No Projects Yet"
+              message="You don't have any projects. Click '+ Project' to start your first one!"
+              // image="/assets/images/empty-projects.svg"
+            />
+          )}
+
           {projects
             .slice(0, showAll ? projects.length : 3)
             .map((project, index) => (
@@ -349,6 +360,14 @@ const Projects = (props) => {
                 <AddProject onAddProject={handleAddProject} onCancel={handleCancelAdd} />
               </div>
             </div>
+          )}
+
+          {projects.length === 0 && (
+            <EmptyState
+              title="No Projects Yet"
+              message="You don't have any projects. Click '+ Project' to start your first one!"
+              // image="/assets/images/empty-projects.svg"
+            />
           )}
 
           {projects.map((project, index) => (
