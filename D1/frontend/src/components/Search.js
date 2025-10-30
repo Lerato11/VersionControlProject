@@ -63,11 +63,10 @@ const Search = () =>{
                 </button>
             </div>
 
-            {/* 2. Wrap the search input/button and results in a container
-                   like .add-project-form for consistent styling */}
+           
             <div className="add-project-form"> 
 
-                {/* Search Input and Button Container */}
+    
                 <div className="search-input-area">
                     <input
                         type="text"
@@ -78,7 +77,7 @@ const Search = () =>{
                     <button type="button" onClick={() => { handleSearch(); }}>Search</button>
                 </div>
 
-                {/* Search Results */}
+
                 <div className="search-results">
                     <h3>Users</h3>
                     <ul>
@@ -105,10 +104,10 @@ const Search = () =>{
                 </div>
 
             
+                </div>
             </div>
         </div>
-    </div>
-)}
+    )}
         </div>
 
         

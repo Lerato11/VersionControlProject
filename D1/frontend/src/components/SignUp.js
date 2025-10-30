@@ -5,10 +5,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 
 const SignUp = ({ signIn }) => {
+
+  const navigate = useNavigate();
 
   // first name validation
   const [firstNameValue, setFirstNameValue] = useState("");
@@ -178,39 +180,67 @@ const SignUp = ({ signIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+     const userData = {
+        firstName: firstNameValue,
+        lastName: lastNameValue,
+        email: emailValue,
+        phone: phoneValue,
+        company: companyValue,
+        address1: address1Value,
+        address2: address2Value,
+        password: passwordValue,
+        username: userNameValue,
+        friends: [],
+        projects: [],
+        image: "/assets/images/placeholder.png",
+        requests: [],
+      };
+
     try{
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
 
-        body: JSON.stringify({
-          firstName: firstNameValue,
-          lastName: lastNameValue,
-          email: emailValue,
-          phone: phoneValue,
-          company: companyValue,
-          address1: address1Value,
-          address2: address2Value,
-          password: passwordValue,
-          username: userNameValue,
-          friends: [],
-          projects: [],
-          image: "/assets/images/placeholder.png",
-          requests: []
+        body: JSON.stringify(
+          userData
 
-        }),
+        ),
       });
 
       const data = await response.json();
       console.log("Signup response: ", data);
 
-      // local storage the token
-      localStorage.setItem("userId", data.user.id);
-      localStorage.setItem("firstName", data.user.firstName);
+
+      if (data.success) {
+        
+        const signInRes = await fetch("/api/auth/signin", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+
+          body: JSON.stringify({
+            email: userData.email,
+            password: userData.password,
+          }),
+        });
+
+        const signInData = await signInRes.json();
+
+        if (signInData.success) {
+          localStorage.setItem("userId", signInData.user.id);
+          localStorage.setItem("firstName", signInData.user.firstName);
+          navigate("/home");
+        }
+      }
+
+
+
+      // // local storage the token
+      // localStorage.setItem("userId", data.user.id);
+      // localStorage.setItem("firstName", data.user.firstName);
 
 
       // to home page
-      window.location.href = "/home";
+      // window.location.href = "/home";
 
     }catch(err){
       console.log(err);

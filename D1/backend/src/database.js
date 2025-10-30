@@ -16,7 +16,7 @@ async function dbConnect() {
   return database;
 }
 
-// --- USE THIS in queries ---
+
 async function runFindQuery(collection, query, options) {
   const db = await dbConnect(); // get db each time
   const col = db.collection(collection);

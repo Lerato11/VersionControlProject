@@ -12,10 +12,10 @@ const Nav = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear all stored user data
+
         localStorage.clear();
 
-        // Redirect to landing page
+
         navigate("/");
     };
     

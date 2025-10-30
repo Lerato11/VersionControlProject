@@ -38,6 +38,7 @@ const IndivProject = ({id}) => {
     const [showImageModal, setShowImageModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [leaveModalOpen, setLeaveModalOpen] = useState(false);
     
     const [popup, setPopup] = useState({ show: false, message: "", type: "success" });
 
@@ -134,10 +135,12 @@ const IndivProject = ({id}) => {
     const loggedInUserName = localStorage.getItem("firstName");
     const loggedInUserId = parseInt(localStorage.getItem("userId"));
 
-    
 
-const handleLeaveProject = async () => {
-    if (!window.confirm("Are you sure you want to leave this project?")) return;
+    const handleLeaveProject = () => {
+        setLeaveModalOpen(true);
+    };
+
+const confirmLeaveProject = async () => {
 
     try {
         const res = await fetch(`/api/projects/leave/${project.id}`, {
@@ -512,6 +515,42 @@ const handleLeaveProject = async () => {
                     onClose={() => setPopup({ ...popup, show: false })}
                 />
             )}
+
+            {leaveModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h2>Leave Project</h2>
+                        <button className="close-btn" onClick={() => setLeaveModalOpen(false)}>
+                        &times;
+                        </button>
+                    </div>
+
+                    <p>Are you sure you want to leave <strong>{project.name}</strong>?</p>
+
+                    <div className="modal-actions" style={{ marginTop: "20px", textAlign: "right" }}>
+                        <button
+                            type="button"
+                            onClick={() => setLeaveModalOpen(false)}
+                            style={{ marginRight: "10px" }}
+                            >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={confirmLeaveProject}
+                            className="uploadButton"
+                            style={{ backgroundColor: "#c0392b" }}
+                            >
+                            Leave
+                        </button>
+                    
+                    </div>
+                    </div>
+                </div>
+            )}
+
 
 
 
