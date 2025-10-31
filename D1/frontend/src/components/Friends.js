@@ -16,7 +16,7 @@ const Friends = ({userId}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    console.log("User Id"+ userId);
+    // console.log("User Id"+ userId);
 
     useEffect(() => {
         const fetchFriends = async () => {
@@ -54,7 +54,7 @@ const Friends = ({userId}) => {
         }
     }, [userId]);
 
-    console.log(friends)
+    // console.log(friends)
 
 
     if (loading) return <p>Loading friends...</p>;

@@ -130,7 +130,7 @@ const Members = ({ projectId }) => {
             setMembers(memberRes);
           }
         } catch (err) {
-          console.log(err)
+          // console.log(err)
           setError("Network error, try again");
         } finally {
           setLoading(false);

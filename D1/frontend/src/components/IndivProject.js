@@ -125,7 +125,7 @@ const IndivProject = ({id}) => {
             setPopup({ show: true, message: "Network error while saving changes", type: "error" });
 
             // alert("Network error while saving changes");
-            console.error(err);
+            // console.error(err);
         }
 
         setEditMode("hidden");
@@ -162,7 +162,7 @@ const confirmLeaveProject = async () => {
             // alert(data.message);
         }
     } catch (err) {
-        console.error(err);
+        // console.error(err);
         // alert("Network error, try again");
         setPopup({ show: true, message: "Network error, try again", type: "error" });
 
@@ -171,7 +171,6 @@ const confirmLeaveProject = async () => {
 
     const handleModalSubmit = async () => {
         try {
-            console.log("Submitting", modalType, "to", `/api/projects/${modalType === "checkout" ? "checkOut" : "checkIn"}/${project.id}`);
             const res = await fetch(`/api/projects/${modalType === "checkout" ? "checkOut" : "checkIn"}/${project.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -233,7 +232,7 @@ const confirmLeaveProject = async () => {
                 // alert(data.message || "Action failed");
             }
         } catch (err) {
-            console.error(err);
+            // console.error(err);
             // alert("Network error");
             setPopup({ show: true, message: "Network error", type: "error" });
 
@@ -263,7 +262,7 @@ const confirmLeaveProject = async () => {
             body: formData,
         });
 
-        console.log(formData);
+        // console.log(formData);
 
         const data = await res.json();
         

@@ -50,7 +50,7 @@ const SignIn = ({signUp}) => {
             });
 
             const data = await response.json();
-            console.log("Signup response: ", data);
+            // console.log("Signup response: ", data);
 
 
             if(!response.ok){
@@ -69,7 +69,7 @@ const SignIn = ({signUp}) => {
         }catch (err){
             
             setErrorMessage("Something went Wrong, please try again");
-            console.error(err);
+            // console.error(err);
         }
     };
 

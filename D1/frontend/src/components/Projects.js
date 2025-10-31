@@ -248,7 +248,7 @@ const Projects = (props) => {
             alert(data.message );
 
         } else {
-            console.log("Project added:", data.createdProject);
+            // console.log("Project added:", data.createdProject);
             
             setProjects(prev => [...prev, data.createdProject]);
         }

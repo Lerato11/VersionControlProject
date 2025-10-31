@@ -24,7 +24,7 @@ const ProjectPage = () => {
 
     let { id } = useParams();
 
-    console.log( id )
+    // console.log( id )
     return (
        <>
             <link rel="stylesheet" type="text/css" href="/assets/css/ProjectPage.css"/>

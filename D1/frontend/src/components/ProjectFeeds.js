@@ -153,7 +153,7 @@ const ProjectFeeds = ({activities}) => {
       return <p>No recent activity</p>;
     }
 
-    console.log(activities)
+    // console.log(activities)
 
   return (
     <>

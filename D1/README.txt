@@ -3,9 +3,9 @@ Position: 6
 git repo: https://github.com/Lerato11/VersionControlProject.git
 
 Docker commands: 
-build: docker build -t breezed2 .
+docker build -t breeze-app .
 
-docker run --name breezeContainer -p 3000:3000 breezed2
+docker run --name breezeAppContainer -p 3000:3000 breeze-app
 
 
 connection string: 

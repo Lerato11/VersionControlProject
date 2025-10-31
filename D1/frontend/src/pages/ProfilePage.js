@@ -34,7 +34,7 @@ const ProfilePage = () => {
         setIsTargetOwnProfile(isOwnStatus);
     };
 
-    console.log("Profileid: " + userIdToShow)
+    // console.log("Profileid: " + userIdToShow)
     return (
        <>
         <link rel="stylesheet" type="text/css" href="/assets/css/ProfilePage.css"/>

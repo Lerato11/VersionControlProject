@@ -376,7 +376,7 @@ const Profile = ({userId, onFriendStatusChange}) => {
             body: formData,
         });
 
-        console.log(formData);
+        // console.log(formData);
 
         const data = await res.json();
         
@@ -577,7 +577,7 @@ const Profile = ({userId, onFriendStatusChange}) => {
                                                     <button onClick={() => handleAcceptRequest(req.id)}>Accept</button>
                                                     <button onClick={() => handleRejectRequest(req.id)}>Reject</button>
                                                 </div>
-                                                {console.log(req.id)}
+                                                {/* {console.log(req.id)} */}
                                             </li>
                                         ))
                                     )}

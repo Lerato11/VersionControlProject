@@ -1,0 +1,799 @@
+[{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d11669"
+	},
+	"id": 1,
+	"projectImage": "/assets/images/1761652581688-1759438954591-auth0-project.png",
+	"languages": [
+		"JavaScript",
+		"Node.js",
+		"React"
+	],
+	"name": "AuthFlow",
+	"hashtags": [
+		"#auth",
+		"#security",
+		"#oauth"
+	],
+	"type": "Web",
+	"version": "1.2.3",
+	"status": "Checked Out",
+	"description": "Secure authentication system with OAuth2.",
+	"files": [
+		"AndersonLock.java",
+		"Main.java",
+		"SpaceShip.java"
+	],
+	"members": [
+		1,
+		2,
+		5,
+		3
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Lerato",
+			"comment": "Initial commit for auth."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": "Maya",
+			"comment": "Added password reset."
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": "Amara",
+			"comment": "Implemented Google OAuth2."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "a"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "test file upload"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "a"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "aaa"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "a"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "aa"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "d"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "g"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "h"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "hh"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "h"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "file tests"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "n"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "f"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "f"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "final testing"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "v"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "s"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "a"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "f f"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "test"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "a"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "aaaaaaaaaaaaaaaaaaaaaa"
+		}
+	],
+	"checkedOutBy": 3,
+	"createdAt": {
+		"$date": "2025-10-20T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d1166a"
+	},
+	"id": 2,
+	"projectImage": "/assets/images/1761735969993-fintrack-projects.jpg",
+	"languages": [
+		"Python",
+		"Django",
+		"SQL"
+	],
+	"name": "FinTrack",
+	"hashtags": [
+		"#finance",
+		"#budget"
+	],
+	"type": "Web",
+	"version": "0.9.5",
+	"status": "Checked Out",
+	"description": "Track budgets, expenses, and investments.",
+	"files": [
+		"models.py",
+		"views.py",
+		"urls.py",
+		"database.sql"
+	],
+	"members": [
+		3,
+		4,
+		6,
+		12
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Kai",
+			"comment": "Setup Django models."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": "Noah",
+			"comment": "Added budget form."
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": "Sofia",
+			"comment": "Bug fix in expenses."
+		}
+	],
+	"checkedOutBy": 6,
+	"createdAt": {
+		"$date": "2025-10-03T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d1166b"
+	},
+	"id": 3,
+	"projectImage": "/assets/images/tasks-projects.jpg",
+	"languages": [
+		"Java",
+		"Spring Boot"
+	],
+	"name": "TaskFlow",
+	"hashtags": [
+		"#sustainability",
+		"#eco"
+	],
+	"type": "Mobile",
+	"version": "0.8.1",
+	"status": "Checked In",
+	"description": "A task management and productivity app with offline sync.",
+	"files": [
+		"App.java",
+		"EcoService.java"
+	],
+	"members": [
+		4,
+		7,
+		8
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Oliver",
+			"comment": "Core API routes added."
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": "Maya",
+			"comment": "Green markers UI."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "Yoba maana out"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "Yoba maana in!"
+		}
+	],
+	"checkedOutBy": null,
+	"createdAt": {
+		"$date": "2025-10-20T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d1166c"
+	},
+	"id": 4,
+	"projectImage": "/assets/images/medical-project.jpg",
+	"languages": [
+		"Node.js",
+		"Socket.IO"
+	],
+	"name": "MediScan",
+	"hashtags": [
+		"#messaging",
+		"#realtime"
+	],
+	"type": "Web",
+	"version": "2.1.0",
+	"status": "Checked Out",
+	"description": "Medical imaging software with AI-based scan analysis.",
+	"files": [
+		"server.js",
+		"chat.html"
+	],
+	"members": [
+		1,
+		6
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Lerato",
+			"comment": "Basic socket setup."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": "Noah",
+			"comment": "Emoji reactions added."
+		}
+	],
+	"checkedOutBy": 6,
+	"createdAt": {
+		"$date": "2025-10-20T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d1166d"
+	},
+	"id": 5,
+	"projectImage": "/assets/images/ecommerce-projects.jpg",
+	"languages": [
+		"Python",
+		"Flask"
+	],
+	"name": "ShopEasy",
+	"hashtags": [
+		"#health",
+		"#patients"
+	],
+	"type": "Web",
+	"version": "1.0.0",
+	"status": "Checked Out",
+	"description": "An e-commerce platform for small businesses with integrated payment gateway.",
+	"files": [
+		"main.py",
+		"models.py"
+	],
+	"members": [
+		3,
+		5,
+		7,
+		12
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Amara",
+			"comment": "Login + patient form."
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": "Kai",
+			"comment": "Database migrations."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "Testing out "
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "Testing fixed"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "testing activity feed"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "testing 3"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "test feed order 1"
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "checkIn"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "pop up test",
+			"createdAt": {
+				"$date": "2025-10-29T10:51:12.543Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "h"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "b",
+			"createdAt": {
+				"$date": "2025-10-29T10:51:49.986Z"
+			}
+		}
+	],
+	"checkedOutBy": 3,
+	"createdAt": {
+		"$date": "2025-10-24T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d1166e"
+	},
+	"id": 6,
+	"projectImage": "/assets/images/gameTrack-project.webp",
+	"languages": [
+		"C++",
+		"OpenGL"
+	],
+	"name": "GameForge",
+	"hashtags": [
+		"#gaming",
+		"#engine"
+	],
+	"type": "Desktop",
+	"version": "0.4.2",
+	"status": "Checked Out",
+	"description": "A lightweight 2D/3D game engine for indie developers.",
+	"files": [
+		"engine.cpp",
+		"graphics.cpp"
+	],
+	"members": [
+		1,
+		6,
+		9,
+		5
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Liam",
+			"comment": "Render pipeline setup."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": "Noah",
+			"comment": "Physics engine update."
+		}
+	],
+	"checkedOutBy": 9,
+	"createdAt": {
+		"$date": "2025-10-07T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d1166f"
+	},
+	"id": 7,
+	"projectImage": "/assets/images/data-projects.webp",
+	"languages": [
+		"React",
+		"Firebase"
+	],
+	"name": "DataViz Pro",
+	"hashtags": [
+		"#education",
+		"#students"
+	],
+	"type": "Web",
+	"version": "1.3.0",
+	"status": "Checked In",
+	"description": "Advanced data visualization suite with custom chart support.",
+	"files": [
+		"GlassPot.cpp",
+		"GlassPot.h"
+	],
+	"members": [
+		8,
+		10,
+		2,
+		12
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Aisha",
+			"comment": "Classroom chat added."
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": "Emma",
+			"comment": "Student progress tracker."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "testUser check out",
+			"createdAt": {
+				"$date": "2025-10-29T23:29:28.152Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "testUser check in"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "testUser checkout 2",
+			"createdAt": {
+				"$date": "2025-10-29T23:36:13.948Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "testUser checkIn 2"
+		}
+	],
+	"checkedOutBy": null,
+	"createdAt": {
+		"$date": "2025-10-03T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d11670"
+	},
+	"id": 8,
+	"projectImage": "/assets/images/travel-projects.jpg",
+	"languages": [
+		"Python",
+		"TensorFlow"
+	],
+	"name": "TravelMate",
+	"hashtags": [
+		"#AI",
+		"#textgen"
+	],
+	"type": "Web",
+	"version": "0.7.4",
+	"status": "Checked Out",
+	"description": "An iOS app for planning trips, booking hotels, and sharing itineraries.",
+	"files": [
+		"model.py",
+		"train.py"
+	],
+	"members": [
+		2,
+		7,
+		10
+	],
+	"activities": [
+		{
+			"type": "Checked out",
+			"modifiedBy": "Oliver",
+			"comment": "Training dataset update."
+		}
+	],
+	"checkedOutBy": 7,
+	"createdAt": {
+		"$date": "2025-10-22T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d11671"
+	},
+	"id": 9,
+	"projectImage": "/assets/images/1761736488502-news-projetcs.jpg",
+	"languages": [
+		"Node.js",
+		"React",
+		"MongoDB"
+	],
+	"name": "NewsHub",
+	"hashtags": [
+		"#crypto",
+		"#finance"
+	],
+	"type": "Web",
+	"version": "1.0.1",
+	"status": "Checked In",
+	"description": "Centralized news aggregator with personalized recommendations.",
+	"files": [
+		"server.js",
+		"chart.js"
+	],
+	"members": [
+		5,
+		6,
+		9
+	],
+	"activities": [
+		{
+			"type": "Checked in",
+			"modifiedBy": "Amara",
+			"comment": "Added real-time prices."
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "hh",
+			"createdAt": {
+				"$date": "2025-10-29T11:06:37.335Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "h"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "h",
+			"createdAt": {
+				"$date": "2025-10-29T11:14:04.858Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "j"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "j",
+			"createdAt": {
+				"$date": "2025-10-29T11:14:56.928Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "j"
+		}
+	],
+	"checkedOutBy": null,
+	"createdAt": {
+		"$date": "2025-10-18T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "68db73e5ef9d44edf9d11672"
+	},
+	"id": 10,
+	"projectImage": "/assets/images/stocks-projects.jpg",
+	"languages": [
+		"JavaScript",
+		"Vue.js"
+	],
+	"name": "StockPulse",
+	"hashtags": [
+		"#agriculture",
+		"#IoT"
+	],
+	"type": "Web",
+	"version": "0.6.2",
+	"status": "Checked Out",
+	"description": "Stock market analysis tool with live data visualization.",
+	"files": [
+		"farm.vue",
+		"sensor.js"
+	],
+	"members": [
+		8,
+		9,
+		10
+	],
+	"activities": [
+		{
+			"type": "Checked out",
+			"modifiedBy": "Emma",
+			"comment": "UI for sensors."
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": "Liam",
+			"comment": "API endpoints for devices."
+		}
+	],
+	"checkedOutBy": 10,
+	"createdAt": {
+		"$date": "2025-10-20T17:10:40.768Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "690120f5eb2ac972587654af"
+	},
+	"id": 11,
+	"name": "2test12",
+	"languages": [],
+	"hashtags": [],
+	"version": "1.2.5.4",
+	"type": "Mobile",
+	"description": "test22222",
+	"activities": [
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "check",
+			"createdAt": {
+				"$date": "2025-10-29T07:04:26.065Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "test2"
+		},
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "h",
+			"createdAt": {
+				"$date": "2025-10-29T07:06:08.598Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "n"
+		}
+	],
+	"files": [
+		"member1.jpg",
+		"member2.jpg",
+		"member3.png"
+	],
+	"status": "Checked In",
+	"members": [
+		2,
+		4
+	],
+	"checkedOutBy": null,
+	"projectImage": "/assets/images/1761721556852-placeholder.png",
+	"createdAt": {
+		"$date": "2025-10-28T20:00:53.554Z"
+	}
+},
+{
+	"_id": {
+		"$oid": "69031b6c11176f2c8680048d"
+	},
+	"id": 12,
+	"name": "test2",
+	"languages": [],
+	"hashtags": [],
+	"version": "1.2.3",
+	"type": "web",
+	"description": "docker test",
+	"activities": [
+		{
+			"type": "Checked out",
+			"modifiedBy": null,
+			"comment": "docker check out test",
+			"createdAt": {
+				"$date": "2025-10-30T08:03:06.403Z"
+			}
+		},
+		{
+			"type": "Checked in",
+			"modifiedBy": null,
+			"comment": "docker check in test"
+		}
+	],
+	"files": [
+		"Pot.cpp",
+		"Pot.h"
+	],
+	"status": "Checked In",
+	"members": [
+		1,
+		2
+	],
+	"checkedOutBy": null,
+	"projectImage": "/assets/images/placeholder.png",
+	"createdAt": {
+		"$date": "2025-10-30T08:01:48.514Z"
+	}
+}]
+

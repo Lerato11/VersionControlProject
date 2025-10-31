@@ -1,0 +1,307 @@
+[{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d1165f"
+	},
+	"id": 1,
+	"password": "pass123",
+	"firstName": "Lerato",
+	"lastName": "Matsile",
+	"username": "leratoM",
+	"email": "lerato.matsile@example.com",
+	"phone": "0821111111",
+	"company": "DevCore",
+	"address1": "123 Main St",
+	"address2": "Apt 4",
+	"image": "/assets/images/1759437274130-member1.jpg",
+	"projects": [
+		1,
+		4,
+		6,
+		12
+	],
+	"friends": [
+		2,
+		6,
+		3,
+		5
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11660"
+	},
+	"id": 2,
+	"password": "mayaPass",
+	"firstName": "Maya",
+	"lastName": "Patel",
+	"username": "mayaP",
+	"email": "maya.patel@example.com",
+	"phone": "0822222222",
+	"company": "FinSoft",
+	"address1": "44 Rose Ave",
+	"address2": "",
+	"image": "/assets/images/member2.jpg",
+	"projects": [
+		1,
+		8,
+		7,
+		11,
+		12
+	],
+	"friends": [
+		1,
+		4,
+		3,
+		12
+	],
+	"requests": [],
+	"addressLine1": "123 Innovation Street",
+	"addressLine2": "Apartment 5"
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11661"
+	},
+	"id": 3,
+	"password": "kaiSecure",
+	"firstName": "Kai",
+	"lastName": "Chen",
+	"username": "kaiC",
+	"email": "kai.chen@example.com",
+	"phone": "0823333333",
+	"company": "DataWorks",
+	"address1": "7 Ocean Dr",
+	"address2": "Unit 12",
+	"image": "/assets/images/1761651311271-member3.png",
+	"projects": [
+		2,
+		5,
+		11,
+		1
+	],
+	"friends": [
+		4,
+		1,
+		2,
+		12
+	],
+	"requests": [],
+	"addressLine1": "7 Ocean Dr",
+	"addressLine2": "Apartment 5B"
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11662"
+	},
+	"id": 4,
+	"password": "sofiaCode",
+	"firstName": "Sofia",
+	"lastName": "Lopez",
+	"username": "sofiaL",
+	"email": "sofia.lopez@example.com",
+	"phone": "0824444444",
+	"company": "Cloudify",
+	"address1": "88 Hillside Rd",
+	"address2": "",
+	"image": "/assets/images/member4.jpg",
+	"projects": [
+		2,
+		3,
+		11
+	],
+	"friends": [
+		2,
+		3
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11663"
+	},
+	"id": 5,
+	"password": "amara123",
+	"firstName": "Amara",
+	"lastName": "Johnson",
+	"username": "amaraJ",
+	"email": "amara.johnson@example.com",
+	"phone": "0825555555",
+	"company": "NextGen Apps",
+	"address1": "55 Cedar St",
+	"address2": "",
+	"image": "/assets/images/member5.webp",
+	"projects": [
+		1,
+		5,
+		9,
+		6
+	],
+	"friends": [
+		6,
+		7,
+		1,
+		12
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11664"
+	},
+	"id": 6,
+	"password": "noahPass",
+	"firstName": "Noah",
+	"lastName": "Smith",
+	"username": "noahS",
+	"email": "noah.smith@example.com",
+	"phone": "0826666666",
+	"company": "FinTrack",
+	"address1": "22 Lakeview",
+	"address2": "Suite 2",
+	"image": "/assets/images/1761737282403-member6.webp",
+	"projects": [
+		2,
+		4,
+		6,
+		9
+	],
+	"friends": [
+		1,
+		5
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11665"
+	},
+	"id": 7,
+	"password": "oliverStrong",
+	"firstName": "Oliver",
+	"lastName": "King",
+	"username": "oliverK",
+	"email": "oliver.king@example.com",
+	"phone": "0827777777",
+	"company": "AI Labs",
+	"address1": "5 Valley Rd",
+	"address2": "",
+	"image": "/assets/images/member7.jpg",
+	"projects": [
+		3,
+		5,
+		8
+	],
+	"friends": [
+		5,
+		8
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11666"
+	},
+	"id": 8,
+	"password": "sofiaData",
+	"firstName": "Aisha",
+	"lastName": "Rahman",
+	"username": "aishaR",
+	"email": "aisha.rahman@example.com",
+	"phone": "0828888888",
+	"company": "GreenTech",
+	"address1": "10 Maple Dr",
+	"address2": "",
+	"image": "/assets/images/member8.jpg",
+	"projects": [
+		3,
+		7,
+		10
+	],
+	"friends": [
+		7,
+		9
+	],
+	"requests": [
+		5
+	]
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11667"
+	},
+	"id": 9,
+	"password": "liamDev",
+	"firstName": "Liam",
+	"lastName": "Walker",
+	"username": "liamW",
+	"email": "liam.walker@example.com",
+	"phone": "0829999999",
+	"company": "GameWorks",
+	"address1": "77 Park Ave",
+	"address2": "Floor 3",
+	"image": "/assets/images/member9.webp",
+	"projects": [
+		6,
+		9,
+		10
+	],
+	"friends": [
+		8,
+		10
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "68db73a7ef9d44edf9d11668"
+	},
+	"id": 10,
+	"password": "emmaPass",
+	"firstName": "Emma",
+	"lastName": "Brown",
+	"username": "emmaB",
+	"email": "emma.brown@example.com",
+	"phone": "0830000000",
+	"company": "EduTech",
+	"address1": "12 Birch Lane",
+	"address2": "",
+	"image": "/assets/images/member10.webp",
+	"projects": [
+		7,
+		8,
+		10
+	],
+	"friends": [
+		9
+	],
+	"requests": []
+},
+{
+	"_id": {
+		"$oid": "6902951e6f01290f70f791c4"
+	},
+	"firstName": "test",
+	"lastName": "user",
+	"email": "test@test.com",
+	"phone": "0987654321",
+	"company": "BapeStar",
+	"address1": "Lynnwood Rd",
+	"address2": "Hatfield",
+	"password": "test1234",
+	"username": "testUser",
+	"friends": [
+		5,
+		2,
+		3
+	],
+	"projects": [
+		5,
+		2,
+		7
+	],
+	"image": "/assets/images/placeholder.png",
+	"requests": [],
+	"id": 12
+}]
+

@@ -208,7 +208,7 @@ const SignUp = ({ signIn }) => {
       });
 
       const data = await response.json();
-      console.log("Signup response: ", data);
+      // console.log("Signup response: ", data);
 
 
       if (data.success) {
